@@ -1,6 +1,8 @@
 # TI-84-CE-DooM
 ##### A version of DooM for the TI-84 CE written in C.
 
+![alt text](https://raw.githubusercontent.com/qwcan/TI-84-CE-DooM/master/screenshot.png "A screenshot of the current build of the game.")
+
 Requires the ['Standard' CE Libraries](https://github.com/CE-Programming/libraries/releases).
 
 ### About
@@ -13,6 +15,7 @@ A "port" of the classic game DooM to the TI-84 CE, written in pure C. Use the nu
 * Implement saving and loading from file.
 * Interpolate between rays to smooth out render.
 * Make a map editor.
+* Possibly add sound if a suitable library for sound over the USB port exists.
 * Optimize.
 * Refactor, comment.
 ### Building
