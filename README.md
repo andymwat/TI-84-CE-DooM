@@ -1,5 +1,5 @@
 # TI-84-CE-DooM
-##### A version of DooM for the TI-84 CE written in C.
+##### A version of DooM for the TI-84 CE, written in C.
 
 ![alt text](https://raw.githubusercontent.com/qwcan/TI-84-CE-DooM/master/screenshot.png "A screenshot of the current build of the game.")
 
