@@ -14,43 +14,64 @@
 #include "gfx/gfx_group.h"
 #include "lookup_table.h"
 #include "helpers.h"
+
+//A ray is defined by two float tuples, its origin and its direction.
 typedef struct 
 {
 	float origin[2];
 	float direction[2];
 
 }Ray;
+//An rgb color.
+//Unusued right now (AFAIK)
 typedef struct 
 {
 	uint8_t r,g,b;
 }Color;
+//A face is defined by two points and a color index.
 typedef struct 
 {
 	float point1[2];
 	float point2[2];
 	uint8_t color;
 }Face;
+//An object (or sprite) is defined by its position and a pointer to the graphics sprite that it uses.
 typedef struct{
 	float position[2];
 	gfx_sprite_t * sprite;	
 }Object;
 
+//The distance between cast rays
 int lineSpacing = 20;
 float focalLength = 5.0;
+//Height of walls
 float multiplier = 50;
 
+//The horizontal FOV, measured in radians. The default is 0.5pi, or 90 degrees
 float fov = M_PI/2;
+//Whether or not father faces are rendered darker than closer ones. Not yet implemented
 const bool DISTANCE_FOG = true;
+//Idk why I made this variable, and it isnt used.
 const int RENDER_WIDTH = 100;
+//Ditto.
 const float MAX_DISTANCE = 2;
+//The vector that defines what direction the camera is looking at. 
+//Should be normalized, but its not the end of the world if it isn't.
 float lookDirection[] = {0,1};
+//The vector that defines where the camera is.
 float playerPosition[] = {0,0};
+
 const int FACEARRAYMAXSIZE = 10;
+//A pointer to the list of faces. It is dynamically allocated on the beginning of the program, with a size of FACEARRAYMAXSIZE
 Face * faceArray;
+//Current number of faces in the list of faces.
 static int faceArrayCurrentSize = 0;
+//Current number of objects in the list of objects.
 static int numberOfObjects = 0;
+
 #define OBJECTARRAYMAXSIZE  10
 
+//A pointer to the list of objects. It is dynamically allocated on the beginning of the program, with a size of OBJECTARRAYMAXSIZE
 Object * objectArray;
 
 
@@ -73,8 +94,9 @@ bool partial_redraw;
 kb_key_t key;
 
 
-
+//The string displayed when the Not Yet Implemented error is thrown.
 char * nyiError = "Not Yet Implemented";
+//Creates sprites for enemy1 and the gun.
 gfx_UninitedSprite(akSprite, doomak2_width,doomak2_height);
 gfx_UninitedSprite(enemy1Sprite, enemy1_width, enemy1_height);
 void main() {
@@ -160,10 +182,13 @@ void begin() {
 void end() {
     /* Implement me! */
 }
-Ray movementRay;
+
+
+
 void step() {
   	float distanceFromCam;
 	bool hit;
+	Ray movementRay;
 	movementRay.origin[0] = playerPosition[0];
 	movementRay.origin[1] = playerPosition[1];
 	
