@@ -8,10 +8,10 @@ libs     D1A8DA D1A931            57h
 startup  D1A931 D1A96C            3Bh
 cleanup  D1A96C D1A980            14h
 exit     D1A980 D1A986             6h
-code     D1A986 D1D1C8          2842h
-data     D1D1C8 D1DC3E           A76h
-strsect  D1DC3E D1DC52            14h
-text     D1DC52 D1DC75            23h
+code     D1A986 D1D174          27EEh
+data     D1D174 D1DBEA           A76h
+strsect  D1DBEA D1DBFE            14h
+text     D1DBFE D1DC21            23h
 
 Label                                 Value
 -----------------------------------   ------
@@ -34,74 +34,74 @@ _distanceBetween                    = D1AB8E
 _normalizeVector                    = D1AAF7
 _rotateVector                       = D1A9F9
 _root                               = D1A986
-_doomak2_compressed                 = D1D1EA
-_enemy1_compressed                  = D1D905
-_gfx_group_pal                      = D1DA07
-_printTextSmall                     = D1CEC7
-_printText                          = D1CEA5
-_unloadLevel                        = D1CE4F
-_loadLevel                          = D1CDCC
-_mallocAndGenerateFace              = D1CD64
-_drawObjects                        = D1C9EA
-_drawMap                            = D1C503
-_gcvt                               = D1C245
-_GetRayToFaceIntersection           = D1BF69
-_ClosestFace                        = D1BE4C
-_draw                               = D1BA8E
-_step                               = D1B594
+_doomak2_compressed                 = D1D196
+_enemy1_compressed                  = D1D8B1
+_gfx_group_pal                      = D1D9B3
+_printTextSmall                     = D1CE73
+_printText                          = D1CE51
+_unloadLevel                        = D1CDFB
+_loadLevel                          = D1CD78
+_mallocAndGenerateFace              = D1CD10
+_drawObjects                        = D1C996
+_drawMap                            = D1C4AF
+_gcvt                               = D1C1F1
+_GetRayToFaceIntersection           = D1BF15
+_ClosestFace                        = D1BDF8
+_draw                               = D1BA3A
+_step                               = D1B540
 _movementRay                        = D03F60
-_end                                = D1B593
-_begin                              = D1B588
+_end                                = D1B53F
+_begin                              = D1B534
 _main                               = D1B2BF
-_enemy1Sprite                       = D1DC38
+_enemy1Sprite                       = D1DBE4
 _enemy1Sprite_data                  = D03E05
-_akSprite                           = D1DC35
+_akSprite                           = D1DBE1
 _akSprite_data                      = D03201
-_nyiError                           = D1DC32
+_nyiError                           = D1DBDE
 _key                                = D03200
 _partial_redraw                     = D031FF
 _objectArray                        = D031FC
 _faceArray                          = D031F9
-_FACEARRAYMAXSIZE                   = D1DC5A
-_playerPosition                     = D1DC24
-_lookDirection                      = D1DC1C
-_MAX_DISTANCE                       = D1DC56
-_RENDER_WIDTH                       = D1DC53
-_DISTANCE_FOG                       = D1DC52
-_fov                                = D1DC18
-_multiplier                         = D1DC14
-_focalLength                        = D1DC10
-_lineSpacing                        = D1DC0D
+_FACEARRAYMAXSIZE                   = D1DC06
+_playerPosition                     = D1DBD0
+_lookDirection                      = D1DBC8
+_MAX_DISTANCE                       = D1DC02
+_RENDER_WIDTH                       = D1DBFF
+_DISTANCE_FOG                       = D1DBFE
+_fov                                = D1DBC4
+_multiplier                         = D1DBC0
+_focalLength                        = D1DBBC
+_lineSpacing                        = D1DBB9
 _freeLookupTable                    = D1B2AA
 _lookupSqrt                         = D1B221
 _generateLookupTable                = D1B195
 _lut                                = D031F6
 __setflag                           = 000218
 __imuls                             = 000154
-__fneg                              = D1CEEF
+__fneg                              = D1CE9B
 __fdiv                              = 000278
-_zx7_Decompress                     = D1CEFC
+_zx7_Decompress                     = D1CEA8
 __fmul                              = 000288
-_free                               = D1CF68
+_free                               = D1CF14
 __ishrs_b                           = 00017C
 __ishrs_b                           = 000180
-__OS                                = D1D066
-__icmpzero                          = D1D070
-_malloc                             = D1D0A6
+__OS                                = D1D012
+__icmpzero                          = D1D01C
+_malloc                             = D1D052
 __alloc_base                        = D03F70
-_calloc                             = D1D14E
+_calloc                             = D1D0FA
 __fsub                              = 000290
 __ultof                             = 000280
-__s_sbrk                            = D1D16C
+__s_sbrk                            = D1D118
 __ftol                              = 00027C
 __fadd                              = 000270
-_abs                                = D1D18C
+_abs                                = D1D138
 __lremu                             = 0001E0
 __imul_b                            = 000158
 __imul_b                            = 000150
-_memset                             = D1D198
-__frameset0                         = D1D1AF
-__frameset                          = D1D1BA
+_memset                             = D1D144
+__frameset0                         = D1D15B
+__frameset                          = D1D166
 __ltof                              = 000284
 __fcmp                              = 000274
 _boot_GetBootMajorVer               = 000080

@@ -75,26 +75,21 @@ kb_key_t key;
 
 
 char * nyiError = "Not Yet Implemented";
-//gfx_sprite_t * akSprite;
 gfx_UninitedSprite(akSprite, doomak2_width,doomak2_height);
 gfx_UninitedSprite(enemy1Sprite, enemy1_width, enemy1_height);
 void main() {
 	
 	int i;
-	Ray * testRay = malloc(sizeof(Ray));
 	Face * testFace;
 	Face * testFace2;	
 	Face * testFace3;
 	Face * testFace4;
 	
 	float  * destination  = calloc(2 , sizeof(float));
-	//float destination[2];
 	bool  hit = false;
 	faceArray = calloc(FACEARRAYMAXSIZE ,sizeof(Face));
-	testRay->origin[0] = 0;
-	testRay->origin[1] = -1;
-	testRay->direction[0] = 0;
-	testRay->direction[1] = 1;
+
+	//create test walls
 	testFace = mallocAndGenerateFace(-5,6,5,6, 65);
 	testFace2 = mallocAndGenerateFace(-5,-5,5,-5,12);
 	testFace3 = mallocAndGenerateFace(-7,7,-7,-7,02);
@@ -107,14 +102,11 @@ void main() {
 	faceArrayCurrentSize++;
 	faceArray[3] = *testFace4;
 	faceArrayCurrentSize++;
-	//generateLookupTable(1000, 1);
-
     loadLevel();
 	begin(); // No rendering allowed!
-	
 
 	
-	//sets up NYI error message
+	//sets up not yet implemented error message
 	for (i = 0; i < 20; i++)
 	{
 		os_AppErr1[i] =nyiError[i];
@@ -129,9 +121,11 @@ void main() {
     gfx_Begin();
     gfx_SetDrawBuffer(); // Draw to the buffer to avoid rendering artifats
 	
+	
 	kb_Scan();
 	key = kb_Data[7];
 		
+	//runs until 2nd is pressed
     while (kb_Data[1] !=kb_2nd) { 
 		step();// No rendering allowed in step!
         if (partial_redraw) // Only want to redraw part of the previous frame?
@@ -148,14 +142,13 @@ void main() {
 	
 	
 	while (!os_GetCSC());
+	//free memory
 	free(destination);
 	free(testFace);
 	free(testFace2);
 	free(testFace3);
-	free(testRay);
 	free(faceArray);
 	free(akSprite);
-	//freeLookupTable();
 }
 
 /* Put other functions here */
@@ -170,12 +163,14 @@ void end() {
 Ray movementRay;
 void step() {
   	float distanceFromCam;
-	  bool hit;
+	bool hit;
 	movementRay.origin[0] = playerPosition[0];
 	movementRay.origin[1] = playerPosition[1];
+	
 	//keypad input
 	kb_Scan();
 	key = kb_Data[7];
+	
 	//back
 	 if (kb_Data[4] & kb_2) {
 		 	movementRay.direction[0] =  -lookDirection[0];
@@ -189,91 +184,92 @@ void step() {
 			
         } 
 		//forward
-        if (kb_Data[4] & kb_8) {
-			movementRay.direction[0] =  lookDirection[0];
-			movementRay.direction[1] =  lookDirection[1];
-			ClosestFace(&movementRay, &distanceFromCam, &hit);
-			if  ( !hit || distanceFromCam > 0.5 )
-			{
-            	playerPosition[0] = playerPosition[0] + lookDirection[0] * 0.5;
-				playerPosition[1] = playerPosition[1] + lookDirection[1] * 0.5;
-			}
+    if (kb_Data[4] & kb_8) {
+		movementRay.direction[0] =  lookDirection[0];
+		movementRay.direction[1] =  lookDirection[1];
+		ClosestFace(&movementRay, &distanceFromCam, &hit);
+		if  ( !hit || distanceFromCam > 0.5 )
+		{
+        	playerPosition[0] = playerPosition[0] + lookDirection[0] * 0.5;
+			playerPosition[1] = playerPosition[1] + lookDirection[1] * 0.5;
+		}
 			
-        } 
-		//left
-        if (kb_Data[3] & kb_4) {
-			movementRay.direction[0] =  -lookDirection[1];
-			movementRay.direction[1] =  lookDirection[0];
-			ClosestFace(&movementRay, &distanceFromCam, &hit);
-			if  ( !hit || distanceFromCam > 0.5 )
-			{
-            	playerPosition[0] = playerPosition[0] - lookDirection[1] * 0.5;
-				playerPosition[1] = playerPosition[1] + lookDirection[0] * 0.5;
-			}
-        } 
-		//right
-        if (kb_Data[5] & kb_6) {
-			movementRay.direction[0] =  lookDirection[1];
-			movementRay.direction[1] =  -lookDirection[0];
-			ClosestFace(&movementRay, &distanceFromCam, &hit);
-			if  ( !hit || distanceFromCam > 0.5 )
-			{
-            	playerPosition[0] = playerPosition[0] + lookDirection[1] * 0.5;
-				playerPosition[1] = playerPosition[1] - lookDirection[0] * 0.5;
-			}
-			
-        } 
-		if (kb_Data[3] & kb_7)
+    } 
+	//left
+    if (kb_Data[3] & kb_4) {
+		movementRay.direction[0] =  -lookDirection[1];
+		movementRay.direction[1] =  lookDirection[0];
+		ClosestFace(&movementRay, &distanceFromCam, &hit);
+		if  ( !hit || distanceFromCam > 0.5 )
 		{
-			rotateVector(&lookDirection, 0.2);
+           	playerPosition[0] = playerPosition[0] - lookDirection[1] * 0.5;
+			playerPosition[1] = playerPosition[1] + lookDirection[0] * 0.5;
 		}
-		if (kb_Data[5] & kb_9)
+    } 
+	//right
+    if (kb_Data[5] & kb_6) {
+		movementRay.direction[0] =  lookDirection[1];
+		movementRay.direction[1] =  -lookDirection[0];
+		ClosestFace(&movementRay, &distanceFromCam, &hit);
+		if  ( !hit || distanceFromCam > 0.5 )
 		{
-			rotateVector(&lookDirection, -0.2);
+           	playerPosition[0] = playerPosition[0] + lookDirection[1] * 0.5;
+			playerPosition[1] = playerPosition[1] - lookDirection[0] * 0.5;
 		}
-		if (kb_Data[7] & kb_Up)
+	} 
+	//rotation
+	if (kb_Data[3] & kb_7)
+	{
+		rotateVector(&lookDirection, 0.2);
+	}
+	if (kb_Data[5] & kb_9)
+	{
+		rotateVector(&lookDirection, -0.2);
+	}
+	if (kb_Data[7] & kb_Up)
+	{
+		fov+= 0.1;
+	}
+	if (kb_Data[7] & kb_Down)
+	{
+		fov-= 0.1;
+	}
+	if (kb_Data[7] & kb_Left)
+	{
+		lineSpacing++;
+	}
+	if (kb_Data[7] & kb_Right)
+	{
+		if (lineSpacing > 1)
 		{
-			fov+= 0.1;
+			lineSpacing--;
 		}
-		if (kb_Data[7] & kb_Down)
+	}
+	if (kb_Data[6] & kb_Add)
+	{
+		multiplier+= 5;
+	}
+	if (kb_Data[6] & kb_Sub)
+	{
+		if (multiplier > 5)
 		{
-			fov-= 0.1;
+			multiplier-= 5;
 		}
-		if (kb_Data[7] & kb_Left)
+	}
+	if (kb_Data[6] & kb_Mul)
+	{
+		focalLength += 0.5;
+	}
+	if (kb_Data[6] & kb_Div)
+	{
+		if (focalLength > 0.5)
 		{
-			lineSpacing++;
+			focalLength -= 0.5;
 		}
-		if (kb_Data[7] & kb_Right)
-		{
-			if (lineSpacing > 1)
-			{
-				lineSpacing--;
-			}
-		}
-		if (kb_Data[6] & kb_Add)
-		{
-			multiplier+= 5;
-		}
-		if (kb_Data[6] & kb_Sub)
-		{
-			if (multiplier > 5)
-			{
-				multiplier-= 5;
-			}
-		}
-		if (kb_Data[6] & kb_Mul)
-		{
-			focalLength += 0.5;
-		}
-		if (kb_Data[6] & kb_Div)
-		{
-			if (focalLength > 0.5)
-			{
-				focalLength -= 0.5;
-			}
-		}
+	}
 }
 
+//does the main drawing
 void draw() {
 	int row = LCD_WIDTH/2;
 	int fillSpacing = 0;
@@ -287,9 +283,11 @@ void draw() {
 	Ray  lookRay ;
 	float newClose;
 	float angleFromCenter = 0;
-	//145,156,255,221,205,190, or 165
+	
+	//clear the screen
 	gfx_FillScreen(255);
 	
+	//center lookray
 	lookRay.direction[0] = lookDirection[0];
 	lookRay.direction[1] = lookDirection[1];
 	lookRay.origin[0] = playerPosition[0];
@@ -302,9 +300,10 @@ void draw() {
 	
 	for (row = 0; row <LCD_WIDTH; row+= lineSpacing){
 	
-		//rotate ray by a small amount and then cast again
+		//rotate ray by a small amount
 		rotateVector(&(lookRay.direction), -((float)fov / LCD_WIDTH) * lineSpacing);
 		angleFromCenter += -((float)fov / LCD_WIDTH) * lineSpacing;
+		//cast the ray
 		hit = ClosestFace(&lookRay, &closeDist, &hmm);
 		
 		//if hit
@@ -322,17 +321,13 @@ void draw() {
 			{
 				temp = LCD_HEIGHT/2 -1;
 			}
-			/*
-				for (fillSpacing = 1; fillSpacing < lineSpacing && fillSpacing + row < LCD_WIDTH; fillSpacing++)
-				{
-					gfx_Line_NoClip(row+ fillSpacing, LCD_HEIGHT/2.0 + temp, row+ fillSpacing, LCD_HEIGHT/2.0 - temp);
-				}
-			*/
+			
 			fillSpacing = lineSpacing;
 			if (row + fillSpacing >= LCD_WIDTH)
 			{
 				fillSpacing = LCD_WIDTH-row;
 			}
+			
 			
 			gfx_FillRectangle_NoClip(row,LCD_HEIGHT/2 - temp,fillSpacing, 2 * temp );
 		}
@@ -374,6 +369,8 @@ void draw() {
 
 	
 }
+
+//returns the closest face a ray hits, and sets the distance and whether or not the ray hit anything
 Face *ClosestFace(Ray *ray, float *distance, bool * hitOrNot)
 {
 	float closestDist;
@@ -427,6 +424,7 @@ Face *ClosestFace(Ray *ray, float *distance, bool * hitOrNot)
 	return outface;
 }
 
+//outputs whether or not a ray hit a certain face, and if so the distance
 void GetRayToFaceIntersection(Ray * ray, Face * face, float * result, bool * hit)
 {
 	float v1[2] = {0,0};
@@ -466,16 +464,15 @@ void GetRayToFaceIntersection(Ray * ray, Face * face, float * result, bool * hit
 }
 
 
-#include <stdio.h>
 
+//copied from online, changes a float into a string
+#include <stdio.h>
 #define PSH(X) (*(buf++)=(X))
 #define PSH1(X) (*(buf--)=(X))
 #define PEEK() buf[-1]
 #define POP() *(--buf) = '\0'
-
 #define PLUS 1
 #define SPACE 2
-
 char * gcvt(double f, size_t ndigit, char * buf)
 {
   int i;
@@ -550,7 +547,7 @@ char * gcvt(double f, size_t ndigit, char * buf)
   return c;
 }
 
- 
+ //draws the map in the top right corner
  void drawMap()
  {
 	 float lookview[2];
@@ -578,7 +575,6 @@ char * gcvt(double f, size_t ndigit, char * buf)
 	gfx_Line_NoClip(playerPosition[0]* scale + LCD_WIDTH-25,  playerPosition[1]* -scale +25 -1,  playerPosition[0]* scale + LCD_WIDTH-25, playerPosition[1]* -scale +25 +1);
 	
 	//draw view
-	//
 	gfx_SetColor(245);
 	rotateVector(&lookview, fov/2);
 	gfx_Line_NoClip(playerPosition[0]* scale + LCD_WIDTH-25,  playerPosition[1] * -scale + 25,   playerPosition[0]* scale + LCD_WIDTH-25 + lookview[0] * scale * 4 ,  playerPosition[1]* -scale + 25 + lookview[1] * -scale * 4);
@@ -587,6 +583,7 @@ char * gcvt(double f, size_t ndigit, char * buf)
 	
  }
 
+//draws the sprites on the screen (not the gun sprite)
 void drawObjects()
 {
 	
@@ -639,7 +636,7 @@ void drawObjects()
 	
 }
 
-
+//creates and mallocs a face, and returns a pointer to it
 Face * mallocAndGenerateFace(float  point1x, float  point1y, float point2x, float point2y, uint8_t colorIndex)
 {
 	Face * newFace = malloc(sizeof(Face));
@@ -650,6 +647,7 @@ Face * mallocAndGenerateFace(float  point1x, float  point1y, float point2x, floa
 	newFace->color = colorIndex;
 	return newFace;
 }
+
 
 void loadLevel()
 {
@@ -672,6 +670,7 @@ void loadLevel()
 	
 }
 
+//frees all of the objects' sprites
 void unloadLevel()
 {
 	int j =0;
@@ -687,7 +686,7 @@ void printText(const char *text, uint8_t xpos, uint8_t ypos) {
     os_PutStrFull(text);
 }
 
-/* Draw small text at the given X/Y location */
+// Draw small text at the given X/Y location 
 void printTextSmall(const char *text, uint8_t xpos, uint8_t ypos) {
     os_FontSelect(0); // sets small font (1 == big, see docs)
     os_FontDrawText(text, xpos, ypos);
