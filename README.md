@@ -19,7 +19,7 @@ A "port" of the classic game DooM to the TI-84 CE, written in pure C. Use the nu
 * Optimize.
 * Refactor, comment.
 ### Building
-Building requires the [CE C Software Development Kit](https://github.com/CE-Programming/toolchain/releases). To compile, cd to the source directory, and run "make" from the command line. Assuming the SDK has been installed correctly, you should see:
+Building requires the [CE C Software Development Kit](https://github.com/CE-Programming/toolchain/releases). To compile, cd to the source directory, and run "make" from the command line. Assuming that all of the headers are in the right place and also assuming the SDK has been installed correctly, you should see:
 ``` 
 C CE SDK Version 8.3
 
