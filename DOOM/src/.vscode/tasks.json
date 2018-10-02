@@ -1,0 +1,25 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "make",
+            "type": "shell",
+            "command": "make",
+            "presentation": {
+                "reveal": "always"
+            },
+            "options": {
+                "cwd": "C:\\CEdev\\Projects\\DOOM",
+                "env": {
+                    "Path" : "C:\\CEdev\\bin"
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

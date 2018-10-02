@@ -1,3 +1,9 @@
+/*
+-----helpers.c-----
+Declaration of helper functions such as
+integer square root, vector rotation and normalization,
+and fast trig functions.
+*/
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>

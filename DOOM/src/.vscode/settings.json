@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "stddef.h": "c"
+        "graphx.h": "c",
+        "assert.h": "c",
+        "gfx_group.h": "c"
     }
 }

@@ -1,3 +1,11 @@
+/*
+-----lookup_table.h-----
+Header for the sqrt lookup table functions.
+Used to generate a table of sqrts that can quickly
+be used instead of the slow sqrt() function.
+
+
+*/
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -11,9 +19,13 @@
 #include <keypadc.h>
 #include <assert.h>
 #include <compression.h>
+
 float * lut;
 static int lookupTableSize = 0;
 static int skip = 0;
+
+//Generates a list of sqrts
+//ignore the bad variable name...
 void generateLookupTable(int size, int ski)
 {
    
@@ -28,6 +40,8 @@ void generateLookupTable(int size, int ski)
 
 }
 
+//Finds the square root of x, using interpolation to approximate it. 
+//If it is beyond the lookup table size, it uses the slow square root
 float lookupSqrt(float x)
 {
     int lower;
@@ -40,6 +54,7 @@ float lookupSqrt(float x)
 
     
 }
+//Deletes the lookup table, freeing up memory.
 void freeLookupTable()
 {
     free(lut);

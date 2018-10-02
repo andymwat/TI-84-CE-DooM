@@ -1,4 +1,7 @@
-
+/*
+-----helpers.h-----
+Header with declarations of some helper functions.
+*/
 #ifndef HELPERS_H
 #define HELPERS_H
 
