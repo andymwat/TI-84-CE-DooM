@@ -4,37 +4,43 @@
 	FILE	"..\SRC\HELPERS.C"
 	.assume ADL=1
 	SEGMENT CODE
-;    1	#include <stdbool.h>
-;    2	#include <stddef.h>
-;    3	#include <stdint.h>
-;    4	#include <tice.h>
-;    5	#include <math.h>
-;    6	#include <stdio.h>
-;    7	#include <stdlib.h>
-;    8	#include <string.h>
-;    9	#include <graphx.h>
-;   10	#include <debug.h>
-;   11	#include <keypadc.h>
-;   12	#include <assert.h>
-;   13	#include <compression.h>
-;   14	#include "helpers.h"
-;   15	int root(int x)
-;   16	{
+;    1	/*
+;    2	-----helpers.c-----
+;    3	Declaration of helper functions such as
+;    4	integer square root, vector rotation and normalization,
+;    5	and fast trig functions.
+;    6	*/
+;    7	#include <stdbool.h>
+;    8	#include <stddef.h>
+;    9	#include <stdint.h>
+;   10	#include <tice.h>
+;   11	#include <math.h>
+;   12	#include <stdio.h>
+;   13	#include <stdlib.h>
+;   14	#include <string.h>
+;   15	#include <graphx.h>
+;   16	#include <debug.h>
+;   17	#include <keypadc.h>
+;   18	#include <assert.h>
+;   19	#include <compression.h>
+;   20	#include "helpers.h"
+;   21	int root(int x)
+;   22	{
 _root:
 	LD	HL,-6
 	CALL	__frameset
-;   17		
-;   18		 int a,b;
-;   19		b = x;
+;   23		
+;   24		 int a,b;
+;   25		b = x;
 	LD	BC,(IX+6)
 	LD	(IX+-6),BC
-;   20		a = x = 0x3f;
-;   21		x = b/x;
+;   26		a = x = 0x3f;
+;   27		x = b/x;
 	LD	HL,BC
 	LD	BC,63
 	CALL	__idivs
 	LD	(IX+6),HL
-;   22		a = x = (x+a)>>1;
+;   28		a = x = (x+a)>>1;
 	LD	IY,(IX+6)
 	LEA	HL,IY+63
 	LD	A,1
@@ -43,11 +49,11 @@ _root:
 	LD	(IX+6),BC
 	LD	DE,(IX+6)
 	LD	(IX+-3),DE
-;   23		x = b/x;
+;   29		x = b/x;
 	LD	HL,(IX+-6)
 	CALL	__idivs
 	LD	(IX+6),HL
-;   24		a = x = (x+a)>>1;
+;   30		a = x = (x+a)>>1;
 	LD	BC,(IX+-3)
 	LD	HL,(IX+6)
 	ADD	HL,BC
@@ -57,20 +63,20 @@ _root:
 	LD	(IX+6),BC
 	LD	DE,(IX+6)
 	LD	(IX+-3),DE
-;   25		x = b/x;
+;   31		x = b/x;
 	LD	HL,(IX+-6)
 	CALL	__idivs
 	LD	(IX+6),HL
-;   26		x = (x+a)>>1;
+;   32		x = (x+a)>>1;
 	LD	BC,(IX+-3)
 	LD	HL,(IX+6)
 	ADD	HL,BC
 	LD	A,1
 	CALL	__ishrs_b
 	LD	(IX+6),HL
-;   27		return(x); 
-;   28		
-;   29	}
+;   33		return(x); 
+;   34		
+;   35	}
 	LD	SP,IX
 	POP	IX
 	RET	
@@ -87,15 +93,15 @@ _root:
 ;       Spill Code: 0 (instruction)
 
 
-;   30	void rotateVector(float * vector, float angle)
-;   31	{
+;   36	void rotateVector(float * vector, float angle)
+;   37	{
 _rotateVector:
 	LD	HL,-28
 	CALL	__frameset
-;   32		float oldX,oldY;
-;   33		//oldX =(vector[0] *cos(angle)) - (vector[1] * sin(angle));
-;   34		//oldY = (vector[0] * sin(angle)) + (vector[1] *cos(angle));
-;   35		oldX =(vector[0] *fastCos(angle)) - (vector[1] * fastSin(angle));
+;   38		float oldX,oldY;
+;   39		//oldX =(vector[0] *cos(angle)) - (vector[1] * sin(angle));
+;   40		//oldY = (vector[0] * sin(angle)) + (vector[1] *cos(angle));
+;   41		oldX =(vector[0] *fastCos(angle)) - (vector[1] * fastSin(angle));
 	LD	C,(IX+12)
 	LD	B,0
 	LD	IY,(IX+6)
@@ -136,7 +142,7 @@ _rotateVector:
 	CALL	__fsub
 	LD	(IX+-4),BC
 	LD	(IX+-1),A
-;   36		oldY = (vector[0] * fastSin(angle)) + (vector[1] *fastCos(angle));
+;   42		oldY = (vector[0] * fastSin(angle)) + (vector[1] *fastCos(angle));
 	LD	C,(IX+12)
 	LD	B,0
 	LD	IY,(IX+6)
@@ -177,7 +183,7 @@ _rotateVector:
 	CALL	__fadd
 	LD	(IX+-8),BC
 	LD	(IX+-5),A
-;   37		vector[0] = oldX;
+;   43		vector[0] = oldX;
 	LD	HL,(IX+6)
 	LD	BC,(IX+-4)
 	LD	A,(IX+-1)
@@ -186,7 +192,7 @@ _rotateVector:
 	INC	HL
 	INC	HL
 	LD	(HL),A
-;   38		vector[1] = oldY;
+;   44		vector[1] = oldY;
 	LD	IY,(IX+6)
 	LEA	HL,IY+4
 	LD	BC,(IX+-8)
@@ -196,7 +202,7 @@ _rotateVector:
 	INC	HL
 	INC	HL
 	LD	(HL),A
-;   39	}
+;   45	}
 	LD	SP,IX
 	POP	IX
 	RET	
@@ -216,12 +222,12 @@ _rotateVector:
 ;       Spill Code: -2 (instruction)
 
 
-;   40	void normalizeVector(float * vector)
-;   41	{
+;   46	void normalizeVector(float * vector)
+;   47	{
 _normalizeVector:
 	LD	HL,-14
 	CALL	__frameset
-;   42		float dist = sqrt((vector[0] * vector[0]) + (vector[1]	* vector[1]));	
+;   48		float dist = sqrt((vector[0] * vector[0]) + (vector[1]	* vector[1]));	
 	LD	IY,(IX+6)
 	LEA	BC,IY+4
 	LD	(IX+-6),BC
@@ -253,7 +259,7 @@ _normalizeVector:
 	POP	BC
 	LD	(IX+-10),HL
 	LD	(IX+-7),E
-;   43		vector[0] = vector[0] / dist;
+;   49		vector[0] = vector[0] / dist;
 	LD	IY,(IX+6)
 	LD	BC,(IY)
 	LD	A,(IY+3)
@@ -262,7 +268,7 @@ _normalizeVector:
 	CALL	__fdiv
 	LD	(IY),BC
 	LD	(IY+3),A
-;   44		vector[1] = vector[1] /dist;
+;   50		vector[1] = vector[1] /dist;
 	LEA	BC,IY+4
 	LD	(IX+-3),BC
 	LD	IY,(IX+-3)
@@ -273,7 +279,7 @@ _normalizeVector:
 	CALL	__fdiv
 	LD	(IY),BC
 	LD	(IY+3),A
-;   45	}
+;   51	}
 	LD	SP,IX
 	POP	IX
 	RET	
@@ -290,14 +296,14 @@ _normalizeVector:
 ;       Spill Code: -2 (instruction)
 
 
-;   46	
-;   47	float distanceBetween(float * vec1, float * vec2)
-;   48	 {
+;   52	
+;   53	float distanceBetween(float * vec1, float * vec2)
+;   54	 {
 _distanceBetween:
 	LD	HL,-26
 	CALL	__frameset
-;   49		//return  lookupSqrt( (vec1[0] - vec2[0]) * (vec1[0] - vec2[0]) + (vec1[1] - vec2[1]) * (vec1[1] - vec2[1]) );
-;   50		return  sqrt( (vec1[0] - vec2[0]) * (vec1[0] - vec2[0]) + (vec1[1] - vec2[1]) * (vec1[1] - vec2[1]) );
+;   55		//return  lookupSqrt( (vec1[0] - vec2[0]) * (vec1[0] - vec2[0]) + (vec1[1] - vec2[1]) * (vec1[1] - vec2[1]) );
+;   56		return  sqrt( (vec1[0] - vec2[0]) * (vec1[0] - vec2[0]) + (vec1[1] - vec2[1]) * (vec1[1] - vec2[1]) );
 	LD	IY,(IX+9)
 	LD	HL,(IY)
 	LD	E,(IY+3)
@@ -358,8 +364,8 @@ _distanceBetween:
 	CALL	_sqrt
 	POP	BC
 	POP	BC
-;   51		
-;   52	 }
+;   57		
+;   58	 }
 	LD	SP,IX
 	POP	IX
 	RET	
@@ -376,17 +382,17 @@ _distanceBetween:
 ;       Spill Code: -2 (instruction)
 
 
-;   53	 float fastCos(float x)
-;   54	 {
+;   59	 float fastCos(float x)
+;   60	 {
 _fastCos:
 	LD	HL,-8
 	CALL	__frameset
-;   55		 float cos = 0;
-;   56		 while ( x < -3.14159265 )
+;   61		 float cos = 0;
+;   62		 while ( x < -3.14159265 )
 	JR	L_4
 L_5:
-;   57		 {
-;   58			  x += 6.28318531;
+;   63		 {
+;   64			  x += 6.28318531;
 	LD	HL,13176795
 	LD	E,64
 	LD	BC,(IX+6)
@@ -394,7 +400,7 @@ L_5:
 	CALL	__fadd
 	LD	(IX+6),BC
 	LD	(IX+9),A
-;   59		 }
+;   65		 }
 L_4:
 	LD	HL,(IX+6)
 	LD	E,(IX+9)
@@ -402,18 +408,18 @@ L_4:
 	LD	A,192
 	CALL	__fcmp
 	JP	M,L_5
-;   60		 while (x > 3.14159265)
+;   66		 while (x > 3.14159265)
 	JR	L_6
 L_7:
-;   61		 {
-;   62			  x -= 6.28318531;
+;   67		 {
+;   68			  x -= 6.28318531;
 	LD	HL,13176795
 	LD	BC,(IX+6)
 	LD	A,(IX+9)
 	CALL	__fsub
 	LD	(IX+6),BC
 	LD	(IX+9),A
-;   63		 }
+;   69		 }
 L_6:
 	LD	HL,4788187
 	LD	E,64
@@ -421,8 +427,8 @@ L_6:
 	LD	A,(IX+9)
 	CALL	__fcmp
 	JP	M,L_7
-;   64		 
-;   65		 x += 1.57079632;
+;   70		 
+;   71		 x += 1.57079632;
 	LD	HL,13176795
 	LD	E,63
 	LD	BC,(IX+6)
@@ -430,30 +436,30 @@ L_6:
 	CALL	__fadd
 	LD	(IX+6),BC
 	LD	(IX+9),A
-;   66		if (x >  3.14159265)
+;   72		if (x >  3.14159265)
 	LD	HL,4788187
 	LD	E,64
 	CALL	__fcmp
 	JP	P,L_17
-;   67		{
-;   68			x -= 6.28318531;
+;   73		{
+;   74			x -= 6.28318531;
 	LD	HL,13176795
 	LD	BC,(IX+6)
 	LD	A,(IX+9)
 	CALL	__fsub
 	LD	(IX+6),BC
 	LD	(IX+9),A
-;   69		}
+;   75		}
 L_17:
-;   70		if (x < 0)
+;   76		if (x < 0)
 	LD	HL,(IX+6)
 	LD	E,(IX+9)
 	LD	BC,0
 	XOR	A,A
 	CALL	__fcmp
 	JP	P,L_16
-;   71		{
-;   72	    cos = 1.27323954 * x + 0.405284735 * x * x;
+;   77		{
+;   78	    cos = 1.27323954 * x + 0.405284735 * x * x;
 	LD	HL,13599099
 	LD	E,62
 	LD	BC,(IX+6)
@@ -467,15 +473,15 @@ L_17:
 	CALL	__fmul
 	LD	(IX+-4),BC
 	LD	(IX+-1),A
-;   73	    
-;   74	    if (cos < 0)
+;   79	    
+;   80	    if (cos < 0)
 	LD	HL,BC
 	LD	BC,0
 	LD	E,(IX+-1)
 	XOR	A,A
 	CALL	__fcmp
 	JP	P,L_12
-;   75	        cos = .225 * (cos *-cos - cos) + cos;
+;   81	        cos = .225 * (cos *-cos - cos) + cos;
 	LD	BC,(IX+-4)
 	LD	A,(IX+-1)
 	CALL	__fneg
@@ -493,10 +499,10 @@ L_17:
 	CALL	__fadd
 	LD	(IX+-4),BC
 	LD	(IX+-1),A
-;   76	    else
+;   82	    else
 	JR	L_18
 L_12:
-;   77	        cos = .225 * (cos * cos - cos) + cos;
+;   83	        cos = .225 * (cos * cos - cos) + cos;
 	LD	HL,(IX+-4)
 	LD	E,(IX+-1)
 	LD	BC,(IX+-4)
@@ -513,12 +519,12 @@ L_12:
 	CALL	__fadd
 	LD	(IX+-4),BC
 	LD	(IX+-1),A
-;   78		}
-;   79		else
+;   84		}
+;   85		else
 	JR	L_18
 L_16:
-;   80		{
-;   81	    cos = 1.27323954 * x - 0.405284735 * x * x;
+;   86		{
+;   87	    cos = 1.27323954 * x - 0.405284735 * x * x;
 	LD	HL,10680707
 	LD	E,63
 	LD	BC,(IX+6)
@@ -541,15 +547,15 @@ L_16:
 	CALL	__fsub
 	LD	(IX+-4),BC
 	LD	(IX+-1),A
-;   82	
-;   83	    if (cos < 0)
+;   88	
+;   89	    if (cos < 0)
 	LD	HL,BC
 	LD	BC,0
 	LD	E,(IX+-1)
 	XOR	A,A
 	CALL	__fcmp
 	JP	P,L_14
-;   84	        cos = .225 * (cos *-cos - cos) + cos;
+;   90	        cos = .225 * (cos *-cos - cos) + cos;
 	LD	BC,(IX+-4)
 	LD	A,(IX+-1)
 	CALL	__fneg
@@ -567,10 +573,10 @@ L_16:
 	CALL	__fadd
 	LD	(IX+-4),BC
 	LD	(IX+-1),A
-;   85	    else
+;   91	    else
 	JR	L_18
 L_14:
-;   86	        cos = .225 * (cos * cos - cos) + cos;
+;   92	        cos = .225 * (cos * cos - cos) + cos;
 	LD	HL,(IX+-4)
 	LD	E,(IX+-1)
 	LD	BC,(IX+-4)
@@ -587,12 +593,12 @@ L_14:
 	CALL	__fadd
 	LD	(IX+-4),BC
 	LD	(IX+-1),A
-;   87		}
+;   93		}
 L_18:
-;   88		return cos;
+;   94		return cos;
 	LD	HL,(IX+-4)
 	LD	E,(IX+-1)
-;   89	 }
+;   95	 }
 	LD	SP,IX
 	POP	IX
 	RET	
@@ -608,17 +614,17 @@ L_18:
 ;       Spill Code: -2 (instruction)
 
 
-;   90	 float fastSin(float x)
-;   91	 {
+;   96	 float fastSin(float x)
+;   97	 {
 _fastSin:
 	LD	HL,-8
 	CALL	__frameset
-;   92		 float sin = 0;
-;   93		 while ( x < -3.14159265 )
+;   98		 float sin = 0;
+;   99		 while ( x < -3.14159265 )
 	JR	L_20
 L_21:
-;   94		 {
-;   95			  x += 6.28318531;
+;  100		 {
+;  101			  x += 6.28318531;
 	LD	HL,13176795
 	LD	E,64
 	LD	BC,(IX+6)
@@ -626,7 +632,7 @@ L_21:
 	CALL	__fadd
 	LD	(IX+6),BC
 	LD	(IX+9),A
-;   96		 }
+;  102		 }
 L_20:
 	LD	HL,(IX+6)
 	LD	E,(IX+9)
@@ -634,18 +640,18 @@ L_20:
 	LD	A,192
 	CALL	__fcmp
 	JP	M,L_21
-;   97		 while (x > 3.14159265)
+;  103		 while (x > 3.14159265)
 	JR	L_22
 L_23:
-;   98		 {
-;   99			  x -= 6.28318531;
+;  104		 {
+;  105			  x -= 6.28318531;
 	LD	HL,13176795
 	LD	BC,(IX+6)
 	LD	A,(IX+9)
 	CALL	__fsub
 	LD	(IX+6),BC
 	LD	(IX+9),A
-;  100		 }
+;  106		 }
 L_22:
 	LD	HL,4788187
 	LD	E,64
@@ -653,16 +659,16 @@ L_22:
 	LD	A,(IX+9)
 	CALL	__fcmp
 	JP	M,L_23
-;  101		  
-;  102		if (x < 0)
+;  107		  
+;  108		if (x < 0)
 	LD	HL,(IX+6)
 	LD	E,(IX+9)
 	LD	BC,0
 	XOR	A,A
 	CALL	__fcmp
 	JP	P,L_30
-;  103		{
-;  104	    sin = 1.27323954 * x + .405284735 * x * x;
+;  109		{
+;  110	    sin = 1.27323954 * x + .405284735 * x * x;
 	LD	HL,13599099
 	LD	E,62
 	LD	BC,(IX+6)
@@ -676,15 +682,15 @@ L_22:
 	CALL	__fmul
 	LD	(IX+-4),BC
 	LD	(IX+-1),A
-;  105	    
-;  106	    if (sin < 0)
+;  111	    
+;  112	    if (sin < 0)
 	LD	HL,BC
 	LD	BC,0
 	LD	E,(IX+-1)
 	XOR	A,A
 	CALL	__fcmp
 	JP	P,L_26
-;  107	        sin = .225 * (sin *-sin - sin) + sin;
+;  113	        sin = .225 * (sin *-sin - sin) + sin;
 	LD	BC,(IX+-4)
 	LD	A,(IX+-1)
 	CALL	__fneg
@@ -702,10 +708,10 @@ L_22:
 	CALL	__fadd
 	LD	(IX+-4),BC
 	LD	(IX+-1),A
-;  108	    else
+;  114	    else
 	JR	L_32
 L_26:
-;  109	        sin = .225 * (sin * sin - sin) + sin;
+;  115	        sin = .225 * (sin * sin - sin) + sin;
 	LD	HL,(IX+-4)
 	LD	E,(IX+-1)
 	LD	BC,(IX+-4)
@@ -722,12 +728,12 @@ L_26:
 	CALL	__fadd
 	LD	(IX+-4),BC
 	LD	(IX+-1),A
-;  110		}
-;  111		else
+;  116		}
+;  117		else
 	JR	L_32
 L_30:
-;  112		{
-;  113	    sin = 1.27323954 * x - 0.405284735 * x * x;
+;  118		{
+;  119	    sin = 1.27323954 * x - 0.405284735 * x * x;
 	LD	HL,10680707
 	LD	E,63
 	LD	BC,(IX+6)
@@ -750,15 +756,15 @@ L_30:
 	CALL	__fsub
 	LD	(IX+-4),BC
 	LD	(IX+-1),A
-;  114	    
-;  115	    if (sin < 0)
+;  120	    
+;  121	    if (sin < 0)
 	LD	HL,BC
 	LD	BC,0
 	LD	E,(IX+-1)
 	XOR	A,A
 	CALL	__fcmp
 	JP	P,L_28
-;  116	        sin = .225 * (sin *-sin - sin) + sin;
+;  122	        sin = .225 * (sin *-sin - sin) + sin;
 	LD	BC,(IX+-4)
 	LD	A,(IX+-1)
 	CALL	__fneg
@@ -776,10 +782,10 @@ L_30:
 	CALL	__fadd
 	LD	(IX+-4),BC
 	LD	(IX+-1),A
-;  117	    else
+;  123	    else
 	JR	L_32
 L_28:
-;  118	        sin = .225 * (sin * sin - sin) + sin;
+;  124	        sin = .225 * (sin * sin - sin) + sin;
 	LD	HL,(IX+-4)
 	LD	E,(IX+-1)
 	LD	BC,(IX+-4)
@@ -796,12 +802,12 @@ L_28:
 	CALL	__fadd
 	LD	(IX+-4),BC
 	LD	(IX+-1),A
-;  119		}
+;  125		}
 L_32:
-;  120		return sin;
+;  126		return sin;
 	LD	HL,(IX+-4)
 	LD	E,(IX+-1)
-;  121	 }
+;  127	 }
 	LD	SP,IX
 	POP	IX
 	RET	
@@ -817,29 +823,29 @@ L_32:
 ;       Spill Code: -2 (instruction)
 
 
-;  122	 float fastSqrt( float n )
-;  123	{
+;  128	 float fastSqrt( float n )
+;  129	{
 _fastSqrt:
 	LD	HL,-7
 	CALL	__frameset
-;  124		// double a = (eventually the main method will plug values into a)
-;  125		//double a = (double) n;
-;  126		int i;
-;  127		float a =n;
-;  128		float x = 1;
+;  130		// double a = (eventually the main method will plug values into a)
+;  131		//double a = (double) n;
+;  132		int i;
+;  133		float a =n;
+;  134		float x = 1;
 	LD	BC,8388608
 	LD	(IX+-7),BC
 	LD	A,63
 	LD	(IX+-4),A
-;  129	 
-;  130		// For loop to get the square root value of the entered number.
-;  131		for(  i = 0; i < n; i++)
+;  135	 
+;  136		// For loop to get the square root value of the entered number.
+;  137		for(  i = 0; i < n; i++)
 	LD	BC,0
 	LD	(IX+-3),BC
 	JR	L_37
 L_35:
-;  132		{
-;  133			x = 0.5 * ( x+a / x );
+;  138		{
+;  139			x = 0.5 * ( x+a / x );
 	LD	HL,(IX+-7)
 	LD	E,(IX+-4)
 	LD	BC,(IX+6)
@@ -857,7 +863,7 @@ L_35:
 	LD	BC,(IX+-3)
 	INC	BC
 	LD	(IX+-3),BC
-;  134		}
+;  140		}
 L_37:
 	LD	BC,(IX+-3)
 	CALL	__itol
@@ -868,11 +874,11 @@ L_37:
 	LD	A,(IX+9)
 	CALL	__fcmp
 	JP	M,L_35
-;  135	 
-;  136		return x;
+;  141	 
+;  142		return x;
 	LD	HL,(IX+-7)
 	LD	E,(IX+-4)
-;  137	} 
+;  143	} 
 	LD	SP,IX
 	POP	IX
 	RET	
@@ -889,11 +895,11 @@ L_37:
 ;       Spill Code: -2 (instruction)
 
 
-;  138	float fastACos(float x)
-;  139	{
+;  144	float fastACos(float x)
+;  145	{
 _fastACos:
 	CALL	__frameset0
-;  140		return (-0.69813170079773 * x * x - 0.87266462599716) * x + 1.5707963267948;
+;  146		return (-0.69813170079773 * x * x - 0.87266462599716) * x + 1.5707963267948;
 	LD	HL,3324098
 	LD	E,191
 	LD	BC,(IX+6)
@@ -913,7 +919,7 @@ _fastACos:
 	CALL	__fadd
 	LD	E,A
 	LD	HL,BC
-;  141	}
+;  147	}
 	LD	SP,IX
 	POP	IX
 	RET	
@@ -928,31 +934,31 @@ _fastACos:
 ;       Spill Code: -2 (instruction)
 
 
-;  142	float floatAbs(float x)
-;  143	{
+;  148	float floatAbs(float x)
+;  149	{
 _floatAbs:
 	CALL	__frameset0
-;  144		if (x<0)
+;  150		if (x<0)
 	LD	HL,(IX+6)
 	LD	E,(IX+9)
 	LD	BC,0
 	XOR	A,A
 	CALL	__fcmp
 	JP	P,L_42
-;  145		{
-;  146			return -x;
+;  151		{
+;  152			return -x;
 	LD	BC,(IX+6)
 	LD	A,(IX+9)
 	CALL	__fneg
 	LD	E,A
 	LD	HL,BC
 	JR	L_43
-;  147		}
+;  153		}
 L_42:
-;  148		return x;
+;  154		return x;
 	LD	HL,(IX+6)
 	LD	E,(IX+9)
-;  149	}
+;  155	}
 L_43:
 	LD	SP,IX
 	POP	IX
@@ -968,28 +974,28 @@ L_43:
 ;       Spill Code: -2 (instruction)
 
 
-;  150	float max(float x, float y)
-;  151	{
+;  156	float max(float x, float y)
+;  157	{
 _max:
 	CALL	__frameset0
-;  152		if (x>y)
+;  158		if (x>y)
 	LD	HL,(IX+12)
 	LD	E,(IX+15)
 	LD	BC,(IX+6)
 	LD	A,(IX+9)
 	CALL	__fcmp
 	JP	P,L_45
-;  153		{
-;  154			return x;
+;  159		{
+;  160			return x;
 	LD	HL,(IX+6)
 	LD	E,(IX+9)
 	JR	L_46
-;  155		}
+;  161		}
 L_45:
-;  156		return y;
+;  162		return y;
 	LD	HL,(IX+12)
 	LD	E,(IX+15)
-;  157	}
+;  163	}
 L_46:
 	LD	SP,IX
 	POP	IX
@@ -1006,27 +1012,28 @@ L_46:
 ;       Spill Code: -2 (instruction)
 
 
-;  158	float min(float x, float y)
-;  159	{
+;  164	float min(float x, float y)
+;  165	{
 _min:
 	CALL	__frameset0
-;  160		if (x<y)
+;  166		if (x<y)
 	LD	HL,(IX+6)
 	LD	E,(IX+9)
 	LD	BC,(IX+12)
 	LD	A,(IX+15)
 	CALL	__fcmp
 	JP	P,L_48
-;  161		{
-;  162			return x;
+;  167		{
+;  168			return x;
 	LD	HL,(IX+6)
 	LD	E,(IX+9)
 	JR	L_49
-;  163		}
+;  169		}
 L_48:
-;  164		return y;
+;  170		return y;
 	LD	HL,(IX+12)
 	LD	E,(IX+15)
+;  171	}
 L_49:
 	LD	SP,IX
 	POP	IX
@@ -1043,7 +1050,90 @@ L_49:
 ;       Spill Code: -2 (instruction)
 
 
+;  172	
+;  173	
+;  174	void printText(const char *text, uint8_t xpos, uint8_t ypos) {
+_printText:
+	CALL	__frameset0
+;  175	    os_SetCursorPos(ypos, xpos);
+	LD	C,(IX+9)
+	LD	B,0
+	PUSH	BC
+	LD	C,(IX+12)
+	PUSH	BC
+	CALL	_os_SetCursorPos
+	POP	BC
+	POP	BC
+;  176	    os_PutStrFull(text);
+	LD	BC,(IX+6)
+	PUSH	BC
+	CALL	_os_PutStrFull
+	POP	BC
+;  177	}
+	LD	SP,IX
+	POP	IX
+	RET	
+
+
+;**************************** _printText ***************************
+;Name                         Addr/Register   Size   Type
+;_os_PutStrFull                      IMPORT  -----   function
+;_os_SetCursorPos                    IMPORT  -----   function
+;ypos                                 IX+12      1   parameter
+;xpos                                  IX+9      1   parameter
+;text                                  IX+6      3   parameter
+
+
+; Stack Frame Size: 15 (bytes)
+;       Spill Code: -2 (instruction)
+
+
+;  178	
+;  179	// Draw small text at the given X/Y location 
+;  180	void printTextSmall(const char *text, uint8_t xpos, uint8_t ypos) {
+_printTextSmall:
+	CALL	__frameset0
+;  181	    os_FontSelect(0); // sets small font (1 == big, see docs)
+	LD	BC,0
+	PUSH	BC
+	CALL	_os_FontSelect
+	POP	BC
+;  182	    os_FontDrawText(text, xpos, ypos);
+	LD	C,(IX+12)
+	LD	B,0
+	PUSH	BC
+	LD	C,(IX+9)
+	PUSH	BC
+	LD	BC,(IX+6)
+	PUSH	BC
+	CALL	_os_FontDrawText
+	POP	BC
+	POP	BC
+	POP	BC
+;  183	}
+	LD	SP,IX
+	POP	IX
+	RET	
+
+
+;**************************** _printTextSmall ***************************
+;Name                         Addr/Register   Size   Type
+;_os_FontDrawText                    IMPORT  -----   function
+;_os_FontSelect                      IMPORT  -----   function
+;ypos                                 IX+12      1   parameter
+;xpos                                  IX+9      1   parameter
+;text                                  IX+6      3   parameter
+
+
+; Stack Frame Size: 15 (bytes)
+;       Spill Code: -2 (instruction)
+
+
 	XREF _sqrt:ROM
+	XREF _os_PutStrFull:ROM
+	XREF _os_FontDrawText:ROM
+	XREF _os_FontSelect:ROM
+	XREF _os_SetCursorPos:ROM
 	XREF __idivs:ROM
 	XREF __fadd:ROM
 	XREF __fsub:ROM
@@ -1056,6 +1146,8 @@ L_49:
 	XREF __frameset0:ROM
 	XREF __frameset:ROM
 	XREF __ishrs_b:ROM
+	XDEF _printTextSmall
+	XDEF _printText
 	XDEF _min
 	XDEF _max
 	XDEF _floatAbs

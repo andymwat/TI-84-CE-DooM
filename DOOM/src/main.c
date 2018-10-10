@@ -23,7 +23,7 @@ typedef struct
 
 }Ray;
 //An rgb color.
-//Unusued right now (AFAIK)
+//Unusued right now
 typedef struct 
 {
 	uint8_t r,g,b;
@@ -76,8 +76,6 @@ Object * objectArray;
 
 
 void loadLevel();
-void printTextSmall(const char *, uint8_t , uint8_t);
-void printText(const char *, uint8_t, uint8_t );
 Face * mallocAndGenerateFace(float , float, float, float , uint8_t);
 void drawObjects();
 void drawMap();
@@ -85,7 +83,7 @@ void drawMap();
 Face *ClosestFace(Ray*, float*, bool*);
 void GetRayToFaceIntersection(Ray*, Face*, float * ,bool *);
 
-char * gcvt(float, size_t, char *);
+char * gcvt(double, size_t, char *);
 void begin();
 void end();
 void step();
@@ -191,7 +189,6 @@ void step() {
 	Ray movementRay;
 	movementRay.origin[0] = playerPosition[0];
 	movementRay.origin[1] = playerPosition[1];
-	
 	//keypad input
 	kb_Scan();
 	key = kb_Data[7];
@@ -704,16 +701,5 @@ void unloadLevel()
 		free(objectArray[j].sprite);
 	}
 	free(objectArray);
-}
-
-void printText(const char *text, uint8_t xpos, uint8_t ypos) {
-    os_SetCursorPos(ypos, xpos);
-    os_PutStrFull(text);
-}
-
-// Draw small text at the given X/Y location 
-void printTextSmall(const char *text, uint8_t xpos, uint8_t ypos) {
-    os_FontSelect(0); // sets small font (1 == big, see docs)
-    os_FontDrawText(text, xpos, ypos);
 }
 

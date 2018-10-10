@@ -169,3 +169,15 @@ float min(float x, float y)
 	}
 	return y;
 }
+
+
+void printText(const char *text, uint8_t xpos, uint8_t ypos) {
+    os_SetCursorPos(ypos, xpos);
+    os_PutStrFull(text);
+}
+
+// Draw small text at the given X/Y location 
+void printTextSmall(const char *text, uint8_t xpos, uint8_t ypos) {
+    os_FontSelect(0); // sets small font (1 == big, see docs)
+    os_FontDrawText(text, xpos, ypos);
+}
