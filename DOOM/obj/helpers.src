@@ -1129,23 +1129,411 @@ _printTextSmall:
 ;       Spill Code: -2 (instruction)
 
 
+;  184	
+;  185	
+;  186	
+;  187	//copied from online, changes a float into a string
+;  188	#include <stdio.h>
+;  189	#define PSH(X) (*(buf++)=(X))
+;  190	#define PSH1(X) (*(buf--)=(X))
+;  191	#define PEEK() buf[-1]
+;  192	#define POP() *(--buf) = '\0'
+;  193	#define PLUS 1
+;  194	#define SPACE 2
+;  195	char * gcvt(double f, size_t ndigit, char * buf)
+;  196	{
+_gcvt:
+	LD	HL,-44
+	CALL	__frameset
+;  197	  int i;
+;  198		unsigned long z,k;
+;  199	  int exp = 0;
+;  200	  char *c = buf;
+	LD	BC,(IX+15)
+	LD	(IX+-14),BC
+;  201	  double f2,t,scal;
+;  202	  int   sign = 0;
+	LD	BC,0
+	LD	(IX+-21),BC
+;  203	
+;  204	  if((int)ndigit == -1)
+	LD	HL,(IX+12)
+	LD	BC,16777215
+	OR	A,A
+	SBC	HL,BC
+	JR	NZ,L_54
+;  205	    ndigit = 5;
+	LD	BC,5
+	LD	(IX+12),BC
+L_54:
+;  206	
+;  207	  /* Unsigned long long only allows for 20 digits of precision
+;  208	   * which is already more than double supports, so we limit the
+;  209	   * digits to this.  long double might require an increase if it is ever
+;  210	   * implemented.
+;  211	   */
+;  212	  if (ndigit > 20)
+	LD	BC,(IX+12)
+	LD	HL,20
+	OR	A,A
+	SBC	HL,BC
+	JR	NC,L_57
+;  213		  ndigit = 20;
+	LD	BC,20
+	LD	(IX+12),BC
+L_57:
+;  214	  
+;  215	  if (f < 0.0) {
+	LD	HL,(IX+6)
+	LD	E,(IX+9)
+	LD	BC,0
+	XOR	A,A
+	CALL	__fcmp
+	JP	P,L_58
+;  216	    sign = 1;
+	LD	BC,1
+	LD	(IX+-21),BC
+;  217	    f = -f;
+	LD	BC,(IX+6)
+	LD	A,(IX+9)
+	CALL	__fneg
+	LD	(IX+6),BC
+	LD	(IX+9),A
+;  218		 buf++;
+	LD	BC,(IX+15)
+	INC	BC
+	LD	(IX+15),BC
+;  219	  }
+L_58:
+;  220	
+;  221	  scal = 1;
+	LD	BC,8388608
+	LD	(IX+-11),BC
+	LD	A,63
+	LD	(IX+-8),A
+;  222	  for (i=ndigit; i>0; i--)
+	LD	BC,(IX+12)
+	LD	(IX+-3),BC
+	JR	L_62
+L_60:
+;  223		  scal *= 10;
+	LD	HL,2097152
+	LD	E,65
+	LD	BC,(IX+-11)
+	LD	A,(IX+-8)
+	CALL	__fmul
+	LD	(IX+-11),BC
+	LD	(IX+-8),A
+	LD	BC,(IX+-3)
+	DEC	BC
+	LD	(IX+-3),BC
+L_62:
+	LD	BC,(IX+-3)
+	OR	A,A
+	SBC	HL,HL
+	OR	A,A
+	SBC	HL,BC
+	CALL	__setflag
+	JP	M,L_60
+;  224	  k = f + 0.1 / scal;
+	LD	HL,(IX+-11)
+	LD	E,(IX+-8)
+	LD	BC,13421773
+	LD	A,61
+	CALL	__fdiv
+	LD	HL,(IX+6)
+	LD	E,(IX+9)
+	CALL	__fadd
+	CALL	__ftol
+	LD	(IX+-7),BC
+	LD	(IX+-4),A
+;  225	  f2 = f - k;
+	CALL	__ultof
+	LD	E,A
+	LD	HL,BC
+	LD	BC,(IX+6)
+	LD	A,(IX+9)
+	CALL	__fsub
+	LD	(IX+-29),BC
+	LD	(IX+-26),A
+;  226	  if (!f) {
+	LD	HL,(IX+6)
+	LD	E,(IX+9)
+	XOR	A,A
+	LD	BC,0
+	CALL	__fcmp
+	JR	NZ,L_76
+;  227	    PSH('0');
+	LD	HL,(IX+15)
+	LD	(HL),48
+	LD	BC,(IX+15)
+	INC	BC
+	LD	(IX+15),BC
+;  228	    if(ndigit > 0)
+	LD	BC,(IX+12)
+	OR	A,A
+	OR	A,A
+	SBC	HL,HL
+	SBC	HL,BC
+	JR	NC,L_72
+;  229	      PSH('.');
+	LD	HL,(IX+15)
+	LD	(HL),46
+	LD	BC,(IX+15)
+	INC	BC
+	LD	(IX+15),BC
+L_72:
+;  230	    for (i=0;i<ndigit;i++)
+	LD	BC,0
+	LD	(IX+-3),BC
+	JR	L_71
+L_69:
+;  231	      PSH('0');
+	LD	BC,(IX+15)
+	LD	(IX+-32),BC
+	LD	HL,BC
+	LD	(HL),48
+	LD	BC,(IX+15)
+	INC	BC
+	LD	(IX+15),BC
+	LD	BC,(IX+-3)
+	INC	BC
+	LD	(IX+-3),BC
+L_71:
+	LD	BC,(IX+12)
+	LD	HL,(IX+-3)
+	OR	A,A
+	SBC	HL,BC
+	JR	C,L_69
+;  232	  	   PSH(0);
+	LD	BC,(IX+15)
+	LD	(IX+-35),BC
+	LD	HL,BC
+	LD	(HL),0
+;  233	  	 return c;
+	LD	HL,(IX+-14)
+	JR	L_100
+;  234	  }
+L_76:
+;  235	
+;  236	  i = 1;
+	LD	BC,1
+	LD	(IX+-3),BC
+;  237	  while (f >= 10.0) {
+	JR	L_78
+L_79:
+;  238	  	f /= 10.0;
+	LD	HL,2097152
+	LD	E,65
+	LD	BC,(IX+6)
+	LD	A,(IX+9)
+	CALL	__fdiv
+	LD	(IX+6),BC
+	LD	(IX+9),A
+;  239	  	i++;
+	LD	BC,(IX+-3)
+	INC	BC
+	LD	(IX+-3),BC
+;  240	  }
+L_78:
+	LD	HL,(IX+6)
+	LD	E,(IX+9)
+	LD	BC,2097152
+	LD	A,65
+	CALL	__fcmp
+	JP	P,L_79
+;  241	
+;  242	  buf += i + ndigit + 1; 	
+	LD	BC,(IX+12)
+	LD	HL,(IX+-3)
+	ADD	HL,BC
+	LD	BC,HL
+	INC	BC
+	LD	HL,(IX+15)
+	ADD	HL,BC
+	LD	(IX+15),HL
+;  243	
+;  244	  PSH1(0);
+	LD	(HL),0
+	LD	IY,(IX+15)
+	LEA	IY,IY+-1
+	LD	(IX+15),IY
+;  245	
+;  246	  if(ndigit > 0) {	
+	OR	A,A
+	LD	BC,(IX+12)
+	OR	A,A
+	SBC	HL,HL
+	SBC	HL,BC
+	JR	NC,L_91
+;  247		  t = f2 * scal;
+	LD	HL,(IX+-11)
+	LD	E,(IX+-8)
+	LD	BC,(IX+-29)
+	LD	A,(IX+-26)
+	CALL	__fmul
+	LD	(IX+-25),BC
+	LD	(IX+-22),A
+	OR	A,A
+;  248		 z = t + 0.5;
+	SBC	HL,HL
+	LD	E,63
+	CALL	__fadd
+	CALL	__ftol
+	LD	(IX+-18),BC
+	LD	(IX+-15),A
+;  249	    for (i = 0;i < ndigit;i++)
+	LD	BC,0
+	LD	(IX+-3),BC
+	JR	L_86
+L_84:
+;  250	    {
+;  251	      PSH1('0'+ (z % 10));
+	LD	BC,(IX+15)
+	LD	(IX+-38),BC
+	LD	HL,(IX+-18)
+	LD	E,(IX+-15)
+	LD	BC,10
+	XOR	A,A
+	CALL	__lremu
+	LD	BC,HL
+	LD	A,C
+	ADD	A,48
+	LD	HL,(IX+-38)
+	LD	(HL),A
+	LD	IY,(IX+15)
+	LEA	IY,IY+-1
+	LD	(IX+15),IY
+;  252		   z /= 10;
+	LD	HL,(IX+-18)
+	LD	E,(IX+-15)
+	XOR	A,A
+	LD	BC,10
+	CALL	__ldivu
+	LD	(IX+-18),HL
+	LD	(IX+-15),E
+	LD	BC,(IX+-3)
+	INC	BC
+	LD	(IX+-3),BC
+;  253	    }
+L_86:
+	LD	BC,(IX+12)
+	LD	HL,(IX+-3)
+	OR	A,A
+	SBC	HL,BC
+	JR	C,L_84
+;  254	    PSH1('.');
+	LD	BC,(IX+15)
+	LD	(IX+-41),BC
+	LD	HL,BC
+	LD	(HL),46
+	LD	IY,(IX+15)
+	LEA	IY,IY+-1
+	LD	(IX+15),IY
+;  255	  }
+;  256	  else
+	JR	L_93
+L_91:
+;  257	    PSH1(0);
+	LD	HL,(IX+15)
+	LD	(HL),0
+	LD	IY,(IX+15)
+	LEA	IY,IY+-1
+	LD	(IX+15),IY
+;  258	
+;  259	  do {
+L_93:
+;  260	    PSH1('0'+ (k % 10));
+	LD	BC,(IX+15)
+	LD	(IX+-44),BC
+	LD	HL,(IX+-7)
+	LD	E,(IX+-4)
+	LD	BC,10
+	XOR	A,A
+	CALL	__lremu
+	LD	BC,HL
+	LD	A,C
+	ADD	A,48
+	LD	HL,(IX+-44)
+	LD	(HL),A
+	LD	IY,(IX+15)
+	LEA	IY,IY+-1
+	LD	(IX+15),IY
+;  261	    k /= 10;
+	LD	HL,(IX+-7)
+	LD	E,(IX+-4)
+	XOR	A,A
+	LD	BC,10
+	CALL	__ldivu
+	LD	(IX+-7),HL
+	LD	(IX+-4),E
+;  262	  }while (k);
+	LD	HL,(IX+-7)
+	LD	E,(IX+-4)
+	CALL	__lcmpzero
+	JR	NZ,L_93
+;  263	
+;  264	  if (sign)
+	LD	HL,(IX+-21)
+	CALL	__icmpzero
+	JR	Z,L_99
+;  265	    PSH1('-');
+	LD	HL,(IX+15)
+	LD	(HL),45
+L_99:
+;  266	  return c;
+	LD	HL,(IX+-14)
+;  267	}
+L_100:
+	LD	SP,IX
+	POP	IX
+	RET	
+
+
+;**************************** _gcvt ***************************
+;Name                         Addr/Register   Size   Type
+;f2                                   IX-29      4   variable
+;t                                    IX-25      4   variable
+;sign                                 IX-21      3   variable
+;z                                    IX-18      4   variable
+;c                                    IX-14      3   variable
+;scal                                 IX-11      4   variable
+;k                                     IX-7      4   variable
+;i                                     IX-3      3   variable
+;buf                                  IX+15      3   parameter
+;ndigit                               IX+12      3   parameter
+;f                                     IX+6      4   parameter
+
+
+; Stack Frame Size: 62 (bytes)
+;       Spill Code: -2 (instruction)
+
+
 	XREF _sqrt:ROM
 	XREF _os_PutStrFull:ROM
 	XREF _os_FontDrawText:ROM
 	XREF _os_FontSelect:ROM
 	XREF _os_SetCursorPos:ROM
 	XREF __idivs:ROM
+	XREF __ldivu:ROM
+	XREF __lremu:ROM
 	XREF __fadd:ROM
 	XREF __fsub:ROM
 	XREF __fmul:ROM
 	XREF __fdiv:ROM
 	XREF __fneg:ROM
 	XREF __fcmp:ROM
+	XREF __ftol:ROM
 	XREF __ltof:ROM
+	XREF __ultof:ROM
 	XREF __itol:ROM
 	XREF __frameset0:ROM
 	XREF __frameset:ROM
+	XREF __setflag:ROM
+	XREF __icmpzero:ROM
+	XREF __lcmpzero:ROM
 	XREF __ishrs_b:ROM
+	XDEF _gcvt
 	XDEF _printTextSmall
 	XDEF _printText
 	XDEF _min

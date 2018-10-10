@@ -23,4 +23,6 @@ void rotateVector(float *, float);
 
 void printTextSmall(const char *, uint8_t , uint8_t);
 void printText(const char *, uint8_t, uint8_t );
+
+char * gcvt(double, size_t, char *);
 #endif
