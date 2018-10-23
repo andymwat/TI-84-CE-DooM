@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "name": "TI 84 CE",
+            "includePath": [
+                "${workspaceFolder}/../../../include/",
+                "~/Downloads/misc/linux_CEdev/CEdev/include"
+            ],
+            "cStandard": "c99"
+        }
+    ],
+    
+    "version": 4
+}

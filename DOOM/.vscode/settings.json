@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "graphx.h": "c",
+        "assert.h": "c",
+        "gfx_group.h": "c",
+        "lookup_table.h": "c",
+        "helpers.h": "c",
+        "tice.h": "c",
+        "stdlib.h": "c"
+    }
+}
