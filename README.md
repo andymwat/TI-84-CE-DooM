@@ -3,7 +3,7 @@
 
 ![alt text](https://raw.githubusercontent.com/qwcan/TI-84-CE-DooM/master/gameplay.gif "A preview of some gameplay.")
 
-Requires the ['Standard' CE Libraries](https://github.com/CE-Programming/libraries/releases).
+### Requires the ['Standard' CE Libraries](https://github.com/CE-Programming/libraries/releases).
 
 ### About
 A "port" of the classic game DooM to the TI-84 CE, written in pure C. Use the numberpad to move and rotate the camera, and 2nd to quit the game. Up and down change the FOV, while left and right change the resolution. Plus and minus change the wall height. The code is quite similar to my C# raycaster with a few changes, but renders at a fraction of the resolution. The only things implemented right now are rendering, movement, and simple collisions. The gun sprite used is from The Terminator: Rampage (I think), and was found [here](https://www.realm667.com/index.php/en/armory-mainmenu-157/947-ak47#credits). The enemy sprite is from DOOM itself.
