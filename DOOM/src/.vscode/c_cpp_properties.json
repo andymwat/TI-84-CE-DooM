@@ -4,8 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/../../../include/*",
-                "C:\\CEdev\\include"
+                "${workspaceFolder}/../../../include"
             ],
             "defines": [
                 "_DEBUG",

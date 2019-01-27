@@ -23,7 +23,7 @@ typedef struct
 
 }Ray;
 //An rgb color.
-//Unusued right now (AFAIK)
+//Unusued right now
 typedef struct 
 {
 	uint8_t r,g,b;
@@ -76,16 +76,11 @@ Object * objectArray;
 
 
 void loadLevel();
-void printTextSmall(const char *, uint8_t , uint8_t);
-void printText(const char *, uint8_t, uint8_t );
 Face * mallocAndGenerateFace(float , float, float, float , uint8_t);
 void drawObjects();
 void drawMap();
-
 Face *ClosestFace(Ray*, float*, bool*);
 void GetRayToFaceIntersection(Ray*, Face*, float * ,bool *);
-
-char * gcvt(float, size_t, char *);
 void begin();
 void end();
 void step();
@@ -101,9 +96,10 @@ gfx_UninitedSprite(akSprite, doomak2_width,doomak2_height);
 gfx_UninitedSprite(enemy1Sprite, enemy1_width, enemy1_height);
 void main() {
 	
-	dbg_sprintf(dbg_ClearConsole);
-	dbg_sprintf("--TI-DOOM--\n");
+	
 	int i;
+	
+	
 	Face * testFace;
 	Face * testFace2;	
 	Face * testFace3;
@@ -111,8 +107,14 @@ void main() {
 	
 	float  * destination  = calloc(2 , sizeof(float));
 	bool  hit = false;
-	faceArray = calloc(FACEARRAYMAXSIZE ,sizeof(Face));
 
+
+	
+	dbg_sprintf(dbgout,"---TI-84-CE-DOOM---\n");
+
+
+
+	faceArray = calloc(FACEARRAYMAXSIZE ,sizeof(Face));
 	//create test walls
 	testFace = mallocAndGenerateFace(-5,6,5,6, 65);
 	testFace2 = mallocAndGenerateFace(-5,-5,5,-5,12);
@@ -193,7 +195,6 @@ void step() {
 	Ray movementRay;
 	movementRay.origin[0] = playerPosition[0];
 	movementRay.origin[1] = playerPosition[1];
-	
 	//keypad input
 	kb_Scan();
 	key = kb_Data[7];
@@ -492,88 +493,6 @@ void GetRayToFaceIntersection(Ray * ray, Face * face, float * result, bool * hit
 
 
 
-//copied from online, changes a float into a string
-#include <stdio.h>
-#define PSH(X) (*(buf++)=(X))
-#define PSH1(X) (*(buf--)=(X))
-#define PEEK() buf[-1]
-#define POP() *(--buf) = '\0'
-#define PLUS 1
-#define SPACE 2
-char * gcvt(double f, size_t ndigit, char * buf)
-{
-  int i;
-	unsigned long z,k;
-  int exp = 0;
-  char *c = buf;
-  double f2,t,scal;
-  int   sign = 0;
-
-  if((int)ndigit == -1)
-    ndigit = 5;
-
-  /* Unsigned long long only allows for 20 digits of precision
-   * which is already more than double supports, so we limit the
-   * digits to this.  long double might require an increase if it is ever
-   * implemented.
-   */
-  if (ndigit > 20)
-	  ndigit = 20;
-  
-  if (f < 0.0) {
-    sign = 1;
-    f = -f;
-	 buf++;
-  }
-
-  scal = 1;
-  for (i=ndigit; i>0; i--)
-	  scal *= 10;
-  k = f + 0.1 / scal;
-  f2 = f - k;
-  if (!f) {
-    PSH('0');
-    if(ndigit > 0)
-      PSH('.');
-    for (i=0;i<ndigit;i++)
-      PSH('0');
-  	   PSH(0);
-  	 return c;
-  }
-
-  i = 1;
-  while (f >= 10.0) {
-  	f /= 10.0;
-  	i++;
-  }
-
-  buf += i + ndigit + 1; 	
-
-  PSH1(0);
-
-  if(ndigit > 0) {	
-	  t = f2 * scal;
-	 z = t + 0.5;
-    for (i = 0;i < ndigit;i++)
-    {
-      PSH1('0'+ (z % 10));
-	   z /= 10;
-    }
-    PSH1('.');
-  }
-  else
-    PSH1(0);
-
-  do {
-    PSH1('0'+ (k % 10));
-    k /= 10;
-  }while (k);
-
-  if (sign)
-    PSH1('-');
-  return c;
-}
-
  //draws the map in the top right corner
  void drawMap()
  {
@@ -604,8 +523,8 @@ char * gcvt(double f, size_t ndigit, char * buf)
 	x1 = playerPosition[0] * scale + LCD_WIDTH-25;
 	y1 = playerPosition[1] * -scale + 25;
 
-	dbg_sprintf("X:%d\n",x1);
-	dbg_sprintf("Y:%d\n",y1);
+	dbg_sprintf(dbgout,"X:%d\n",x1);
+	dbg_sprintf(dbgout,"Y:%d\n",y1);
 	//exit if the player is outside the boundaries
 	if (x1 > LCD_WIDTH || x1 < 0)
 	{
@@ -724,16 +643,5 @@ void unloadLevel()
 		free(objectArray[j].sprite);
 	}
 	free(objectArray);
-}
-
-void printText(const char *text, uint8_t xpos, uint8_t ypos) {
-    os_SetCursorPos(ypos, xpos);
-    os_PutStrFull(text);
-}
-
-// Draw small text at the given X/Y location 
-void printTextSmall(const char *text, uint8_t xpos, uint8_t ypos) {
-    os_FontSelect(0); // sets small font (1 == big, see docs)
-    os_FontDrawText(text, xpos, ypos);
 }
 

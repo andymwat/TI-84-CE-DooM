@@ -2,6 +2,7 @@
 -----helpers.h-----
 Header with declarations of some helper functions.
 */
+#include <tice.h>
 #ifndef HELPERS_H
 #define HELPERS_H
 
@@ -19,4 +20,9 @@ float distanceBetween(float *, float *);
 
 void normalizeVector(float *);
 void rotateVector(float *, float);
+
+void printTextSmall(const char *, uint8_t , uint8_t);
+void printText(const char *, uint8_t, uint8_t );
+
+char * gcvt(double, size_t, char *);
 #endif
