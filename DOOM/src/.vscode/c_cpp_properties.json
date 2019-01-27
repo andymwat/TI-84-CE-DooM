@@ -21,7 +21,8 @@
         {
             "name": "TI 84 CE",
             "includePath": [
-                "${workspaceFolder}/../../../include/"
+                "${workspaceFolder}/../../../include/",
+                "${workspaceFolder}/gfx/"
             ],
             "cStandard": "c99"
         }

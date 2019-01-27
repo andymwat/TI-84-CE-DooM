@@ -101,6 +101,8 @@ gfx_UninitedSprite(akSprite, doomak2_width,doomak2_height);
 gfx_UninitedSprite(enemy1Sprite, enemy1_width, enemy1_height);
 void main() {
 	
+	dbg_sprintf(dbg_ClearConsole);
+	dbg_sprintf("--TI-DOOM--\n");
 	int i;
 	Face * testFace;
 	Face * testFace2;	
@@ -575,9 +577,10 @@ char * gcvt(double f, size_t ndigit, char * buf)
  //draws the map in the top right corner
  void drawMap()
  {
-	 float lookview[2];
+	float lookview[2];
 	int face = 0;
 	float scale = 1.25;
+	uint24_t x1,y1;
 	lookview[0] = lookDirection[0];
 	lookview[1] = lookDirection[1];
 	//draw map box
@@ -595,16 +598,33 @@ char * gcvt(double f, size_t ndigit, char * buf)
 	
 	}
 
+	
+
+	
+	x1 = playerPosition[0] * scale + LCD_WIDTH-25;
+	y1 = playerPosition[1] * -scale + 25;
+
+	dbg_sprintf("X:%d\n",x1);
+	dbg_sprintf("Y:%d\n",y1);
+	//exit if the player is outside the boundaries
+	if (x1 > LCD_WIDTH || x1 < 0)
+	{
+		return;
+	}
+	if (y1 > LCD_HEIGHT || y1 < 0)
+	{
+		return;
+	}
 	//draw player
-	gfx_Line_NoClip(playerPosition[0]* scale + LCD_WIDTH-25 - 1,  playerPosition[1]* -scale +25,  playerPosition[0]* scale + LCD_WIDTH-25 + 1, playerPosition[1]* -scale +25);
-	gfx_Line_NoClip(playerPosition[0]* scale + LCD_WIDTH-25,  playerPosition[1]* -scale +25 -1,  playerPosition[0]* scale + LCD_WIDTH-25, playerPosition[1]* -scale +25 +1);
+	gfx_Line_NoClip(x1 - 1,  y1,  x1 + 1, y1);
+	gfx_Line_NoClip(x1,  y1 -1,  x1, y1 +1);
 	
 	//draw view
 	gfx_SetColor(245);
 	rotateVector(&lookview, fov/2);
-	gfx_Line_NoClip(playerPosition[0]* scale + LCD_WIDTH-25,  playerPosition[1] * -scale + 25,   playerPosition[0]* scale + LCD_WIDTH-25 + lookview[0] * scale * 4 ,  playerPosition[1]* -scale + 25 + lookview[1] * -scale * 4);
+	gfx_Line_NoClip(x1,  y1,   x1 + lookview[0] * scale * 4 ,  y1 + lookview[1] * -scale * 4);
 	rotateVector(&lookview, -fov);
-	gfx_Line_NoClip(playerPosition[0]* scale + LCD_WIDTH-25,  playerPosition[1] * -scale + 25,   playerPosition[0]* scale + LCD_WIDTH-25 + lookview[0] * scale * 4 ,  playerPosition[1]* -scale + 25 + lookview[1] * -scale * 4);
+	gfx_Line_NoClip(x1,  y1,   x1 + lookview[0] * scale * 4 ,  y1 + lookview[1] * -scale * 4);
 	
  }
 
