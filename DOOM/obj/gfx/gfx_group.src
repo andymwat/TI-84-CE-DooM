@@ -1,8 +1,9 @@
 ; Zilog eZ80 ANSI C Compiler Release 3.4
-; -optsize -noreduceopt -nomodsect -peephole -globalopt
+; -debug -optsize -noreduceopt -nomodsect -peephole -globalopt
 ; -localcse -const=ROM 
-	FILE	"..\..\SRC\GFX\GFX_GROUP.C"
+	FILE	"SRC\GFX\GFX_GROUP.C"
 	.assume ADL=1
+.DEBUG "C"
 	SEGMENT DATA
 _gfx_group_pal:
 	DW	65535
@@ -261,6 +262,13 @@ _gfx_group_pal:
 	DW	47464
 	DW	28270
 	DW	4228
+.DEFINE "gfx_group_pal"
+.ALIAS "_gfx_group_pal"
+.CLASS 69
+.VALUE _gfx_group_pal
+.DIM 256
+.TYPE 109
+.ENDEF
 	XDEF _gfx_group_pal
 ;    1	// convpng v6.8
 ;    2	#include <stdint.h>

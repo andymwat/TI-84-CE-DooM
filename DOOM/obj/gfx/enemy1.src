@@ -1,8 +1,9 @@
 ; Zilog eZ80 ANSI C Compiler Release 3.4
-; -optsize -noreduceopt -nomodsect -peephole -globalopt
+; -debug -optsize -noreduceopt -nomodsect -peephole -globalopt
 ; -localcse -const=ROM 
-	FILE	"..\..\SRC\GFX\ENEMY1.C"
+	FILE	"SRC\GFX\ENEMY1.C"
 	.assume ADL=1
+.DEBUG "C"
 	SEGMENT DATA
 _enemy1_compressed:
 	DB	15
@@ -263,6 +264,13 @@ _enemy1_compressed:
 	DB	5
 	DB	0
 	DB	32
+.DEFINE "enemy1_compressed"
+.ALIAS "_enemy1_compressed"
+.CLASS 69
+.VALUE _enemy1_compressed
+.DIM 258
+.TYPE 108
+.ENDEF
 	XDEF _enemy1_compressed
 ;    1	// convpng v6.8
 ;    2	#include <stdint.h>

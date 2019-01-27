@@ -1,26 +1,493 @@
 ; Zilog eZ80 ANSI C Compiler Release 3.4
-; -optsize -noreduceopt -nomodsect -peephole -globalopt
+; -debug -optsize -noreduceopt -nomodsect -peephole -globalopt
 ; -localcse -const=ROM 
-	FILE	"..\SRC\MAIN.C"
+	FILE	"SRC\MAIN.C"
 	.assume ADL=1
+.DEBUG "C"
+	SEGMENT CODE
+.BEGREC "NONAME0",9
+.DEFINE "sign"
+.VALUE 0
+.CLASS 8
+.TYPE 2
+.ENDEF
+.DEFINE "exp"
+.VALUE 1
+.CLASS 8
+.TYPE 2
+.ENDEF
+.DEFINE "mant"
+.VALUE 2
+.CLASS 8
+.DIM 7
+.TYPE 108
+.ENDEF
+.ENDREC "NONAME0"
+.BEGREC "NONAME1",18
+.DEFINE "real"
+.VALUE 0
+.CLASS 8
+.TAG "NONAME0"
+.TYPE 8
+.ENDEF
+.DEFINE "imag"
+.VALUE 9
+.CLASS 8
+.TAG "NONAME0"
+.TYPE 8
+.ENDEF
+.ENDREC "NONAME1"
+.BEGREC "NONAME2",11
+.DEFINE "dim"
+.VALUE 0
+.CLASS 8
+.TYPE 13
+.ENDEF
+.DEFINE "items"
+.VALUE 2
+.CLASS 8
+.DIM 1
+.TAG "NONAME0"
+.TYPE 104
+.ENDEF
+.ENDREC "NONAME2"
+.BEGREC "NONAME3",20
+.DEFINE "dim"
+.VALUE 0
+.CLASS 8
+.TYPE 13
+.ENDEF
+.DEFINE "items"
+.VALUE 2
+.CLASS 8
+.DIM 1
+.TAG "NONAME1"
+.TYPE 104
+.ENDEF
+.ENDREC "NONAME3"
+.BEGREC "NONAME4",11
+.DEFINE "cols"
+.VALUE 0
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "rows"
+.VALUE 1
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "items"
+.VALUE 2
+.CLASS 8
+.DIM 1
+.TAG "NONAME0"
+.TYPE 104
+.ENDEF
+.ENDREC "NONAME4"
+.BEGREC "NONAME5",3
+.DEFINE "len"
+.VALUE 0
+.CLASS 8
+.TYPE 13
+.ENDEF
+.DEFINE "data"
+.VALUE 2
+.CLASS 8
+.DIM 1
+.TYPE 98
+.ENDEF
+.ENDREC "NONAME5"
+.BEGREC "NONAME6",3
+.DEFINE "len"
+.VALUE 0
+.CLASS 8
+.TYPE 13
+.ENDEF
+.DEFINE "data"
+.VALUE 2
+.CLASS 8
+.DIM 1
+.TYPE 98
+.ENDEF
+.ENDREC "NONAME6"
+.BEGREC "NONAME7",3
+.DEFINE "size"
+.VALUE 0
+.CLASS 8
+.TYPE 13
+.ENDEF
+.DEFINE "data"
+.VALUE 2
+.CLASS 8
+.DIM 1
+.TYPE 108
+.ENDEF
+.ENDREC "NONAME7"
+.BEGREC "fmt_type",19
+.DEFINE "status"
+.VALUE 0
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "flags"
+.VALUE 1
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "size"
+.VALUE 2
+.CLASS 8
+.TYPE 2
+.ENDEF
+.DEFINE "chr"
+.VALUE 3
+.CLASS 8
+.TYPE 2
+.ENDEF
+.DEFINE "type"
+.VALUE 4
+.CLASS 8
+.TYPE 2
+.ENDEF
+.DEFINE "field_width"
+.VALUE 5
+.CLASS 8
+.TYPE 2
+.ENDEF
+.DEFINE "precision"
+.VALUE 6
+.CLASS 8
+.TYPE 2
+.ENDEF
+.DEFINE "set_begin"
+.VALUE 7
+.CLASS 8
+.TYPE 34
+.ENDEF
+.DEFINE "set_end"
+.VALUE 10
+.CLASS 8
+.TYPE 34
+.ENDEF
+.DEFINE "pad_whole"
+.VALUE 13
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "pad_pre_fract"
+.VALUE 14
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "pad_post_fract"
+.VALUE 15
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "pad_at"
+.VALUE 16
+.CLASS 8
+.TYPE 34
+.ENDEF
+.ENDREC "fmt_type"
+.BEGREC "flt_info",12
+.DEFINE "flags"
+.VALUE 0
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "exp"
+.VALUE 1
+.CLASS 8
+.TYPE 2
+.ENDEF
+.DEFINE "digits"
+.VALUE 2
+.CLASS 8
+.DIM 10
+.TYPE 108
+.ENDEF
+.ENDREC "flt_info"
+.BEGREC "NONAME8",6
+.DEFINE "quot"
+.VALUE 0
+.CLASS 8
+.TYPE 4
+.ENDEF
+.DEFINE "rem"
+.VALUE 3
+.CLASS 8
+.TYPE 4
+.ENDEF
+.ENDREC "NONAME8"
+.BEGREC "NONAME9",8
+.DEFINE "quot"
+.VALUE 0
+.CLASS 8
+.TYPE 5
+.ENDEF
+.DEFINE "rem"
+.VALUE 4
+.CLASS 8
+.TYPE 5
+.ENDEF
+.ENDREC "NONAME9"
+.BEGREC "header",6
+.DEFINE "s"
+.VALUE 0
+.CLASS 11
+.TAG "NONAME10"
+.TYPE 8
+.ENDEF
+.DEFINE "x"
+.VALUE 0
+.CLASS 11
+.TYPE 2
+.ENDEF
+.ENDREC "header"
+.BEGREC "NONAME10",6
+.DEFINE "ptr"
+.VALUE 0
+.CLASS 8
+.TAG "header"
+.TYPE 40
+.ENDEF
+.DEFINE "size"
+.VALUE 3
+.CLASS 8
+.TYPE 14
+.ENDEF
+.ENDREC "NONAME10"
+.BEGREC "__stdio_file",1
+.DEFINE "slot"
+.VALUE 0
+.CLASS 8
+.TYPE 12
+.ENDEF
+.ENDREC "__stdio_file"
+.BEGREC "NONAME11",3
+.DEFINE "width"
+.VALUE 0
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "height"
+.VALUE 1
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "data"
+.VALUE 2
+.CLASS 8
+.DIM 1
+.TYPE 108
+.ENDEF
+.ENDREC "NONAME11"
+.BEGREC "NONAME12",3
+.DEFINE "width"
+.VALUE 0
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "height"
+.VALUE 1
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "data"
+.VALUE 2
+.CLASS 8
+.DIM 1
+.TYPE 108
+.ENDEF
+.ENDREC "NONAME12"
+.BEGREC "NONAME13",6
+.DEFINE "x"
+.VALUE 0
+.CLASS 8
+.TYPE 4
+.ENDEF
+.DEFINE "y"
+.VALUE 3
+.CLASS 8
+.TYPE 4
+.ENDEF
+.ENDREC "NONAME13"
+.BEGREC "NONAME14",12
+.DEFINE "xmin"
+.VALUE 0
+.CLASS 8
+.TYPE 4
+.ENDEF
+.DEFINE "ymin"
+.VALUE 3
+.CLASS 8
+.TYPE 4
+.ENDEF
+.DEFINE "xmax"
+.VALUE 6
+.CLASS 8
+.TYPE 4
+.ENDEF
+.DEFINE "ymax"
+.VALUE 9
+.CLASS 8
+.TYPE 4
+.ENDEF
+.ENDREC "NONAME14"
+.BEGREC "NONAME15",18
+.DEFINE "map"
+.VALUE 0
+.CLASS 8
+.TYPE 44
+.ENDEF
+.DEFINE "tiles"
+.VALUE 3
+.CLASS 8
+.TAG "NONAME11"
+.TYPE 296
+.ENDEF
+.DEFINE "tile_height"
+.VALUE 6
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "tile_width"
+.VALUE 7
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "draw_height"
+.VALUE 8
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "draw_width"
+.VALUE 9
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "type_width"
+.VALUE 10
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "type_height"
+.VALUE 11
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "height"
+.VALUE 12
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "width"
+.VALUE 13
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "y_loc"
+.VALUE 14
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "x_loc"
+.VALUE 15
+.CLASS 8
+.TYPE 14
+.ENDEF
+.ENDREC "NONAME15"
 	SEGMENT BSS
 _lut:
 	DS	3
+.DEFINE "lut"
+.ALIAS "_lut"
+.CLASS 83
+.VALUE _lut
+.TYPE 38
+.ENDEF
 	SEGMENT DATA
 _lookupTableSize:
 	DW	0
 	DB	0
+.DEFINE "lookupTableSize"
+.ALIAS "_lookupTableSize"
+.CLASS 69
+.VALUE _lookupTableSize
+.TYPE 4
+.ENDEF
 _skip:
 	DW	0
 	DB	0
+.DEFINE "skip"
+.ALIAS "_skip"
+.CLASS 69
+.VALUE _skip
+.TYPE 4
+.ENDEF
 	SEGMENT CODE
 _generateLookupTable:
-	LD	HL,-9
-	CALL	__frameset
+.DEFINE "_generateLookupTable"
+
+.VALUE _generateLookupTable
+
+.CLASS 2
+
+.TYPE 65
+
+.ENDEF
+
+.BEGFUNC "generateLookupTable",30,"_generateLookupTable"
+
+.LINE 30
+
+.DEFINE "size"
+
+.CLASS 65
+
+.VALUE 6
+
+.TYPE 4
+
+.ENDEF
+
+.DEFINE "ski"
+
+.CLASS 65
+
+.VALUE 9
+
+.TYPE 4
+
+.ENDEF
+
+.DEFINE "i"
+
+.CLASS 65
+
+.VALUE -3
+
+.TYPE 4
+
+.ENDEF
+
+	PUSH	IX
+	LD	IX,0
+	ADD	IX,SP
+	PUSH	BC
+	PUSH	BC
+	PUSH	BC
+.LINE 33
+
 	LD	BC,(IX+6)
 	LD	(_lookupTableSize),BC
+.LINE 34
+
 	LD	BC,(IX+9)
 	LD	(_skip),BC
+.LINE 35
+
 	LD	HL,(IX+6)
 	ADD	HL,HL
 	ADD	HL,HL
@@ -28,10 +495,14 @@ _generateLookupTable:
 	CALL	_malloc
 	POP	BC
 	LD	(_lut),HL
+.LINE 36
+
 	LD	BC,0
 	LD	(IX+-3),BC
 	JR	L_3
 L_1:
+.LINE 38
+
 	LD	HL,(_skip)
 	LD	BC,(IX+-3)
 	CALL	__imuls
@@ -49,9 +520,9 @@ L_1:
 	LD	(IX+-6),HL	; spill
 	LD	(IX+-9),HL	; spill
 	LD	HL,(IX+-3)
+	ADD	HL,HL
+	ADD	HL,HL
 	LD	BC,(_lut)
-	ADD	HL,HL
-	ADD	HL,HL
 	ADD	HL,BC
 	LD	IY,HL
 	LD	HL,(IX+-9)	; unspill
@@ -61,12 +532,16 @@ L_1:
 	INC	BC
 	LD	(IX+-3),BC
 L_3:
+.LINE 39
+
 	LD	BC,(IX+6)
 	LD	HL,(IX+-3)
 	OR	A,A
 	SBC	HL,BC
 	CALL	__setflag
 	JP	M,L_1
+.LINE 41
+
 	LD	SP,IX
 	POP	IX
 	RET	
@@ -88,9 +563,38 @@ L_3:
 ;       Spill Code: -1 (instruction)
 
 
+.ENDFUNC "generateLookupTable",41,"_generateLookupTable"
 _lookupSqrt:
-	LD	HL,-3
-	CALL	__frameset
+.DEFINE "_lookupSqrt"
+
+.VALUE _lookupSqrt
+
+.CLASS 2
+
+.TYPE 70
+
+.ENDEF
+
+.BEGFUNC "lookupSqrt",46,"_lookupSqrt"
+
+.LINE 46
+
+.DEFINE "x"
+
+.CLASS 65
+
+.VALUE 6
+
+.TYPE 6
+
+.ENDEF
+
+	PUSH	IX
+	LD	IX,0
+	ADD	IX,SP
+	PUSH	BC
+.LINE 48
+
 	LD	BC,(_lookupTableSize)
 	DEC	BC
 	CALL	__itol
@@ -99,6 +603,8 @@ _lookupSqrt:
 	LD	E,(IX+9)
 	CALL	__fcmp
 	JP	M,L_6
+.LINE 50
+
 	LD	C,(IX+9)
 	LD	B,0
 	PUSH	BC
@@ -109,6 +615,10 @@ _lookupSqrt:
 	POP	BC
 	JR	L_7
 L_6:
+.LINE 51
+
+.LINE 53
+
 	LD	BC,(IX+6)
 	LD	A,(IX+9)
 	CALL	__ftol
@@ -141,6 +651,8 @@ L_6:
 	LD	E,A
 	LD	HL,BC
 L_7:
+.LINE 56
+
 	LD	SP,IX
 	POP	IX
 	RET	
@@ -159,13 +671,37 @@ L_7:
 ;       Spill Code: -1 (instruction)
 
 
+.ENDFUNC "lookupSqrt",56,"_lookupSqrt"
 _freeLookupTable:
+.DEFINE "_freeLookupTable"
+
+.VALUE _freeLookupTable
+
+.CLASS 2
+
+.TYPE 65
+
+.ENDEF
+
+.BEGFUNC "freeLookupTable",59,"_freeLookupTable"
+
+	PUSH	IX
+	LD	IX,0
+	ADD	IX,SP
+.LINE 60
+
 	LD	BC,(_lut)
 	PUSH	BC
 	CALL	_free
 	POP	BC
+.LINE 61
+
 	LD	BC,0
 	LD	(_lookupTableSize),BC
+.LINE 62
+
+	LD	SP,IX
+	POP	IX
 	RET	
 
 
@@ -180,71 +716,7 @@ _freeLookupTable:
 ;       Spill Code: -1 (instruction)
 
 
-	SEGMENT DATA
-_lineSpacing:
-	DW	20
-	DB	0
-_focalLength:
-	DF	5.0
-_multiplier:
-	DF	50.0
-_fov:
-	DF	1.57079637050629
-	SEGMENT TEXT
-_DISTANCE_FOG:
-	DB	1
-_RENDER_WIDTH:
-	DW	100
-	DB	0
-_MAX_DISTANCE:
-	DF	2.0
-	SEGMENT DATA
-_lookDirection:
-	DF	0.0
-	DF	1.0
-_playerPosition:
-	DF	0.0
-	DF	0.0
-	SEGMENT TEXT
-_FACEARRAYMAXSIZE:
-	DW	10
-	DB	0
-	SEGMENT BSS
-_faceArray:
-	DS	3
-	SEGMENT DATA
-_faceArrayCurrentSize:
-	DW	0
-	DB	0
-_numberOfObjects:
-	DW	0
-	DB	0
-	SEGMENT BSS
-_objectArray:
-	DS	3
-_partial_redraw:
-	DS	1
-_key:
-	DS	1
-	SEGMENT STRSECT
-L__5:
-	DB	"Not Yet Implemented"
-	DB	0
-	SEGMENT DATA
-_nyiError:
-	DW24	L__5
-	SEGMENT BSS
-_akSprite_data:
-	DS	3076
-	SEGMENT DATA
-_akSprite:
-	DW24	_akSprite_data
-	SEGMENT BSS
-_enemy1Sprite_data:
-	DS	347
-	SEGMENT DATA
-_enemy1Sprite:
-	DW24	_enemy1Sprite_data
+.ENDFUNC "freeLookupTable",62,"_freeLookupTable"
 ;    1	#include <stdbool.h>
 ;    2	#include <stddef.h>
 ;    3	#include <stdint.h>
@@ -269,12 +741,43 @@ _enemy1Sprite:
 ;   22		float direction[2];
 ;   23	
 ;   24	}Ray;
+.BEGREC "NONAME16",16
+.DEFINE "origin"
+.VALUE 0
+.CLASS 8
+.DIM 2
+.TYPE 102
+.ENDEF
+.DEFINE "direction"
+.VALUE 8
+.CLASS 8
+.DIM 2
+.TYPE 102
+.ENDEF
+.ENDREC "NONAME16"
 ;   25	//An rgb color.
 ;   26	//Unusued right now
 ;   27	typedef struct 
 ;   28	{
 ;   29		uint8_t r,g,b;
 ;   30	}Color;
+.BEGREC "NONAME17",3
+.DEFINE "r"
+.VALUE 0
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "g"
+.VALUE 1
+.CLASS 8
+.TYPE 12
+.ENDEF
+.DEFINE "b"
+.VALUE 2
+.CLASS 8
+.TYPE 12
+.ENDEF
+.ENDREC "NONAME17"
 ;   31	//A face is defined by two points and a color index.
 ;   32	typedef struct 
 ;   33	{
@@ -282,11 +785,243 @@ _enemy1Sprite:
 ;   35		float point2[2];
 ;   36		uint8_t color;
 ;   37	}Face;
+.BEGREC "NONAME18",17
+.DEFINE "point1"
+.VALUE 0
+.CLASS 8
+.DIM 2
+.TYPE 102
+.ENDEF
+.DEFINE "point2"
+.VALUE 8
+.CLASS 8
+.DIM 2
+.TYPE 102
+.ENDEF
+.DEFINE "color"
+.VALUE 16
+.CLASS 8
+.TYPE 12
+.ENDEF
+.ENDREC "NONAME18"
 ;   38	//An object (or sprite) is defined by its position and a pointer to the graphics sprite that it uses.
 ;   39	typedef struct{
 ;   40		float position[2];
 ;   41		gfx_sprite_t * sprite;	
 ;   42	}Object;
+.BEGREC "NONAME19",11
+.DEFINE "position"
+.VALUE 0
+.CLASS 8
+.DIM 2
+.TYPE 102
+.ENDEF
+.DEFINE "sprite"
+.VALUE 8
+.CLASS 8
+.TAG "NONAME11"
+.TYPE 40
+.ENDEF
+.ENDREC "NONAME19"
+	SEGMENT DATA
+_lineSpacing:
+	DW	20
+	DB	0
+.DEFINE "lineSpacing"
+.ALIAS "_lineSpacing"
+.CLASS 69
+.VALUE _lineSpacing
+.TYPE 4
+.ENDEF
+_focalLength:
+	DF	5.0
+.DEFINE "focalLength"
+.ALIAS "_focalLength"
+.CLASS 69
+.VALUE _focalLength
+.TYPE 6
+.ENDEF
+_multiplier:
+	DF	50.0
+.DEFINE "multiplier"
+.ALIAS "_multiplier"
+.CLASS 69
+.VALUE _multiplier
+.TYPE 6
+.ENDEF
+_fov:
+	DF	1.57079637050629
+.DEFINE "fov"
+.ALIAS "_fov"
+.CLASS 69
+.VALUE _fov
+.TYPE 6
+.ENDEF
+	SEGMENT TEXT
+_DISTANCE_FOG:
+	DB	1
+.DEFINE "DISTANCE_FOG"
+.ALIAS "_DISTANCE_FOG"
+.CLASS 84
+.VALUE _DISTANCE_FOG
+.TYPE 12
+.ENDEF
+_RENDER_WIDTH:
+	DW	100
+	DB	0
+.DEFINE "RENDER_WIDTH"
+.ALIAS "_RENDER_WIDTH"
+.CLASS 84
+.VALUE _RENDER_WIDTH
+.TYPE 4
+.ENDEF
+_MAX_DISTANCE:
+	DF	2.0
+.DEFINE "MAX_DISTANCE"
+.ALIAS "_MAX_DISTANCE"
+.CLASS 84
+.VALUE _MAX_DISTANCE
+.TYPE 6
+.ENDEF
+	SEGMENT DATA
+_lookDirection:
+	DF	0.0
+	DF	1.0
+.DEFINE "lookDirection"
+.ALIAS "_lookDirection"
+.CLASS 69
+.VALUE _lookDirection
+.DIM 2
+.TYPE 102
+.ENDEF
+_playerPosition:
+	DF	0.0
+	DF	0.0
+.DEFINE "playerPosition"
+.ALIAS "_playerPosition"
+.CLASS 69
+.VALUE _playerPosition
+.DIM 2
+.TYPE 102
+.ENDEF
+	SEGMENT TEXT
+_FACEARRAYMAXSIZE:
+	DW	10
+	DB	0
+.DEFINE "FACEARRAYMAXSIZE"
+.ALIAS "_FACEARRAYMAXSIZE"
+.CLASS 84
+.VALUE _FACEARRAYMAXSIZE
+.TYPE 4
+.ENDEF
+	SEGMENT BSS
+_faceArray:
+	DS	3
+.DEFINE "faceArray"
+.ALIAS "_faceArray"
+.CLASS 83
+.VALUE _faceArray
+.TAG "NONAME18"
+.TYPE 40
+.ENDEF
+	SEGMENT DATA
+_faceArrayCurrentSize:
+	DW	0
+	DB	0
+.DEFINE "faceArrayCurrentSize"
+.ALIAS "_faceArrayCurrentSize"
+.CLASS 69
+.VALUE _faceArrayCurrentSize
+.TYPE 4
+.ENDEF
+_numberOfObjects:
+	DW	0
+	DB	0
+.DEFINE "numberOfObjects"
+.ALIAS "_numberOfObjects"
+.CLASS 69
+.VALUE _numberOfObjects
+.TYPE 4
+.ENDEF
+	SEGMENT BSS
+_objectArray:
+	DS	3
+.DEFINE "objectArray"
+.ALIAS "_objectArray"
+.CLASS 83
+.VALUE _objectArray
+.TAG "NONAME19"
+.TYPE 40
+.ENDEF
+_partial_redraw:
+	DS	1
+.DEFINE "partial_redraw"
+.ALIAS "_partial_redraw"
+.CLASS 83
+.VALUE _partial_redraw
+.TYPE 12
+.ENDEF
+_key:
+	DS	1
+.DEFINE "key"
+.ALIAS "_key"
+.CLASS 83
+.VALUE _key
+.TYPE 12
+.ENDEF
+	SEGMENT STRSECT
+L__5:
+	DB	"Not Yet Implemented"
+	DB	0
+	SEGMENT DATA
+_nyiError:
+	DW24	L__5
+.DEFINE "nyiError"
+.ALIAS "_nyiError"
+.CLASS 69
+.VALUE _nyiError
+.TYPE 34
+.ENDEF
+	SEGMENT BSS
+_akSprite_data:
+	DS	3076
+.DEFINE "akSprite_data"
+.ALIAS "_akSprite_data"
+.CLASS 83
+.VALUE _akSprite_data
+.DIM 3076
+.TYPE 108
+.ENDEF
+	SEGMENT DATA
+_akSprite:
+	DW24	_akSprite_data
+.DEFINE "akSprite"
+.ALIAS "_akSprite"
+.CLASS 69
+.VALUE _akSprite
+.TAG "NONAME11"
+.TYPE 40
+.ENDEF
+	SEGMENT BSS
+_enemy1Sprite_data:
+	DS	347
+.DEFINE "enemy1Sprite_data"
+.ALIAS "_enemy1Sprite_data"
+.CLASS 83
+.VALUE _enemy1Sprite_data
+.DIM 347
+.TYPE 108
+.ENDEF
+	SEGMENT DATA
+_enemy1Sprite:
+	DW24	_enemy1Sprite_data
+.DEFINE "enemy1Sprite"
+.ALIAS "_enemy1Sprite"
+.CLASS 69
+.VALUE _enemy1Sprite
+.TAG "NONAME11"
+.TYPE 40
+.ENDEF
 ;   43	
 ;   44	//The distance between cast rays
 ;   45	int lineSpacing = 20;
@@ -326,36 +1061,124 @@ _enemy1Sprite:
 ;   79	Face * mallocAndGenerateFace(float , float, float, float , uint8_t);
 ;   80	void drawObjects();
 ;   81	void drawMap();
-;   82	
-;   83	Face *ClosestFace(Ray*, float*, bool*);
-;   84	void GetRayToFaceIntersection(Ray*, Face*, float * ,bool *);
-;   85	
-;   86	void begin();
-;   87	void end();
-;   88	void step();
-;   89	void draw();
-;   90	bool partial_redraw;
-;   91	kb_key_t key;
-;   92	
-;   93	
-;   94	//The string displayed when the Not Yet Implemented error is thrown.
-;   95	char * nyiError = "Not Yet Implemented";
-;   96	//Creates sprites for enemy1 and the gun.
-;   97	gfx_UninitedSprite(akSprite, doomak2_width,doomak2_height);
-;   98	gfx_UninitedSprite(enemy1Sprite, enemy1_width, enemy1_height);
+;   82	Face *ClosestFace(Ray*, float*, bool*);
+;   83	void GetRayToFaceIntersection(Ray*, Face*, float * ,bool *);
+;   84	void begin();
+;   85	void end();
+;   86	void step();
+;   87	void draw();
+;   88	bool partial_redraw;
+;   89	kb_key_t key;
+;   90	
+;   91	
+;   92	//The string displayed when the Not Yet Implemented error is thrown.
+;   93	char * nyiError = "Not Yet Implemented";
+;   94	//Creates sprites for enemy1 and the gun.
+;   95	gfx_UninitedSprite(akSprite, doomak2_width,doomak2_height);
+;   96	gfx_UninitedSprite(enemy1Sprite, enemy1_width, enemy1_height);
 	SEGMENT CODE
-;   99	void main() {
+;   97	void main() {
 _main:
-	LD	HL,-18
-	CALL	__frameset
-;  100		
-;  101		int i;
-;  102		Face * testFace;
-;  103		Face * testFace2;	
-;  104		Face * testFace3;
-;  105		Face * testFace4;
-;  106		
-;  107		float  * destination  = calloc(2 , sizeof(float));
+.DEFINE "_main"
+
+.VALUE _main
+
+.CLASS 2
+
+.TYPE 65
+
+.ENDEF
+
+.BEGFUNC "main",97,"_main"
+
+.LINE 97
+
+.DEFINE "i"
+
+.CLASS 65
+
+.VALUE -3
+
+.TYPE 4
+
+.ENDEF
+
+.DEFINE "testFace"
+
+.CLASS 65
+
+.VALUE -6
+
+.TAG "NONAME18"
+
+.TYPE 40
+
+.ENDEF
+
+.DEFINE "testFace2"
+
+.CLASS 65
+
+.VALUE -9
+
+.TAG "NONAME18"
+
+.TYPE 40
+
+.ENDEF
+
+.DEFINE "testFace3"
+
+.CLASS 65
+
+.VALUE -12
+
+.TAG "NONAME18"
+
+.TYPE 40
+
+.ENDEF
+
+.DEFINE "testFace4"
+
+.CLASS 65
+
+.VALUE -15
+
+.TAG "NONAME18"
+
+.TYPE 40
+
+.ENDEF
+
+.DEFINE "destination"
+
+.CLASS 65
+
+.VALUE -18
+
+.TYPE 38
+
+.ENDEF
+
+	PUSH	IX
+	LD	IX,0
+	ADD	IX,SP
+	LEA	HL,IX+-18
+	LD	SP,HL
+;   98		
+;   99		
+;  100		int i;
+;  101		
+;  102		
+;  103		Face * testFace;
+;  104		Face * testFace2;	
+;  105		Face * testFace3;
+;  106		Face * testFace4;
+;  107		
+;  108		float  * destination  = calloc(2 , sizeof(float));
+.LINE 108
+
 	LD	BC,4
 	PUSH	BC
 	LD	BC,2
@@ -364,8 +1187,26 @@ _main:
 	POP	BC
 	POP	BC
 	LD	(IX+-18),HL
-;  108		bool  hit = false;
-;  109		faceArray = calloc(FACEARRAYMAXSIZE ,sizeof(Face));
+;  109		bool  hit = false;
+;  110	
+;  111	
+;  112		
+;  113		dbg_sprintf(dbgout,"---TI-84-CE-DOOM---\n");
+.LINE 113
+
+	LD	BC,L__6
+	PUSH	BC
+	LD	BC,16449536
+	PUSH	BC
+	CALL	_sprintf
+	POP	BC
+	POP	BC
+;  114	
+;  115	
+;  116	
+;  117		faceArray = calloc(FACEARRAYMAXSIZE ,sizeof(Face));
+.LINE 117
+
 	LD	BC,17
 	PUSH	BC
 	LD	BC,10
@@ -373,46 +1214,60 @@ _main:
 	CALL	_calloc
 	POP	BC
 	POP	BC
-;  110	
-;  111		//create test walls
-;  112		testFace = mallocAndGenerateFace(-5,6,5,6, 65);
+	LD	(_faceArray),HL
+;  118		//create test walls
+;  119		testFace = mallocAndGenerateFace(-5,6,5,6, 65);
+.LINE 119
+
 	LD	BC,65
 	PUSH	BC
 	LD	C,64
 	LD	B,0
 	PUSH	BC
-	LD	DE,12582912
-	PUSH	DE
+	LD	BC,12582912
 	PUSH	BC
-	LD	DE,10485760
-	PUSH	DE
-	PUSH	BC
-	LD	C,192
-	LD	DE,12582912
-	PUSH	DE
+	LD	C,64
+	LD	B,0
 	PUSH	BC
 	LD	BC,10485760
 	PUSH	BC
-	LD	(_faceArray),HL
+	LD	C,64
+	LD	B,0
+	PUSH	BC
+	LD	BC,12582912
+	PUSH	BC
+	LD	C,192
+	LD	B,0
+	PUSH	BC
+	LD	BC,10485760
+	PUSH	BC
 	CALL	_mallocAndGenerateFace
 	LD	IY,27
 	ADD	IY,SP
 	LD	SP,IY
 	LD	(IX+-6),HL
-;  113		testFace2 = mallocAndGenerateFace(-5,-5,5,-5,12);
+;  120		testFace2 = mallocAndGenerateFace(-5,-5,5,-5,12);
+.LINE 120
+
 	LD	BC,12
 	PUSH	BC
 	LD	C,192
 	LD	B,0
 	PUSH	BC
+	LD	BC,10485760
+	PUSH	BC
 	LD	C,64
-	LD	DE,10485760
-	PUSH	DE
+	LD	B,0
+	PUSH	BC
+	LD	BC,10485760
 	PUSH	BC
 	LD	C,192
-	PUSH	DE
+	LD	B,0
 	PUSH	BC
-	PUSH	DE
+	LD	BC,10485760
+	PUSH	BC
+	LD	C,192
+	LD	B,0
 	PUSH	BC
 	LD	BC,10485760
 	PUSH	BC
@@ -421,20 +1276,28 @@ _main:
 	ADD	IY,SP
 	LD	SP,IY
 	LD	(IX+-9),HL
-;  114		testFace3 = mallocAndGenerateFace(-7,7,-7,-7,02);
+;  121		testFace3 = mallocAndGenerateFace(-7,7,-7,-7,02);
+.LINE 121
+
 	LD	BC,2
 	PUSH	BC
 	LD	C,192
 	LD	B,0
 	PUSH	BC
-	LD	DE,14680064
-	PUSH	DE
-	PUSH	BC
-	LD	C,64
-	PUSH	DE
+	LD	BC,14680064
 	PUSH	BC
 	LD	C,192
-	PUSH	DE
+	LD	B,0
+	PUSH	BC
+	LD	BC,14680064
+	PUSH	BC
+	LD	C,64
+	LD	B,0
+	PUSH	BC
+	LD	BC,14680064
+	PUSH	BC
+	LD	C,192
+	LD	B,0
 	PUSH	BC
 	LD	BC,14680064
 	PUSH	BC
@@ -443,22 +1306,28 @@ _main:
 	ADD	IY,SP
 	LD	SP,IY
 	LD	(IX+-12),HL
-;  115		testFace4 = mallocAndGenerateFace(4,-9,8,2,196);
+;  122		testFace4 = mallocAndGenerateFace(4,-9,8,2,196);
+.LINE 122
+
 	LD	BC,196
 	PUSH	BC
 	LD	C,64
 	LD	B,0
 	PUSH	BC
+	LD	BC,0
+	PUSH	BC
 	LD	C,65
-	LD	DE,0
-	PUSH	DE
+	LD	B,0
+	PUSH	BC
+	LD	BC,0
 	PUSH	BC
 	LD	C,193
-	PUSH	DE
+	LD	B,0
+	PUSH	BC
+	LD	BC,1048576
 	PUSH	BC
 	LD	C,64
-	LD	DE,1048576
-	PUSH	DE
+	LD	B,0
 	PUSH	BC
 	LD	BC,8388608
 	PUSH	BC
@@ -467,84 +1336,112 @@ _main:
 	ADD	IY,SP
 	LD	SP,IY
 	LD	(IX+-15),HL
-;  116		faceArray[0] = *testFace;
+;  123		faceArray[0] = *testFace;
+.LINE 123
+
 	LD	DE,(_faceArray)
 	LD	HL,(IX+-6)
 	LD	BC,17
 	LDIR	
-;  117		faceArrayCurrentSize++;
+;  124		faceArrayCurrentSize++;
+.LINE 124
+
 	LD	BC,(_faceArrayCurrentSize)
 	INC	BC
 	LD	(_faceArrayCurrentSize),BC
-;  118		faceArray[1] = *testFace2;
+;  125		faceArray[1] = *testFace2;
+.LINE 125
+
 	LD	IY,(_faceArray)
 	LEA	DE,IY+17
 	LD	HL,(IX+-9)
 	LD	BC,17
 	LDIR	
-;  119		faceArrayCurrentSize++;
+;  126		faceArrayCurrentSize++;
+.LINE 126
+
 	LD	BC,(_faceArrayCurrentSize)
 	INC	BC
 	LD	(_faceArrayCurrentSize),BC
-;  120		faceArray[2] = *testFace3;
+;  127		faceArray[2] = *testFace3;
+.LINE 127
+
 	LD	IY,(_faceArray)
 	LEA	DE,IY+34
 	LD	HL,(IX+-12)
 	LD	BC,17
 	LDIR	
-;  121		faceArrayCurrentSize++;
+;  128		faceArrayCurrentSize++;
+.LINE 128
+
 	LD	BC,(_faceArrayCurrentSize)
 	INC	BC
 	LD	(_faceArrayCurrentSize),BC
-;  122		faceArray[3] = *testFace4;
+;  129		faceArray[3] = *testFace4;
+.LINE 129
+
 	LD	IY,(_faceArray)
 	LEA	DE,IY+51
 	LD	HL,(IX+-15)
 	LD	BC,17
 	LDIR	
-;  123		faceArrayCurrentSize++;
+;  130		faceArrayCurrentSize++;
+.LINE 130
+
 	LD	BC,(_faceArrayCurrentSize)
 	INC	BC
 	LD	(_faceArrayCurrentSize),BC
-;  124	    loadLevel();
+;  131	    loadLevel();
+.LINE 131
+
 	CALL	_loadLevel
-;  125		begin(); // No rendering allowed!
+;  132		begin(); // No rendering allowed!
+.LINE 132
+
 	CALL	_begin
-;  126	
-;  127		
-;  128		//sets up not yet implemented error message
-;  129		for (i = 0; i < 20; i++)
+;  133	
+;  134		
+;  135		//sets up not yet implemented error message
+;  136		for (i = 0; i < 20; i++)
+.LINE 136
+
 	LD	BC,0
 	LD	(IX+-3),BC
 	JR	L_16
 L_14:
-;  130		{
-;  131			os_AppErr1[i] =nyiError[i];
+;  137		{
+;  138			os_AppErr1[i] =nyiError[i];
+.LINE 138
+
 	LD	BC,(IX+-3)
 	LD	HL,(_nyiError)
 	ADD	HL,BC
 	LD	IY,HL
-	LD	HL,(IX+-3)
 	LD	BC,13641129
+	LD	HL,(IX+-3)
 	ADD	HL,BC
 	LD	A,(IY)
 	LD	(HL),A
 	LD	BC,(IX+-3)
 	INC	BC
 	LD	(IX+-3),BC
-;  132			
-;  133		}
+;  139			
+;  140		}
 L_16:
+.LINE 140
+
 	LD	BC,20
 	LD	HL,(IX+-3)
 	OR	A,A
 	SBC	HL,BC
 	CALL	__setflag
 	JP	M,L_14
-;  134		
-;  135		
-;  136		//allocates and decompresses gun sprite
-;  137		akSprite = gfx_MallocSprite(doomak2_width,doomak2_height);
+;  141		
+;  142		
+;  143		//allocates and decompresses gun sprite
+;  144		akSprite = gfx_MallocSprite(doomak2_width,doomak2_height);
+.LINE 144
+
 	LD	BC,_malloc
 	PUSH	BC
 	LD	BC,58
@@ -556,7 +1453,9 @@ L_16:
 	POP	BC
 	POP	BC
 	LD	(_akSprite),HL
-;  138		zx7_Decompress(akSprite, doomak2_compressed);
+;  145		zx7_Decompress(akSprite, doomak2_compressed);
+.LINE 145
+
 	LD	BC,_doomak2_compressed
 	PUSH	BC
 	LD	BC,(_akSprite)
@@ -564,55 +1463,83 @@ L_16:
 	CALL	_zx7_Decompress
 	POP	BC
 	POP	BC
-;  139		
-;  140	    gfx_Begin();
+;  146		
+;  147	    gfx_Begin();
+.LINE 147
+
 	CALL	_gfx_Begin
-;  141	    gfx_SetDrawBuffer(); // Draw to the buffer to avoid rendering artifats
+;  148	    gfx_SetDrawBuffer(); // Draw to the buffer to avoid rendering artifats
+.LINE 148
+
 	LD	BC,1
 	PUSH	BC
 	CALL	_gfx_SetDraw
 	POP	BC
-;  142		
-;  143		
-;  144		kb_Scan();
+;  149		
+;  150		
+;  151		kb_Scan();
+.LINE 151
+
 	CALL	_kb_Scan
-;  145		key = kb_Data[7];
+;  152		key = kb_Data[7];
+.LINE 152
+
 	LD	A,(16056350)
 	LD	(_key),A
-;  146			
-;  147		//runs until 2nd is pressed
-;  148	    while (kb_Data[1] !=kb_2nd) { 
+;  153			
+;  154		//runs until 2nd is pressed
+;  155	    while (kb_Data[1] !=kb_2nd) { 
+.LINE 155
+
 	JR	L_20
 L_21:
-;  149			step();// No rendering allowed in step!
+;  156			step();// No rendering allowed in step!
+.LINE 156
+
 	CALL	_step
-;  150	        if (partial_redraw) // Only want to redraw part of the previous frame?
+;  157	        if (partial_redraw) // Only want to redraw part of the previous frame?
+.LINE 157
+
 	LD	A,(_partial_redraw)
 	OR	A,A
 	JR	Z,L_19
-;  151	            gfx_BlitScreen(); // Copy previous frame as a base for this frame
+;  158	            gfx_BlitScreen(); // Copy previous frame as a base for this frame
+.LINE 158
+
 	LD	BC,0
 	PUSH	BC
 	CALL	_gfx_Blit
 	POP	BC
 L_19:
-;  152	        draw(); // As little non-rendering logic as possible
+;  159	        draw(); // As little non-rendering logic as possible
+.LINE 159
+
 	CALL	_draw
-;  153	        gfx_SwapDraw(); // Queue the buffered frame to be displayed
+;  160	        gfx_SwapDraw(); // Queue the buffered frame to be displayed
+.LINE 160
+
 	CALL	_gfx_SwapDraw
-;  154	    }
+;  161	    }
 L_20:
+.LINE 161
+
 	LD	A,(16056338)
 	CP	A,32
 	JR	NZ,L_21
-;  155	
-;  156	    gfx_End();
+;  162	
+;  163	    gfx_End();
+.LINE 163
+
 	CALL	_gfx_End
-;  157	    end();
+;  164	    end();
+.LINE 164
+
 	CALL	_end
-;  158		
-;  159		
-;  160		os_ClrHome();
+;  165		
+;  166		
+;  167		os_ClrHome();
+.LINE 167
+
 	LD	BC,_asm_ClrLCD
 	PUSH	BC
 	CALL	__OS
@@ -625,45 +1552,61 @@ L_20:
 	PUSH	BC
 	CALL	__OS
 	POP	BC
-;  161		
-;  162		
-;  163		while (!os_GetCSC());
+;  168		
+;  169		
+;  170		while (!os_GetCSC());
 L_26:
+.LINE 170
+
 	CALL	_os_GetCSC
 	OR	A,A
 	JR	Z,L_26
-;  164		//free memory
-;  165		free(destination);
+;  171		//free memory
+;  172		free(destination);
+.LINE 172
+
 	LD	BC,(IX+-18)
 	PUSH	BC
 	CALL	_free
 	POP	BC
-;  166		free(testFace);
+;  173		free(testFace);
+.LINE 173
+
 	LD	BC,(IX+-6)
 	PUSH	BC
 	CALL	_free
 	POP	BC
-;  167		free(testFace2);
+;  174		free(testFace2);
+.LINE 174
+
 	LD	BC,(IX+-9)
 	PUSH	BC
 	CALL	_free
 	POP	BC
-;  168		free(testFace3);
+;  175		free(testFace3);
+.LINE 175
+
 	LD	BC,(IX+-12)
 	PUSH	BC
 	CALL	_free
 	POP	BC
-;  169		free(faceArray);
+;  176		free(faceArray);
+.LINE 176
+
 	LD	BC,(_faceArray)
 	PUSH	BC
 	CALL	_free
 	POP	BC
-;  170		free(akSprite);
+;  177		free(akSprite);
+.LINE 177
+
 	LD	BC,(_akSprite)
 	PUSH	BC
 	CALL	_free
 	POP	BC
-;  171	}
+;  178	}
+.LINE 178
+
 	LD	SP,IX
 	POP	IX
 	RET	
@@ -699,6 +1642,7 @@ L_26:
 ;_faceArrayCurrentSize               STATIC      3   variable
 ;_mallocAndGenerateFace              IMPORT  -----   function
 ;_faceArray                          STATIC      3   variable
+;_sprintf                            IMPORT  -----   function
 ;_calloc                             IMPORT  -----   function
 ;destination                          IX-18      3   variable
 ;testFace4                            IX-15      3   variable
@@ -712,17 +1656,44 @@ L_26:
 ;       Spill Code: -1 (instruction)
 
 
-;  172	
-;  173	/* Put other functions here */
-;  174	void begin() {	
+.ENDFUNC "main",178,"_main"
+	SEGMENT STRSECT
+L__6:
+	DB	"---TI-84-CE-DOOM---"
+	DB	10,0
+	SEGMENT CODE
+;  179	
+;  180	/* Put other functions here */
+;  181	void begin() {	
 _begin:
-;  175			gfx_SetTransparentColor(gfx_group_transparent_color_index);
+.DEFINE "_begin"
+
+.VALUE _begin
+
+.CLASS 2
+
+.TYPE 65
+
+.ENDEF
+
+.BEGFUNC "begin",181,"_begin"
+
+	PUSH	IX
+	LD	IX,0
+	ADD	IX,SP
+;  182			gfx_SetTransparentColor(gfx_group_transparent_color_index);
+.LINE 182
+
 	LD	BC,0
 	PUSH	BC
 	CALL	_gfx_SetTransparentColor
 	POP	BC
-;  176		
-;  177	}
+;  183		
+;  184	}
+.LINE 184
+
+	LD	SP,IX
+	POP	IX
 	RET	
 
 
@@ -735,11 +1706,31 @@ _begin:
 ;       Spill Code: -1 (instruction)
 
 
-;  178	
-;  179	void end() {
+.ENDFUNC "begin",184,"_begin"
+;  185	
+;  186	void end() {
 _end:
-;  180	    /* Implement me! */
-;  181	}
+.DEFINE "_end"
+
+.VALUE _end
+
+.CLASS 2
+
+.TYPE 65
+
+.ENDEF
+
+.BEGFUNC "end",186,"_end"
+
+	PUSH	IX
+	LD	IX,0
+	ADD	IX,SP
+;  187	    /* Implement me! */
+;  188	}
+.LINE 188
+
+	LD	SP,IX
+	POP	IX
 	RET	
 
 
@@ -751,24 +1742,78 @@ _end:
 ;       Spill Code: -1 (instruction)
 
 
-;  182	
-;  183	
-;  184	
-;  185	void step() {
+.ENDFUNC "end",188,"_end"
+;  189	
+;  190	
+;  191	
+;  192	void step() {
 _step:
-	LD	HL,-72
-	CALL	__frameset
-;  186	  	float distanceFromCam;
-;  187		bool hit;
-;  188		Ray movementRay;
-;  189		movementRay.origin[0] = playerPosition[0];
+.DEFINE "_step"
+
+.VALUE _step
+
+.CLASS 2
+
+.TYPE 65
+
+.ENDEF
+
+.BEGFUNC "step",192,"_step"
+
+.LINE 192
+
+.DEFINE "hit"
+
+.CLASS 65
+
+.VALUE -1
+
+.TYPE 12
+
+.ENDEF
+
+.DEFINE "distanceFromCam"
+
+.CLASS 65
+
+.VALUE -5
+
+.TYPE 6
+
+.ENDEF
+
+.DEFINE "movementRay"
+
+.CLASS 65
+
+.VALUE -33
+
+.TAG "NONAME16"
+
+.TYPE 8
+
+.ENDEF
+
+	PUSH	IX
+	LD	IX,0
+	ADD	IX,SP
+	LEA	HL,IX+-78
+	LD	SP,HL
+;  193	  	float distanceFromCam;
+;  194		bool hit;
+;  195		Ray movementRay;
+;  196		movementRay.origin[0] = playerPosition[0];
+.LINE 196
+
 	LD	BC,(_playerPosition)
 	LD	A,(_playerPosition+3)
-;  190		movementRay.origin[1] = playerPosition[1];
-	LD	HL,_playerPosition+4
-	LD	(IX+-63),HL	; spill
 	LD	(IX+-33),BC
 	LD	(IX+-30),A
+;  197		movementRay.origin[1] = playerPosition[1];
+.LINE 197
+
+	LD	HL,_playerPosition+4
+	LD	(IX+-63),HL	; spill
 	LEA	HL,IX+-29
 	LD	(IX+-60),HL	; spill
 	LD	HL,(IX+-63)	; unspill
@@ -798,45 +1843,59 @@ _step:
 	INC	HL
 	INC	HL
 	LD	(HL),A
-;  191		//keypad input
-;  192		kb_Scan();
+;  198		//keypad input
+;  199		kb_Scan();
+.LINE 199
+
 	CALL	_kb_Scan
-;  193		key = kb_Data[7];
+;  200		key = kb_Data[7];
+.LINE 200
+
 	LD	A,(16056350)
 	LD	(_key),A
-;  194		
-;  195		//back
-;  196		 if (kb_Data[4] & kb_2) {
+;  201		
+;  202		//back
+;  203		 if (kb_Data[4] & kb_2) {
+.LINE 203
+
 	LD	A,(16056344)
 	AND	A,2
 	JR	Z,L_38
-;  197			 	movementRay.direction[0] =  -lookDirection[0];
+;  204			 	movementRay.direction[0] =  -lookDirection[0];
+.LINE 204
+
 	LEA	BC,IX+-25
 	LD	(IX+-36),BC
 	LD	BC,(_lookDirection)
 	LD	A,(_lookDirection+3)
 	CALL	__fneg
 	LD	(IX+-25),BC
-;  198				movementRay.direction[1] =  -lookDirection[1];
-	LD	BC,_lookDirection+4
 	LD	(IX+-22),A
+;  205				movementRay.direction[1] =  -lookDirection[1];
+.LINE 205
+
+	LD	BC,_lookDirection+4
 	LD	(IX+-8),BC
 	LD	IY,(IX+-8)
 	LD	BC,(IY)
 	LD	A,(IY+3)
+	CALL	__fneg
 	LD	IY,(IX+-36)
-;  199				ClosestFace(&movementRay, &distanceFromCam, &hit);
+	LD	(IY+4),BC
+	LD	(IY+7),A
+;  206				ClosestFace(&movementRay, &distanceFromCam, &hit);
+.LINE 206
+
 	PEA	IX+-1
 	PEA	IX+-5
 	PEA	IX+-33
-	CALL	__fneg
-	LD	(IY+4),BC
-	LD	(IY+7),A
 	CALL	_ClosestFace
 	POP	BC
 	POP	BC
 	POP	BC
-;  200				if  ( !hit || distanceFromCam > 0.5 )
+;  207				if  ( !hit || distanceFromCam > 0.5 )
+.LINE 207
+
 	LD	A,(IX+-1)
 	OR	A,A
 	JR	Z,L_33
@@ -848,9 +1907,11 @@ _step:
 	CALL	__fcmp
 	JP	P,L_38
 L_33:
+;  208				{
+;  209	           		playerPosition[0] = playerPosition[0] + lookDirection[0] * -0.5;
+.LINE 209
+
 	OR	A,A
-;  201				{
-;  202	           		playerPosition[0] = playerPosition[0] + lookDirection[0] * -0.5;
 	SBC	HL,HL
 	LD	E,191
 	LD	BC,(_lookDirection)
@@ -862,16 +1923,18 @@ L_33:
 	LD	A,(_playerPosition+3)
 	CALL	__fadd
 	LD	(_playerPosition),BC
-;  203					playerPosition[1] = playerPosition[1] + lookDirection[1] * -0.5;
-	LD	BC,_playerPosition+4
 	LD	(_playerPosition+3),A
+;  210					playerPosition[1] = playerPosition[1] + lookDirection[1] * -0.5;
+.LINE 210
+
+	LD	BC,_playerPosition+4
 	LD	(IX+-39),BC
 	LD	IY,(IX+-8)
-	LD	BC,(IY)
-	LD	A,(IY+3)
 	OR	A,A
 	SBC	HL,HL
 	LD	E,191
+	LD	BC,(IY)
+	LD	A,(IY+3)
 	CALL	__fmul
 	LD	E,A
 	LD	HL,BC
@@ -881,16 +1944,22 @@ L_33:
 	CALL	__fadd
 	LD	(IY),BC
 	LD	(IY+3),A
-;  204				}
-;  205				
-;  206	        } 
+;  211				}
+;  212				
+;  213	        } 
 L_38:
-;  207			//forward
-;  208	    if (kb_Data[4] & kb_8) {
+.LINE 213
+
+;  214			//forward
+;  215	    if (kb_Data[4] & kb_8) {
+.LINE 215
+
 	LD	A,(16056344)
 	AND	A,8
 	JR	Z,L_42
-;  209			movementRay.direction[0] =  lookDirection[0];
+;  216			movementRay.direction[0] =  lookDirection[0];
+.LINE 216
+
 	LEA	BC,IX+-25
 	LD	(IX+-42),BC
 	LD	HL,BC
@@ -900,32 +1969,43 @@ L_38:
 	INC	HL
 	INC	HL
 	INC	HL
-;  210			movementRay.direction[1] =  lookDirection[1];
-	LD	BC,_lookDirection+4
 	LD	(HL),A
+;  217			movementRay.direction[1] =  lookDirection[1];
+.LINE 217
+
+	LD	BC,_lookDirection+4
 	LD	(IX+-11),BC
-	LD	HL,BC
-	LD	BC,(HL)
+	LD	IY,(IX+-11)
+	LD	(IX+-78),IY	; spill
 	LD	IY,(IX+-42)
-;  211			ClosestFace(&movementRay, &distanceFromCam, &hit);
-	PEA	IX+-1
-	PEA	IX+-5
-	PEA	IX+-33
-	INC	HL
-	INC	HL
-	INC	HL
-	LD	A,(HL)
 	LEA	HL,IY+4
+	LD	IY,(IX+-78)	; unspill
+	LD	BC,(IY)
+	INC	IY
+	LD	(IX+-78),IY	; spill
+	INC	IY
+	LD	(IX+-78),IY	; spill
+	INC	IY
+	LD	(IX+-78),IY	; spill
+	LD	A,(IY)
 	LD	(HL),BC
 	INC	HL
 	INC	HL
 	INC	HL
 	LD	(HL),A
+;  218			ClosestFace(&movementRay, &distanceFromCam, &hit);
+.LINE 218
+
+	PEA	IX+-1
+	PEA	IX+-5
+	PEA	IX+-33
 	CALL	_ClosestFace
 	POP	BC
 	POP	BC
 	POP	BC
-;  212			if  ( !hit || distanceFromCam > 0.5 )
+;  219			if  ( !hit || distanceFromCam > 0.5 )
+.LINE 219
+
 	LD	A,(IX+-1)
 	OR	A,A
 	JR	Z,L_36
@@ -937,9 +2017,11 @@ L_38:
 	CALL	__fcmp
 	JP	P,L_42
 L_36:
+;  220			{
+;  221	        	playerPosition[0] = playerPosition[0] + lookDirection[0] * 0.5;
+.LINE 221
+
 	OR	A,A
-;  213			{
-;  214	        	playerPosition[0] = playerPosition[0] + lookDirection[0] * 0.5;
 	SBC	HL,HL
 	LD	E,63
 	LD	BC,(_lookDirection)
@@ -951,16 +2033,18 @@ L_36:
 	LD	A,(_playerPosition+3)
 	CALL	__fadd
 	LD	(_playerPosition),BC
-;  215				playerPosition[1] = playerPosition[1] + lookDirection[1] * 0.5;
-	LD	BC,_playerPosition+4
 	LD	(_playerPosition+3),A
+;  222				playerPosition[1] = playerPosition[1] + lookDirection[1] * 0.5;
+.LINE 222
+
+	LD	BC,_playerPosition+4
 	LD	(IX+-45),BC
 	LD	IY,(IX+-11)
-	LD	BC,(IY)
-	LD	A,(IY+3)
 	OR	A,A
 	SBC	HL,HL
 	LD	E,63
+	LD	BC,(IY)
+	LD	A,(IY+3)
 	CALL	__fmul
 	LD	E,A
 	LD	HL,BC
@@ -970,20 +2054,26 @@ L_36:
 	CALL	__fadd
 	LD	(IY),BC
 	LD	(IY+3),A
-;  216			}
-;  217				
-;  218	    } 
+;  223			}
+;  224				
+;  225	    } 
 L_42:
-;  219		//left
-;  220	    if (kb_Data[3] & kb_4) {
+.LINE 225
+
+;  226		//left
+;  227	    if (kb_Data[3] & kb_4) {
+.LINE 227
+
 	LD	A,(16056342)
 	AND	A,4
 	JR	Z,L_46
-;  221			movementRay.direction[0] =  -lookDirection[1];
+;  228			movementRay.direction[0] =  -lookDirection[1];
+.LINE 228
+
 	LEA	BC,IX+-25
-	LD	DE,_lookDirection+4
 	LD	(IX+-48),BC
-	LD	(IX+-14),DE
+	LD	BC,_lookDirection+4
+	LD	(IX+-14),BC
 	LD	IY,(IX+-14)
 	LD	BC,(IY)
 	LD	A,(IY+3)
@@ -991,11 +2081,9 @@ L_42:
 	LD	IY,(IX+-48)
 	LD	(IY),BC
 	LD	(IY+3),A
-;  222			movementRay.direction[1] =  lookDirection[0];
-;  223			ClosestFace(&movementRay, &distanceFromCam, &hit);
-	PEA	IX+-1
-	PEA	IX+-5
-	PEA	IX+-33
+;  229			movementRay.direction[1] =  lookDirection[0];
+.LINE 229
+
 	LEA	HL,IY+4
 	LD	BC,(_lookDirection)
 	LD	A,(_lookDirection+3)
@@ -1004,11 +2092,19 @@ L_42:
 	INC	HL
 	INC	HL
 	LD	(HL),A
+;  230			ClosestFace(&movementRay, &distanceFromCam, &hit);
+.LINE 230
+
+	PEA	IX+-1
+	PEA	IX+-5
+	PEA	IX+-33
 	CALL	_ClosestFace
 	POP	BC
 	POP	BC
 	POP	BC
-;  224			if  ( !hit || distanceFromCam > 0.5 )
+;  231			if  ( !hit || distanceFromCam > 0.5 )
+.LINE 231
+
 	LD	A,(IX+-1)
 	OR	A,A
 	JR	Z,L_40
@@ -1020,14 +2116,16 @@ L_42:
 	CALL	__fcmp
 	JP	P,L_46
 L_40:
-;  225			{
-;  226	           	playerPosition[0] = playerPosition[0] - lookDirection[1] * 0.5;
+;  232			{
+;  233	           	playerPosition[0] = playerPosition[0] - lookDirection[1] * 0.5;
+.LINE 233
+
 	LD	IY,(IX+-14)
-	LD	BC,(IY)
-	LD	A,(IY+3)
 	OR	A,A
 	SBC	HL,HL
 	LD	E,63
+	LD	BC,(IY)
+	LD	A,(IY+3)
 	CALL	__fmul
 	LD	E,A
 	LD	HL,BC
@@ -1035,65 +2133,76 @@ L_40:
 	LD	A,(_playerPosition+3)
 	CALL	__fsub
 	LD	(_playerPosition),BC
-;  227				playerPosition[1] = playerPosition[1] + lookDirection[0] * 0.5;
-	LD	BC,_playerPosition+4
 	LD	(_playerPosition+3),A
+;  234				playerPosition[1] = playerPosition[1] + lookDirection[0] * 0.5;
+.LINE 234
+
+	LD	BC,_playerPosition+4
 	LD	(IX+-51),BC
-	LD	BC,(_lookDirection)
-	LD	A,(_lookDirection+3)
+	LD	IY,(IX+-51)
 	OR	A,A
 	SBC	HL,HL
 	LD	E,63
+	LD	BC,(_lookDirection)
+	LD	A,(_lookDirection+3)
 	CALL	__fmul
 	LD	E,A
 	LD	HL,BC
-	LD	IY,(IX+-51)
 	LD	BC,(IY)
 	LD	A,(IY+3)
 	CALL	__fadd
 	LD	(IY),BC
 	LD	(IY+3),A
-;  228			}
-;  229	    } 
+;  235			}
+;  236	    } 
 L_46:
-;  230		//right
-;  231	    if (kb_Data[5] & kb_6) {
+.LINE 236
+
+;  237		//right
+;  238	    if (kb_Data[5] & kb_6) {
+.LINE 238
+
 	LD	A,(16056346)
 	AND	A,4
 	JR	Z,L_48
-;  232			movementRay.direction[0] =  lookDirection[1];
+;  239			movementRay.direction[0] =  lookDirection[1];
+.LINE 239
+
 	LEA	BC,IX+-25
-	LD	DE,_lookDirection+4
 	LD	(IX+-54),BC
-	LD	(IX+-17),DE
-	LD	HL,(IX+-17)
-	LD	BC,(HL)
-	INC	HL
-	INC	HL
-	INC	HL
-	LD	A,(HL)
+	LD	BC,_lookDirection+4
+	LD	(IX+-17),BC
+	LD	IY,(IX+-17)
 	LD	HL,(IX+-54)
+	LD	BC,(IY)
+	LD	A,(IY+3)
 	LD	(HL),BC
 	INC	HL
 	INC	HL
 	INC	HL
 	LD	(HL),A
-;  233			movementRay.direction[1] =  -lookDirection[0];
-	LD	IY,(IX+-54)
-;  234			ClosestFace(&movementRay, &distanceFromCam, &hit);
-	PEA	IX+-1
-	PEA	IX+-5
-	PEA	IX+-33
+;  240			movementRay.direction[1] =  -lookDirection[0];
+.LINE 240
+
 	LD	BC,(_lookDirection)
 	LD	A,(_lookDirection+3)
 	CALL	__fneg
+	LD	IY,(IX+-54)
 	LD	(IY+4),BC
 	LD	(IY+7),A
+;  241			ClosestFace(&movementRay, &distanceFromCam, &hit);
+.LINE 241
+
+	PEA	IX+-1
+	PEA	IX+-5
+	PEA	IX+-33
 	CALL	_ClosestFace
 	POP	BC
 	POP	BC
 	POP	BC
-;  235			if  ( !hit || distanceFromCam > 0.5 )
+;  242			if  ( !hit || distanceFromCam > 0.5 )
+.LINE 242
+
 	LD	A,(IX+-1)
 	OR	A,A
 	JR	Z,L_44
@@ -1105,14 +2214,16 @@ L_46:
 	CALL	__fcmp
 	JP	P,L_48
 L_44:
-;  236			{
-;  237	           	playerPosition[0] = playerPosition[0] + lookDirection[1] * 0.5;
+;  243			{
+;  244	           	playerPosition[0] = playerPosition[0] + lookDirection[1] * 0.5;
+.LINE 244
+
 	LD	IY,(IX+-17)
-	LD	BC,(IY)
-	LD	A,(IY+3)
 	OR	A,A
 	SBC	HL,HL
 	LD	E,63
+	LD	BC,(IY)
+	LD	A,(IY+3)
 	CALL	__fmul
 	LD	E,A
 	LD	HL,BC
@@ -1120,34 +2231,42 @@ L_44:
 	LD	A,(_playerPosition+3)
 	CALL	__fadd
 	LD	(_playerPosition),BC
-;  238				playerPosition[1] = playerPosition[1] - lookDirection[0] * 0.5;
-	LD	BC,_playerPosition+4
 	LD	(_playerPosition+3),A
+;  245				playerPosition[1] = playerPosition[1] - lookDirection[0] * 0.5;
+.LINE 245
+
+	LD	BC,_playerPosition+4
 	LD	(IX+-57),BC
-	LD	BC,(_lookDirection)
-	LD	A,(_lookDirection+3)
+	LD	IY,(IX+-57)
 	OR	A,A
 	SBC	HL,HL
 	LD	E,63
+	LD	BC,(_lookDirection)
+	LD	A,(_lookDirection+3)
 	CALL	__fmul
 	LD	E,A
 	LD	HL,BC
-	LD	IY,(IX+-57)
 	LD	BC,(IY)
 	LD	A,(IY+3)
 	CALL	__fsub
 	LD	(IY),BC
 	LD	(IY+3),A
-;  239			}
-;  240		} 
+;  246			}
+;  247		} 
 L_48:
-;  241		//rotation
-;  242		if (kb_Data[3] & kb_7)
+.LINE 247
+
+;  248		//rotation
+;  249		if (kb_Data[3] & kb_7)
+.LINE 249
+
 	LD	A,(16056342)
 	AND	A,8
 	JR	Z,L_50
-;  243		{
-;  244			rotateVector(&lookDirection, 0.2);
+;  250		{
+;  251			rotateVector(&lookDirection, 0.2);
+.LINE 251
+
 	LD	C,62
 	LD	B,0
 	PUSH	BC
@@ -1159,14 +2278,20 @@ L_48:
 	POP	BC
 	POP	BC
 	POP	BC
-;  245		}
+;  252		}
 L_50:
-;  246		if (kb_Data[5] & kb_9)
+.LINE 252
+
+;  253		if (kb_Data[5] & kb_9)
+.LINE 253
+
 	LD	A,(16056346)
 	AND	A,8
 	JR	Z,L_52
-;  247		{
-;  248			rotateVector(&lookDirection, -0.2);
+;  254		{
+;  255			rotateVector(&lookDirection, -0.2);
+.LINE 255
+
 	LD	C,190
 	LD	B,0
 	PUSH	BC
@@ -1178,14 +2303,20 @@ L_50:
 	POP	BC
 	POP	BC
 	POP	BC
-;  249		}
+;  256		}
 L_52:
-;  250		if (kb_Data[7] & kb_Up)
+.LINE 256
+
+;  257		if (kb_Data[7] & kb_Up)
+.LINE 257
+
 	LD	A,(16056350)
 	AND	A,8
 	JR	Z,L_54
-;  251		{
-;  252			fov+= 0.1;
+;  258		{
+;  259			fov+= 0.1;
+.LINE 259
+
 	LD	HL,13421773
 	LD	E,61
 	LD	BC,(_fov)
@@ -1193,14 +2324,20 @@ L_52:
 	CALL	__fadd
 	LD	(_fov),BC
 	LD	(_fov+3),A
-;  253		}
+;  260		}
 L_54:
-;  254		if (kb_Data[7] & kb_Down)
+.LINE 260
+
+;  261		if (kb_Data[7] & kb_Down)
+.LINE 261
+
 	LD	A,(16056350)
 	AND	A,1
 	JR	Z,L_57
-;  255		{
-;  256			fov-= 0.1;
+;  262		{
+;  263			fov-= 0.1;
+.LINE 263
+
 	LD	HL,13421773
 	LD	E,61
 	LD	BC,(_fov)
@@ -1208,44 +2345,64 @@ L_54:
 	CALL	__fsub
 	LD	(_fov),BC
 	LD	(_fov+3),A
-;  257		}
+;  264		}
 L_57:
-;  258		if (kb_Data[7] & kb_Left)
+.LINE 264
+
+;  265		if (kb_Data[7] & kb_Left)
+.LINE 265
+
 	LD	A,(16056350)
 	AND	A,2
 	JR	Z,L_61
-;  259		{
-;  260			lineSpacing++;
+;  266		{
+;  267			lineSpacing++;
+.LINE 267
+
 	LD	BC,(_lineSpacing)
 	INC	BC
 	LD	(_lineSpacing),BC
-;  261		}
+;  268		}
 L_61:
-;  262		if (kb_Data[7] & kb_Right)
+.LINE 268
+
+;  269		if (kb_Data[7] & kb_Right)
+.LINE 269
+
 	LD	A,(16056350)
 	AND	A,4
 	JR	Z,L_63
-;  263		{
-;  264			if (lineSpacing > 1)
+;  270		{
+;  271			if (lineSpacing > 1)
+.LINE 271
+
 	LD	BC,(_lineSpacing)
 	LD	HL,1
 	OR	A,A
 	SBC	HL,BC
 	JP	P,L_63
-;  265			{
-;  266				lineSpacing--;
+;  272			{
+;  273				lineSpacing--;
+.LINE 273
+
 	LD	BC,(_lineSpacing)
 	DEC	BC
 	LD	(_lineSpacing),BC
-;  267			}
-;  268		}
+;  274			}
+;  275		}
 L_63:
-;  269		if (kb_Data[6] & kb_Add)
+.LINE 275
+
+;  276		if (kb_Data[6] & kb_Add)
+.LINE 276
+
 	LD	A,(16056348)
 	AND	A,2
 	JR	Z,L_66
-;  270		{
-;  271			multiplier+= 5;
+;  277		{
+;  278			multiplier+= 5;
+.LINE 278
+
 	LD	HL,10485760
 	LD	E,64
 	LD	BC,(_multiplier)
@@ -1253,37 +2410,51 @@ L_63:
 	CALL	__fadd
 	LD	(_multiplier),BC
 	LD	(_multiplier+3),A
-;  272		}
+;  279		}
 L_66:
-;  273		if (kb_Data[6] & kb_Sub)
+.LINE 279
+
+;  280		if (kb_Data[6] & kb_Sub)
+.LINE 280
+
 	LD	A,(16056348)
 	AND	A,4
 	JR	Z,L_68
-;  274		{
-;  275			if (multiplier > 5)
+;  281		{
+;  282			if (multiplier > 5)
+.LINE 282
+
 	LD	HL,10485760
 	LD	E,64
 	LD	BC,(_multiplier)
 	LD	A,(_multiplier+3)
 	CALL	__fcmp
 	JP	P,L_68
-;  276			{
-;  277				multiplier-= 5;
+;  283			{
+;  284				multiplier-= 5;
+.LINE 284
+
 	LD	BC,(_multiplier)
 	LD	A,(_multiplier+3)
 	CALL	__fsub
 	LD	(_multiplier),BC
 	LD	(_multiplier+3),A
-;  278			}
-;  279		}
+;  285			}
+;  286		}
 L_68:
-;  280		if (kb_Data[6] & kb_Mul)
+.LINE 286
+
+;  287		if (kb_Data[6] & kb_Mul)
+.LINE 287
+
 	LD	A,(16056348)
 	AND	A,8
 	JR	Z,L_71
+;  288		{
+;  289			focalLength += 0.5;
+.LINE 289
+
 	OR	A,A
-;  281		{
-;  282			focalLength += 0.5;
 	SBC	HL,HL
 	LD	E,63
 	LD	BC,(_focalLength)
@@ -1291,34 +2462,44 @@ L_68:
 	CALL	__fadd
 	LD	(_focalLength),BC
 	LD	(_focalLength+3),A
-;  283		}
+;  290		}
 L_71:
-;  284		if (kb_Data[6] & kb_Div)
+.LINE 290
+
+;  291		if (kb_Data[6] & kb_Div)
+.LINE 291
+
 	LD	A,(16056348)
 	AND	A,16
 	JR	Z,L_72
+;  292		{
+;  293			if (focalLength > 0.5)
+.LINE 293
+
 	OR	A,A
-;  285		{
-;  286			if (focalLength > 0.5)
 	SBC	HL,HL
 	LD	E,63
 	LD	BC,(_focalLength)
 	LD	A,(_focalLength+3)
 	CALL	__fcmp
 	JP	P,L_72
+;  294			{
+;  295				focalLength -= 0.5;
+.LINE 295
+
 	OR	A,A
-;  287			{
-;  288				focalLength -= 0.5;
 	SBC	HL,HL
 	LD	BC,(_focalLength)
 	LD	A,(_focalLength+3)
 	CALL	__fsub
 	LD	(_focalLength),BC
 	LD	(_focalLength+3),A
-;  289			}
-;  290		}
-;  291	}
+;  296			}
+;  297		}
+;  298	}
 L_72:
+.LINE 298
+
 	LD	SP,IX
 	POP	IX
 	RET	
@@ -1345,83 +2526,213 @@ L_72:
 ;hit                                   IX-1      1   variable
 
 
-; Stack Frame Size: 78 (bytes)
-;       Spill Code: -1 (instruction)
+; Stack Frame Size: 84 (bytes)
+;       Spill Code: -5 (instruction)
 
 
-;  292	
-;  293	//does the main drawing
-;  294	void draw() {
+.ENDFUNC "step",298,"_step"
+;  299	
+;  300	//does the main drawing
+;  301	void draw() {
 _draw:
-	LD	HL,-61
-	CALL	__frameset
-;  295		int row = LCD_WIDTH/2;
-;  296		int fillSpacing = 0;
-;  297		int temp = 0;
-;  298		float closeDist = -1;
+.DEFINE "_draw"
+
+.VALUE _draw
+
+.CLASS 2
+
+.TYPE 65
+
+.ENDEF
+
+.BEGFUNC "draw",301,"_draw"
+
+.LINE 301
+
+.DEFINE "row"
+
+.CLASS 65
+
+.VALUE -3
+
+.TYPE 4
+
+.ENDEF
+
+.DEFINE "temp"
+
+.CLASS 65
+
+.VALUE -6
+
+.TYPE 4
+
+.ENDEF
+
+.DEFINE "hmm"
+
+.CLASS 65
+
+.VALUE -7
+
+.TYPE 12
+
+.ENDEF
+
+.DEFINE "closeDist"
+
+.CLASS 65
+
+.VALUE -11
+
+.TYPE 6
+
+.ENDEF
+
+.DEFINE "fillSpacing"
+
+.CLASS 65
+
+.VALUE -14
+
+.TYPE 4
+
+.ENDEF
+
+.DEFINE "hit"
+
+.CLASS 65
+
+.VALUE -17
+
+.TAG "NONAME18"
+
+.TYPE 40
+
+.ENDEF
+
+.DEFINE "angleFromCenter"
+
+.CLASS 65
+
+.VALUE -21
+
+.TYPE 6
+
+.ENDEF
+
+.DEFINE "buf"
+
+.CLASS 65
+
+.VALUE -31
+
+.DIM 10
+
+.TYPE 98
+
+.ENDEF
+
+.DEFINE "lookRay"
+
+.CLASS 65
+
+.VALUE -47
+
+.TAG "NONAME16"
+
+.TYPE 8
+
+.ENDEF
+
+	PUSH	IX
+	LD	IX,0
+	ADD	IX,SP
+	LEA	HL,IX+-62
+	LD	SP,HL
+;  302		int row = LCD_WIDTH/2;
+;  303		int fillSpacing = 0;
+;  304		int temp = 0;
+;  305		float closeDist = -1;
+.LINE 305
+
 	LD	BC,8388608
-	LD	(IX+-11),BC
 	LD	A,191
+	LD	(IX+-11),BC
 	LD	(IX+-8),A
-;  299		float fardist = 2;
-;  300		float res[2];
-;  301		char buf[10];
-;  302		bool hmm = false;
+;  306		float fardist = 2;
+;  307		float res[2];
+;  308		char buf[10];
+;  309		bool hmm = false;
+.LINE 309
+
 	LD	(IX+-7),0
-;  303		Face * hit ;
-;  304		Ray  lookRay ;
-;  305		float newClose;
-;  306		float angleFromCenter = 0;
-;  307		
-;  308		//clear the screen
-;  309		gfx_FillScreen(255);
+;  310		Face * hit ;
+;  311		Ray  lookRay ;
+;  312		float newClose;
+;  313		float angleFromCenter = 0;
+;  314		
+;  315		//clear the screen
+;  316		gfx_FillScreen(255);
+.LINE 316
+
 	LD	BC,255
 	PUSH	BC
 	CALL	_gfx_FillScreen
 	POP	BC
-;  310		
-;  311		//center lookray
-;  312		lookRay.direction[0] = lookDirection[0];
+;  317		
+;  318		//center lookray
+;  319		lookRay.direction[0] = lookDirection[0];
+.LINE 319
+
 	LEA	BC,IX+-39
 	LD	(IX+-53),BC
 	LD	BC,(_lookDirection)
 	LD	A,(_lookDirection+3)
 	LD	(IX+-39),BC
-;  313		lookRay.direction[1] = lookDirection[1];
-	LD	HL,_lookDirection+4
 	LD	(IX+-36),A
+;  320		lookRay.direction[1] = lookDirection[1];
+.LINE 320
+
+	LD	HL,_lookDirection+4
+	LEA	IY,IX+-35
 	LD	BC,(HL)
 	INC	HL
 	INC	HL
 	INC	HL
-	LEA	IY,IX+-35
 	LD	A,(HL)
 	LD	(IY),BC
 	LD	(IY+3),A
-;  314		lookRay.origin[0] = playerPosition[0];
+;  321		lookRay.origin[0] = playerPosition[0];
+.LINE 321
+
 	LEA	BC,IX+-47
 	LD	(IX+-50),BC
 	LD	BC,(_playerPosition)
 	LD	A,(_playerPosition+3)
 	LD	(IX+-47),BC
-;  315		lookRay.origin[1] = playerPosition[1];
-	LD	HL,_playerPosition+4
 	LD	(IX+-44),A
+;  322		lookRay.origin[1] = playerPosition[1];
+.LINE 322
+
+	LD	HL,_playerPosition+4
+	LD	IY,(IX+-50)
 	LD	BC,(HL)
 	INC	HL
 	INC	HL
 	INC	HL
-	LD	IY,(IX+-50)
 	LD	A,(HL)
 	LD	(IY+4),BC
 	LD	(IY+7),A
-;  316		//rotate the ray to the very left in preparation for spinning it around
-;  317		rotateVector(&lookRay.direction, fov/2);
-	LD	BC,(_fov)
-	LD	A,(_fov+3)
+;  323		//rotate the ray to the very left in preparation for spinning it around
+;  324		rotateVector(&lookRay.direction, fov/2);
+.LINE 324
+
 	OR	A,A
 	SBC	HL,HL
 	LD	E,64
+	LD	BC,(_fov)
+	LD	A,(_fov+3)
 	CALL	__fdiv
 	LD	DE,BC
 	LD	C,A
@@ -1434,8 +2745,10 @@ _draw:
 	POP	BC
 	POP	BC
 	POP	BC
+;  325		angleFromCenter = fov/2;
+.LINE 325
+
 	OR	A,A
-;  318		angleFromCenter = fov/2;
 	SBC	HL,HL
 	LD	E,64
 	LD	BC,(_fov)
@@ -1443,32 +2756,36 @@ _draw:
 	CALL	__fdiv
 	LD	(IX+-21),BC
 	LD	(IX+-18),A
-;  319		
-;  320		//loop for each vertical line
-;  321		
-;  322		for (row = 0; row <LCD_WIDTH; row+= lineSpacing){
+;  326		
+;  327		//loop for each vertical line
+;  328		
+;  329		for (row = 0; row <LCD_WIDTH; row+= lineSpacing){
+.LINE 329
+
 	LD	BC,0
 	LD	(IX+-3),BC
 	JR	L_83
 L_81:
-;  323		
-;  324			//rotate ray by a small amount
-;  325			rotateVector(&(lookRay.direction), -((float)fov / LCD_WIDTH) * lineSpacing);
+;  330		
+;  331			//rotate ray by a small amount
+;  332			rotateVector(&(lookRay.direction), -((float)fov / LCD_WIDTH) * lineSpacing);
+.LINE 332
+
 	LD	HL,10485760
 	LD	E,67
 	LD	BC,(_fov)
 	LD	A,(_fov+3)
 	CALL	__fdiv
 	CALL	__fneg
-	LD	(IX+-60),BC
+	LD	(IX+-61),BC
+	LD	(IX+-62),A
 	LD	BC,(_lineSpacing)
-	LD	(IX+-61),A
 	CALL	__itol
 	CALL	__ltof
 	LD	E,A
 	LD	HL,BC
-	LD	BC,(IX+-60)
-	LD	A,(IX+-61)
+	LD	A,(IX+-62)
+	LD	BC,(IX+-61)
 	CALL	__fmul
 	LD	DE,BC
 	LD	C,A
@@ -1480,30 +2797,34 @@ L_81:
 	POP	BC
 	POP	BC
 	POP	BC
-;  326			angleFromCenter += -((float)fov / LCD_WIDTH) * lineSpacing;
+;  333			angleFromCenter += -((float)fov / LCD_WIDTH) * lineSpacing;
+.LINE 333
+
 	LD	HL,10485760
 	LD	E,67
 	LD	BC,(_fov)
 	LD	A,(_fov+3)
 	CALL	__fdiv
 	CALL	__fneg
-	LD	(IX+-56),BC
+	LD	(IX+-57),BC
+	LD	(IX+-58),A
 	LD	BC,(_lineSpacing)
-	LD	(IX+-57),A
 	CALL	__itol
 	CALL	__ltof
 	LD	E,A
 	LD	HL,BC
-	LD	BC,(IX+-56)
-	LD	A,(IX+-57)
+	LD	A,(IX+-58)
+	LD	BC,(IX+-57)
 	CALL	__fmul
 	LD	HL,(IX+-21)
 	LD	E,(IX+-18)
 	CALL	__fadd
 	LD	(IX+-21),BC
 	LD	(IX+-18),A
-;  327			//cast the ray
-;  328			hit = ClosestFace(&lookRay, &closeDist, &hmm);
+;  334			//cast the ray
+;  335			hit = ClosestFace(&lookRay, &closeDist, &hmm);
+.LINE 335
+
 	PEA	IX+-7
 	PEA	IX+-11
 	PEA	IX+-47
@@ -1512,25 +2833,31 @@ L_81:
 	POP	BC
 	POP	BC
 	LD	(IX+-17),HL
-;  329			
-;  330			//if hit
-;  331			if (hmm && hit != 0)
+;  336			
+;  337			//if hit
+;  338			if (hmm && hit != 0)
+.LINE 338
+
 	LD	A,(IX+-7)
 	OR	A,A
 	JR	Z,L_82
 	LD	HL,(IX+-17)
 	CALL	__icmpzero
 	JR	Z,L_82
-;  332			{
-;  333				
-;  334				gfx_SetColor(hit->color);
+;  339			{
+;  340				
+;  341				gfx_SetColor(hit->color);
+.LINE 341
+
 	LD	IY,(IX+-17)
 	LD	C,(IY+16)
 	LD	B,0
 	PUSH	BC
 	CALL	_gfx_SetColor
 	POP	BC
-;  335				closeDist = closeDist * fastCos(angleFromCenter);
+;  342				closeDist = closeDist * fastCos(angleFromCenter);
+.LINE 342
+
 	LD	C,(IX+-18)
 	LD	B,0
 	PUSH	BC
@@ -1546,76 +2873,100 @@ L_81:
 	CALL	__fmul
 	LD	(IX+-11),BC
 	LD	(IX+-8),A
-;  336				temp =(focalLength/closeDist) * multiplier;
+;  343				temp =(focalLength/closeDist) * multiplier;
+.LINE 343
+
 	LD	HL,BC
-	LD	BC,(_focalLength)
 	LD	E,(IX+-8)
+	LD	BC,(_focalLength)
 	LD	A,(_focalLength+3)
 	CALL	__fdiv
-	LD	H,A
+	LD	(IX+-54),A
+	LD	HL,(_multiplier)
 	LD	A,(_multiplier+3)
 	LD	E,A
-	LD	A,H
-	LD	HL,(_multiplier)
+	LD	A,(IX+-54)
 	CALL	__fmul
 	CALL	__ftol
-;  337				if (temp < 0)
+	LD	(IX+-6),BC
+;  344				if (temp < 0)
+.LINE 344
+
 	LD	HL,BC
 	CALL	__icmpzero
-	LD	(IX+-6),BC
 	JP	P,L_76
-;  338				{
-;  339					temp = 0;
+;  345				{
+;  346					temp = 0;
+.LINE 346
+
 	LD	BC,0
 	LD	(IX+-6),BC
-;  340				}
+;  347				}
 L_76:
-;  341				if (temp > LCD_HEIGHT/2 -1)
+.LINE 347
+
+;  348				if (temp > LCD_HEIGHT/2 -1)
+.LINE 348
+
 	LD	BC,(IX+-6)
 	LD	HL,119
 	OR	A,A
 	SBC	HL,BC
 	CALL	__setflag
 	JP	P,L_77
-;  342				{
-;  343					temp = LCD_HEIGHT/2 -1;
+;  349				{
+;  350					temp = LCD_HEIGHT/2 -1;
+.LINE 350
+
 	LD	BC,119
 	LD	(IX+-6),BC
-;  344				}
+;  351				}
 L_77:
-;  345				
-;  346				fillSpacing = lineSpacing;
+.LINE 351
+
+;  352				
+;  353				fillSpacing = lineSpacing;
+.LINE 353
+
 	LD	BC,(_lineSpacing)
 	LD	(IX+-14),BC
-;  347				if (row + fillSpacing >= LCD_WIDTH)
+;  354				if (row + fillSpacing >= LCD_WIDTH)
+.LINE 354
+
 	LD	HL,(IX+-3)
 	ADD	HL,BC
-	OR	A,A
 	LD	BC,320
+	OR	A,A
 	SBC	HL,BC
 	CALL	__setflag
 	JP	M,L_79
-;  348				{
-;  349					fillSpacing = LCD_WIDTH-row;
-	LD	BC,(IX+-3)
+;  355				{
+;  356					fillSpacing = LCD_WIDTH-row;
+.LINE 356
+
 	LD	HL,320
+	LD	BC,(IX+-3)
 	OR	A,A
 	SBC	HL,BC
 	LD	(IX+-14),HL
-;  350				}
+;  357				}
 L_79:
-;  351				
-;  352				
-;  353				gfx_FillRectangle_NoClip(row,LCD_HEIGHT/2 - temp,fillSpacing, 2 * temp );
+.LINE 357
+
+;  358				
+;  359				
+;  360				gfx_FillRectangle_NoClip(row,LCD_HEIGHT/2 - temp,fillSpacing, 2 * temp );
+.LINE 360
+
 	LD	A,(IX+-6)
 	ADD	A,A
 	LD	C,A
 	LD	B,0
 	PUSH	BC
-	LD	A,120
 	LD	BC,(IX+-14)
 	PUSH	BC
 	LD	B,(IX+-6)
+	LD	A,120
 	SUB	A,B
 	LD	C,A
 	LD	B,0
@@ -1627,12 +2978,14 @@ L_79:
 	POP	BC
 	POP	BC
 	POP	BC
-;  354			}
-;  355			
-;  356			
-;  357			
-;  358		}
+;  361			}
+;  362			
+;  363			
+;  364			
+;  365		}
 L_82:
+.LINE 365
+
 	LD	BC,(IX+-3)
 	LD	HL,(_lineSpacing)
 	ADD	HL,BC
@@ -1644,13 +2997,15 @@ L_83:
 	SBC	HL,BC
 	CALL	__setflag
 	JP	M,L_81
-;  359			//draw position and rotation text
-;  360			gcvt(playerPosition[0], 3, &buf);
+;  366			//draw position and rotation text
+;  367			gcvt(playerPosition[0], 3, &buf);
+.LINE 367
+
 	PEA	IX+-31
+	LD	BC,3
+	PUSH	BC
 	LD	A,(_playerPosition+3)
 	LD	C,A
-	LD	DE,3
-	PUSH	DE
 	LD	B,0
 	PUSH	BC
 	LD	BC,(_playerPosition)
@@ -1660,29 +3015,37 @@ L_83:
 	POP	BC
 	POP	BC
 	POP	BC
-;  361			gfx_SetTextFGColor(245);
+;  368			gfx_SetTextFGColor(245);
+.LINE 368
+
 	LD	BC,245
 	PUSH	BC
 	CALL	_gfx_SetTextFGColor
 	POP	BC
-;  362			gfx_SetTextXY(0,0);
+;  369			gfx_SetTextXY(0,0);
+.LINE 369
+
 	LD	BC,0
 	PUSH	BC
 	PUSH	BC
 	CALL	_gfx_SetTextXY
 	POP	BC
 	POP	BC
-;  363			gfx_PrintString(&buf);
+;  370			gfx_PrintString(&buf);
+.LINE 370
+
 	PEA	IX+-31
 	CALL	_gfx_PrintString
 	POP	BC
-;  364			gcvt(playerPosition[1], 3, &buf);
+;  371			gcvt(playerPosition[1], 3, &buf);
+.LINE 371
+
 	PEA	IX+-31
+	LD	BC,3
+	PUSH	BC
 	LD	IY,_playerPosition
 	LD	BC,(IY+4)
 	LD	A,(IY+7)
-	LD	DE,3
-	PUSH	DE
 	LD	H,0
 	LD	L,A
 	PUSH	HL
@@ -1692,7 +3055,9 @@ L_83:
 	POP	BC
 	POP	BC
 	POP	BC
-;  365			gfx_SetTextXY(75,0);
+;  372			gfx_SetTextXY(75,0);
+.LINE 372
+
 	LD	BC,0
 	PUSH	BC
 	LD	BC,75
@@ -1700,16 +3065,20 @@ L_83:
 	CALL	_gfx_SetTextXY
 	POP	BC
 	POP	BC
-;  366			gfx_PrintString(&buf);
+;  373			gfx_PrintString(&buf);
+.LINE 373
+
 	PEA	IX+-31
 	CALL	_gfx_PrintString
 	POP	BC
-;  367			gcvt(lookDirection[0], 3, &buf);
+;  374			gcvt(lookDirection[0], 3, &buf);
+.LINE 374
+
 	PEA	IX+-31
+	LD	BC,3
+	PUSH	BC
 	LD	A,(_lookDirection+3)
 	LD	C,A
-	LD	DE,3
-	PUSH	DE
 	LD	B,0
 	PUSH	BC
 	LD	BC,(_lookDirection)
@@ -1719,7 +3088,9 @@ L_83:
 	POP	BC
 	POP	BC
 	POP	BC
-;  368			gfx_SetTextXY(0,20);
+;  375			gfx_SetTextXY(0,20);
+.LINE 375
+
 	LD	BC,20
 	PUSH	BC
 	LD	BC,0
@@ -1727,17 +3098,21 @@ L_83:
 	CALL	_gfx_SetTextXY
 	POP	BC
 	POP	BC
-;  369			gfx_PrintString(&buf);
+;  376			gfx_PrintString(&buf);
+.LINE 376
+
 	PEA	IX+-31
 	CALL	_gfx_PrintString
 	POP	BC
-;  370			gcvt(lookDirection[1], 3, &buf);
+;  377			gcvt(lookDirection[1], 3, &buf);
+.LINE 377
+
 	PEA	IX+-31
+	LD	BC,3
+	PUSH	BC
 	LD	IY,_lookDirection
 	LD	BC,(IY+4)
 	LD	A,(IY+7)
-	LD	DE,3
-	PUSH	DE
 	LD	H,0
 	LD	L,A
 	PUSH	HL
@@ -1747,7 +3122,9 @@ L_83:
 	POP	BC
 	POP	BC
 	POP	BC
-;  371			gfx_SetTextXY(75,20);
+;  378			gfx_SetTextXY(75,20);
+.LINE 378
+
 	LD	BC,20
 	PUSH	BC
 	LD	BC,75
@@ -1755,17 +3132,23 @@ L_83:
 	CALL	_gfx_SetTextXY
 	POP	BC
 	POP	BC
-;  372			gfx_PrintString(&buf);
+;  379			gfx_PrintString(&buf);
+.LINE 379
+
 	PEA	IX+-31
 	CALL	_gfx_PrintString
 	POP	BC
-;  373			
-;  374			//draw objects
-;  375			drawObjects();
+;  380			
+;  381			//draw objects
+;  382			drawObjects();
+.LINE 382
+
 	CALL	_drawObjects
-;  376			
-;  377			//draw gun sprite
-;  378			gfx_SetPalette(gfx_group_pal, sizeof_gfx_group_pal,0);
+;  383			
+;  384			//draw gun sprite
+;  385			gfx_SetPalette(gfx_group_pal, sizeof_gfx_group_pal,0);
+.LINE 385
+
 	LD	BC,0
 	PUSH	BC
 	LD	BC,512
@@ -1776,7 +3159,9 @@ L_83:
 	POP	BC
 	POP	BC
 	POP	BC
-;  379			gfx_ScaledTransparentSprite_NoClip(akSprite, (LCD_WIDTH /2) - 68 , LCD_HEIGHT - doomak2_height * 2, 2,2);
+;  386			gfx_ScaledTransparentSprite_NoClip(akSprite, (LCD_WIDTH /2) - 68 , LCD_HEIGHT - doomak2_height * 2, 2,2);
+.LINE 386
+
 	LD	BC,2
 	PUSH	BC
 	PUSH	BC
@@ -1792,14 +3177,18 @@ L_83:
 	POP	BC
 	POP	BC
 	POP	BC
-;  380			
-;  381			//draw crosshair
-;  382			gfx_SetColor(245);
+;  387			
+;  388			//draw crosshair
+;  389			gfx_SetColor(245);
+.LINE 389
+
 	LD	BC,245
 	PUSH	BC
 	CALL	_gfx_SetColor
 	POP	BC
-;  383			gfx_Line_NoClip(LCD_WIDTH/2 - 2, LCD_HEIGHT/2, LCD_WIDTH/2 + 2, LCD_HEIGHT/2);
+;  390			gfx_Line_NoClip(LCD_WIDTH/2 - 2, LCD_HEIGHT/2, LCD_WIDTH/2 + 2, LCD_HEIGHT/2);
+.LINE 390
+
 	LD	BC,120
 	PUSH	BC
 	LD	BC,162
@@ -1813,7 +3202,9 @@ L_83:
 	POP	BC
 	POP	BC
 	POP	BC
-;  384			gfx_Line_NoClip(LCD_WIDTH/2 , LCD_HEIGHT/2 - 2, LCD_WIDTH/2 , LCD_HEIGHT/2 + 2);
+;  391			gfx_Line_NoClip(LCD_WIDTH/2 , LCD_HEIGHT/2 - 2, LCD_WIDTH/2 , LCD_HEIGHT/2 + 2);
+.LINE 391
+
 	LD	BC,122
 	PUSH	BC
 	LD	BC,160
@@ -1827,15 +3218,19 @@ L_83:
 	POP	BC
 	POP	BC
 	POP	BC
-;  385			
-;  386	
-;  387			//draw the overhead map
-;  388			drawMap();
+;  392			
+;  393	
+;  394			//draw the overhead map
+;  395			drawMap();
+.LINE 395
+
 	CALL	_drawMap
-;  389			
-;  390	
-;  391		
-;  392	}
+;  396			
+;  397	
+;  398		
+;  399	}
+.LINE 399
+
 	LD	SP,IX
 	POP	IX
 	RET	
@@ -1877,31 +3272,153 @@ L_83:
 ;row                                   IX-3      3   variable
 
 
-; Stack Frame Size: 67 (bytes)
-;       Spill Code: -1 (instruction)
+; Stack Frame Size: 68 (bytes)
+;       Spill Code: -5 (instruction)
 
 
-;  393	
-;  394	//returns the closest face a ray hits, and sets the distance and whether or not the ray hit anything
-;  395	Face *ClosestFace(Ray *ray, float *distance, bool * hitOrNot)
-;  396	{
+.ENDFUNC "draw",399,"_draw"
+;  400	
+;  401	//returns the closest face a ray hits, and sets the distance and whether or not the ray hit anything
+;  402	Face *ClosestFace(Ray *ray, float *distance, bool * hitOrNot)
+;  403	{
 _ClosestFace:
-	LD	HL,-26
-	CALL	__frameset
-;  397		float closestDist;
-;  398		int i;
-;  399		float hitpoint[2];
-;  400		//float * hitpoint  = malloc(2 * sizeof(float));
-;  401		float dist = 0;
+.DEFINE "_ClosestFace"
+
+.VALUE _ClosestFace
+
+.CLASS 2
+
+.TAG "NONAME18"
+
+.TYPE 328
+
+.ENDEF
+
+.BEGFUNC "ClosestFace",403,"_ClosestFace"
+
+.LINE 403
+
+.DEFINE "ray"
+
+.CLASS 65
+
+.VALUE 6
+
+.TAG "NONAME16"
+
+.TYPE 40
+
+.ENDEF
+
+.DEFINE "distance"
+
+.CLASS 65
+
+.VALUE 9
+
+.TYPE 38
+
+.ENDEF
+
+.DEFINE "hitOrNot"
+
+.CLASS 65
+
+.VALUE 12
+
+.TYPE 44
+
+.ENDEF
+
+.DEFINE "i"
+
+.CLASS 65
+
+.VALUE -3
+
+.TYPE 4
+
+.ENDEF
+
+.DEFINE "closestDist"
+
+.CLASS 65
+
+.VALUE -7
+
+.TYPE 6
+
+.ENDEF
+
+.DEFINE "didhit"
+
+.CLASS 65
+
+.VALUE -8
+
+.TYPE 12
+
+.ENDEF
+
+.DEFINE "outface"
+
+.CLASS 65
+
+.VALUE -11
+
+.TAG "NONAME18"
+
+.TYPE 40
+
+.ENDEF
+
+.DEFINE "dist"
+
+.CLASS 65
+
+.VALUE -18
+
+.TYPE 6
+
+.ENDEF
+
+.DEFINE "hitpoint"
+
+.CLASS 65
+
+.VALUE -26
+
+.DIM 2
+
+.TYPE 102
+
+.ENDEF
+
+	PUSH	IX
+	LD	IX,0
+	ADD	IX,SP
+	LEA	HL,IX+-26
+	LD	SP,HL
+;  404		float closestDist;
+;  405		int i;
+;  406		float hitpoint[2];
+;  407		//float * hitpoint  = malloc(2 * sizeof(float));
+;  408		float dist = 0;
+.LINE 408
+
 	LD	BC,0
-	LD	(IX+-18),BC
 	XOR	A,A
+	LD	(IX+-18),BC
 	LD	(IX+-15),A
-;  402		bool  didhit;
-;  403		//pointer to the face in facearray that was hit
-;  404		Face * outface = NULL;
+;  409		bool  didhit;
+;  410		//pointer to the face in facearray that was hit
+;  411		Face * outface = NULL;
+.LINE 411
+
 	LD	(IX+-11),BC
-;  405		*distance = -1;
+;  412		*distance = -1;
+.LINE 412
+
 	LD	HL,(IX+9)
 	LD	BC,8388608
 	LD	(HL),BC
@@ -1909,17 +3426,23 @@ _ClosestFace:
 	INC	HL
 	INC	HL
 	LD	(HL),191
-;  406		closestDist = 999999;
+;  413		closestDist = 999999;
+.LINE 413
+
 	LD	BC,7611376
-	LD	(IX+-7),BC
 	LD	A,73
+	LD	(IX+-7),BC
 	LD	(IX+-4),A
-;  407		*hitOrNot = false;
+;  414		*hitOrNot = false;
+.LINE 414
+
 	LD	HL,(IX+12)
 	LD	(HL),0
-;  408		
-;  409		//check if passed null pointers
-;  410		if (ray == NULL || distance == NULL || hitOrNot == NULL)
+;  415		
+;  416		//check if passed null pointers
+;  417		if (ray == NULL || distance == NULL || hitOrNot == NULL)
+.LINE 417
+
 	LD	HL,(IX+6)
 	CALL	__icmpzero
 	JR	Z,L_88
@@ -1930,22 +3453,30 @@ _ClosestFace:
 	CALL	__icmpzero
 	JR	NZ,L_97
 L_88:
+;  418		{
+;  419			return outface;
+.LINE 419
+
 	OR	A,A
-;  411		{
-;  412			return outface;
 	SBC	HL,HL
 	JR	L_99
-;  413		}
+;  420		}
 L_97:
-;  414		
-;  415		for (i = 0; i<faceArrayCurrentSize; i++)
+.LINE 420
+
+;  421		
+;  422		for (i = 0; i<faceArrayCurrentSize; i++)
+.LINE 422
+
 	LD	BC,0
 	LD	(IX+-3),BC
 	JR	L_96
 L_94:
-;  416		{
-;  417			
-;  418			GetRayToFaceIntersection(ray, &(faceArray[i]), &hitpoint, &didhit);
+;  423		{
+;  424			
+;  425			GetRayToFaceIntersection(ray, &(faceArray[i]), &hitpoint, &didhit);
+.LINE 425
+
 	LD	HL,(IX+-3)
 	LD	A,17
 	CALL	__imul_b
@@ -1962,19 +3493,25 @@ L_94:
 	POP	BC
 	POP	BC
 	POP	BC
-;  419			
-;  420			//if successfully hit something
-;  421			if (didhit)
+;  426			
+;  427			//if successfully hit something
+;  428			if (didhit)
+.LINE 428
+
 	LD	A,(IX+-8)
 	OR	A,A
 	JR	Z,L_93
-;  422			{
-;  423				
-;  424				*hitOrNot = true;
+;  429			{
+;  430				
+;  431				*hitOrNot = true;
+.LINE 431
+
 	LD	HL,(IX+12)
-;  425				dist = distanceBetween(ray->origin, hitpoint);
-	PEA	IX+-26
 	LD	(HL),1
+;  432				dist = distanceBetween(ray->origin, hitpoint);
+.LINE 432
+
+	PEA	IX+-26
 	LD	IY,(IX+6)
 	PEA	IY+0
 	CALL	_distanceBetween
@@ -1982,44 +3519,58 @@ L_94:
 	POP	BC
 	LD	(IX+-18),HL
 	LD	(IX+-15),E
-;  426				//if closer than closest face so far, set face that its currently checking to be the closest face
-;  427				if (dist < closestDist)
+;  433				//if closer than closest face so far, set face that its currently checking to be the closest face
+;  434				if (dist < closestDist)
+.LINE 434
+
 	LD	HL,(IX+-18)
 	LD	E,(IX+-15)
 	LD	BC,(IX+-7)
 	LD	A,(IX+-4)
 	CALL	__fcmp
 	JP	P,L_93
-;  428				{
-;  429					closestDist = dist;
+;  435				{
+;  436					closestDist = dist;
+.LINE 436
+
 	LD	BC,(IX+-18)
 	LD	A,(IX+-15)
 	LD	(IX+-7),BC
 	LD	(IX+-4),A
-;  430					outface = &(faceArray[i]);
+;  437					outface = &(faceArray[i]);
+.LINE 437
+
 	LD	BC,(IX+-14)
 	LD	HL,(_faceArray)
 	ADD	HL,BC
 	LD	(IX+-11),HL
-;  431				}
-;  432			}
+;  438				}
+;  439			}
 L_93:
-;  433			
-;  434			//*distance = closestDist;
-;  435			//if closest dist was changed
-;  436			if (closestDist < 999999)
+.LINE 439
+
+;  440			
+;  441			//*distance = closestDist;
+;  442			//if closest dist was changed
+;  443			if (closestDist < 999999)
+.LINE 443
+
 	LD	HL,(IX+-7)
 	LD	E,(IX+-4)
 	LD	BC,7611376
 	LD	A,73
 	CALL	__fcmp
 	JP	P,L_95
-;  437			{
-;  438				
-;  439				*hitOrNot = true;
+;  444			{
+;  445				
+;  446				*hitOrNot = true;
+.LINE 446
+
 	LD	HL,(IX+12)
 	LD	(HL),1
-;  440				*distance = closestDist;
+;  447				*distance = closestDist;
+.LINE 447
+
 	LD	HL,(IX+9)
 	LD	BC,(IX+-7)
 	LD	A,(IX+-4)
@@ -2028,12 +3579,16 @@ L_93:
 	INC	HL
 	INC	HL
 	LD	(HL),A
-;  441				return outface;
+;  448				return outface;
+.LINE 448
+
 	LD	HL,(IX+-11)
 	JR	L_99
-;  442			}
-;  443		}
+;  449			}
+;  450		}
 L_95:
+.LINE 450
+
 	LD	BC,(IX+-3)
 	INC	BC
 	LD	(IX+-3),BC
@@ -2043,11 +3598,15 @@ L_96:
 	OR	A,A
 	SBC	HL,BC
 	JP	M,L_94
-;  444		
-;  445		return outface;
+;  451		
+;  452		return outface;
+.LINE 452
+
 	LD	HL,(IX+-11)
-;  446	}
+;  453	}
 L_99:
+.LINE 453
+
 	LD	SP,IX
 	POP	IX
 	RET	
@@ -2072,35 +3631,171 @@ L_99:
 
 
 ; Stack Frame Size: 41 (bytes)
-;       Spill Code: -1 (instruction)
+;       Spill Code: -5 (instruction)
 
 
-;  447	
-;  448	//outputs whether or not a ray hit a certain face, and if so the distance
-;  449	void GetRayToFaceIntersection(Ray * ray, Face * face, float * result, bool * hit)
-;  450	{
+.ENDFUNC "ClosestFace",453,"_ClosestFace"
+;  454	
+;  455	//outputs whether or not a ray hit a certain face, and if so the distance
+;  456	void GetRayToFaceIntersection(Ray * ray, Face * face, float * result, bool * hit)
+;  457	{
 _GetRayToFaceIntersection:
-	LD	HL,-72
-	CALL	__frameset
-;  451		float v1[2] = {0,0};
+.DEFINE "_GetRayToFaceIntersection"
+
+.VALUE _GetRayToFaceIntersection
+
+.CLASS 2
+
+.TYPE 65
+
+.ENDEF
+
+.BEGFUNC "GetRayToFaceIntersection",457,"_GetRayToFaceIntersection"
+
+.LINE 457
+
+.DEFINE "ray"
+
+.CLASS 65
+
+.VALUE 6
+
+.TAG "NONAME16"
+
+.TYPE 40
+
+.ENDEF
+
+.DEFINE "face"
+
+.CLASS 65
+
+.VALUE 9
+
+.TAG "NONAME18"
+
+.TYPE 40
+
+.ENDEF
+
+.DEFINE "result"
+
+.CLASS 65
+
+.VALUE 12
+
+.TYPE 38
+
+.ENDEF
+
+.DEFINE "hit"
+
+.CLASS 65
+
+.VALUE 15
+
+.TYPE 44
+
+.ENDEF
+
+.DEFINE "v1"
+
+.CLASS 65
+
+.VALUE -14
+
+.DIM 2
+
+.TYPE 102
+
+.ENDEF
+
+.DEFINE "v2"
+
+.CLASS 65
+
+.VALUE -22
+
+.DIM 2
+
+.TYPE 102
+
+.ENDEF
+
+.DEFINE "v3"
+
+.CLASS 65
+
+.VALUE -30
+
+.DIM 2
+
+.TYPE 102
+
+.ENDEF
+
+.DEFINE "tOne"
+
+.CLASS 65
+
+.VALUE -34
+
+.TYPE 6
+
+.ENDEF
+
+.DEFINE "dot"
+
+.CLASS 65
+
+.VALUE -38
+
+.TYPE 6
+
+.ENDEF
+
+.DEFINE "tTwo"
+
+.CLASS 65
+
+.VALUE -42
+
+.TYPE 6
+
+.ENDEF
+
+	PUSH	IX
+	LD	IX,0
+	ADD	IX,SP
+	LEA	HL,IX+-60
+	LD	SP,HL
+;  458		float v1[2] = {0,0};
+.LINE 458
+
 	LEA	DE,IX+-14
 	LD	HL,_0temp100
 	LD	BC,8
 	LDIR	
-;  452		float v2[2]= {0,0};
+;  459		float v2[2]= {0,0};
+.LINE 459
+
 	LEA	DE,IX+-22
 	LD	HL,_1temp101
 	LD	BC,8
 	LDIR	
-;  453		float v3[2]= {0,0};
+;  460		float v3[2]= {0,0};
+.LINE 460
+
 	LEA	DE,IX+-30
 	LD	HL,_2temp102
 	LD	BC,8
 	LDIR	
-;  454		float tOne = 0;
-;  455		float tTwo = 0;
-;  456		float dot = 0;
-;  457		v1[0] =(ray->origin[0] - face->point1[0]);
+;  461		float tOne = 0;
+;  462		float tTwo = 0;
+;  463		float dot = 0;
+;  464		v1[0] =(ray->origin[0] - face->point1[0]);
+.LINE 464
+
 	LD	IY,(IX+9)
 	LEA	BC,IY+0
 	LD	(IX+-6),BC
@@ -2113,7 +3808,9 @@ _GetRayToFaceIntersection:
 	CALL	__fsub
 	LD	(IX+-14),BC
 	LD	(IX+-11),A
-;  458		v1[1] = (ray->origin[1] - face->point1[1]);
+;  465		v1[1] = (ray->origin[1] - face->point1[1]);
+.LINE 465
+
 	LD	IY,(IX+-6)
 	LEA	BC,IY+4
 	LD	(IX+-3),BC
@@ -2129,7 +3826,9 @@ _GetRayToFaceIntersection:
 	LEA	IY,IX+-14
 	LD	(IY+4),BC
 	LD	(IY+7),A
-;  459		v2[0] = (face->point2[0] - face->point1[0]);
+;  466		v2[0] = (face->point2[0] - face->point1[0]);
+.LINE 466
+
 	LD	IY,(IX+-6)
 	LD	HL,(IY)
 	LD	E,(IY+3)
@@ -2139,7 +3838,9 @@ _GetRayToFaceIntersection:
 	CALL	__fsub
 	LD	(IX+-22),BC
 	LD	(IX+-19),A
-;  460		v2[1]= (face->point2[1] - face->point1[1]);
+;  467		v2[1]= (face->point2[1] - face->point1[1]);
+.LINE 467
+
 	LEA	BC,IY+12
 	LD	IY,(IX+-3)
 	LD	HL,(IY)
@@ -2151,75 +3852,60 @@ _GetRayToFaceIntersection:
 	LEA	IY,IX+-22
 	LD	(IY+4),BC
 	LD	(IY+7),A
-;  461		v3[0] = -(ray->direction[1]);
+;  468		v3[0] = -(ray->direction[1]);
+.LINE 468
+
 	LD	IY,(IX+6)
 	LD	BC,(IY+12)
 	LD	A,(IY+15)
 	CALL	__fneg
 	LD	(IX+-30),BC
 	LD	(IX+-27),A
-;  462		v3[1] = (ray->direction[0]);
-	LD	(IX+-45),BC	; spill
+;  469		v3[1] = (ray->direction[0]);
+.LINE 469
+
 	LEA	HL,IX+-26
-	LD	(IX+-48),HL	; spill
-	LD	HL,(IX+-45)	; unspill
-	LD	BC,(IY+8)
+	LD	DE,(IY+8)
 	LD	A,(IY+11)
-	LD	(IX+-45),HL	; spill
-	LD	HL,(IX+-48)	; unspill
-	LD	(HL),BC
-	LD	HL,(IX+-45)	; unspill
-	LD	(IX+-45),HL	; spill
-	LD	HL,(IX+-48)	; unspill
+	LD	(HL),DE
 	INC	HL
-	LD	(IX+-48),HL	; spill
-	LD	HL,(IX+-45)	; unspill
-;  463		dot = (v2[0] * v3[0]) + (v2[1] * v3[1]);
-	LD	(IX+-51),HL	; spill
-	LEA	HL,IX+-18
-	LD	(IX+-54),HL	; spill
-	LD	HL,(IX+-51)	; unspill
-	LEA	IY,IX+-30
-	LD	(IX+-45),HL	; spill
-	LD	HL,(IX+-48)	; unspill
 	INC	HL
-	LD	(IX+-48),HL	; spill
-	LD	HL,(IX+-45)	; unspill
-	LD	(IX+-45),HL	; spill
-	LD	HL,(IX+-48)	; unspill
 	INC	HL
-	LD	(IX+-48),HL	; spill
-	LD	HL,(IX+-45)	; unspill
-	LD	(IX+-45),HL	; spill
-	LD	HL,(IX+-48)	; unspill
 	LD	(HL),A
-	LD	HL,(IX+-45)	; unspill
+;  470		dot = (v2[0] * v3[0]) + (v2[1] * v3[1]);
+.LINE 470
+
+	LD	HL,BC
 	LD	E,(IX+-27)
 	LD	BC,(IX+-22)
 	LD	A,(IX+-19)
 	CALL	__fmul
-	LD	(IX+-71),BC
-	LD	(IX+-72),A
+	LD	(IX+-59),BC
+	LD	(IX+-60),A
+	LEA	BC,IX+-18
+	LEA	IY,IX+-30
 	LD	HL,(IY+4)
 	LD	E,(IY+7)
-	LD	(IX+-51),HL	; spill
-	LD	IY,(IX+-54)
-	LD	HL,(IX+-51)	; unspill
+	LD	IY,BC
 	LD	BC,(IY)
 	LD	A,(IY+3)
 	CALL	__fmul
 	LD	E,A
-	LD	A,(IX+-72)
 	LD	HL,BC
-	LD	BC,(IX+-71)
+	LD	A,(IX+-60)
+	LD	BC,(IX+-59)
 	CALL	__fadd
 	LD	(IX+-38),BC
 	LD	(IX+-35),A
-;  464		
-;  465		*hit = false;
+;  471		
+;  472		*hit = false;
+.LINE 472
+
 	LD	HL,(IX+15)
 	LD	(HL),0
-;  466		if (abs(dot) < 0.000001)
+;  473		if (abs(dot) < 0.000001)
+.LINE 473
+
 	LD	A,(IX+-35)
 	CALL	__ftol
 	PUSH	BC
@@ -2234,70 +3920,77 @@ _GetRayToFaceIntersection:
 	LD	A,53
 	CALL	__fcmp
 	JP	M,L_108
-;  467		{
-;  468			return;
-;  469		}
-;  470		tOne = ((v2[0] * v1[1]) - (v2[1] * v1[0])) / dot;
+;  474		{
+;  475			return;
+.LINE 475
+
+;  476		}
+.LINE 476
+
+;  477		tOne = ((v2[0] * v1[1]) - (v2[1] * v1[0])) / dot;
+.LINE 477
+
 	LEA	IY,IX+-14
 	LD	HL,(IX+-22)
 	LD	E,(IX+-19)
 	LD	BC,(IY+4)
 	LD	A,(IY+7)
 	CALL	__fmul
-	LD	(IX+-65),BC
+	LD	(IX+-50),BC
+	LD	(IX+-47),A
+	LEA	IY,IX+-22
 	LD	HL,(IX+-14)
 	LD	E,(IX+-11)
-	LEA	IY,IX+-22
 	LD	BC,(IY+4)
-	LD	(IX+-62),A
 	LD	A,(IY+7)
 	CALL	__fmul
 	LD	E,A
 	LD	HL,BC
-	LD	BC,(IX+-65)
-	LD	A,(IX+-62)
+	LD	A,(IX+-47)
+	LD	BC,(IX+-50)
 	CALL	__fsub
 	LD	HL,(IX+-38)
 	LD	E,(IX+-35)
 	CALL	__fdiv
 	LD	(IX+-34),BC
 	LD	(IX+-31),A
-;  471		tTwo = ((v1[0] * v3[0])+ (v1[1] * v3[1])) / dot;
-	LEA	HL,IX+-10
-	LD	(IX+-61),HL	; spill
+;  478		tTwo = ((v1[0] * v3[0])+ (v1[1] * v3[1])) / dot;
+.LINE 478
+
 	LD	HL,(IX+-30)
 	LD	E,(IX+-27)
 	LD	BC,(IX+-14)
 	LD	A,(IX+-11)
 	CALL	__fmul
+	LD	(IX+-46),BC
+	LD	(IX+-43),A
+	LEA	BC,IX+-10
 	LEA	IY,IX+-30
 	LD	HL,(IY+4)
 	LD	E,(IY+7)
-	LD	(IX+-45),HL	; spill
-	LD	IY,(IX+-61)
-	LD	HL,(IX+-45)	; unspill
-	LD	(IX+-58),BC
-	LD	(IX+-55),A
-	LD	A,(IY+3)
+	LD	IY,BC
 	LD	BC,(IY)
+	LD	A,(IY+3)
 	CALL	__fmul
 	LD	E,A
 	LD	HL,BC
-	LD	BC,(IX+-58)
-	LD	A,(IX+-55)
+	LD	A,(IX+-43)
+	LD	BC,(IX+-46)
 	CALL	__fadd
 	LD	HL,(IX+-38)
 	LD	E,(IX+-35)
 	CALL	__fdiv
 	LD	(IX+-42),BC
 	LD	(IX+-39),A
-;  472		
-;  473		if (tOne>0.0 && (tTwo >=0.0 && tTwo <= 1.0))
-	LD	BC,(IX+-34)
-	LD	A,(IX+-31)
+;  479		
+;  480		if (tOne>0.0 && (tTwo >=0.0 && tTwo <= 1.0))
+.LINE 480
+
 	OR	A,A
 	SBC	HL,HL
 	LD	E,0
+	LD	BC,(IX+-34)
+	LD	A,(IX+-31)
 	CALL	__fcmp
 	JP	P,L_108
 	LD	HL,(IX+-42)
@@ -2312,41 +4005,47 @@ _GetRayToFaceIntersection:
 	LD	A,(IX+-39)
 	CALL	__fcmp
 	JP	M,L_108
-;  474		{
-;  475			
-;  476			*hit = true;
+;  481		{
+;  482			
+;  483			*hit = true;
+.LINE 483
+
 	LD	HL,(IX+15)
 	LD	(HL),1
-;  477			
-;  478			//tOne is distance to point1
-;  479			//multiply by normalized direction and add to origin to get point
-;  480			(result)[0] = ray->origin[0] + (ray->direction[0] * tOne);
+;  484			
+;  485			//tOne is distance to point1
+;  486			//multiply by normalized direction and add to origin to get point
+;  487			(result)[0] = ray->origin[0] + (ray->direction[0] * tOne);
+.LINE 487
+
 	LD	HL,(IX+-34)
 	LD	E,(IX+-31)
 	LD	IY,(IX+6)
 	LD	BC,(IY+8)
 	LD	A,(IY+11)
 	CALL	__fmul
+	LD	E,A
 	LD	HL,BC
 	LD	BC,(IY+0)
-	LD	E,A
 	LD	A,(IY+3)
 	CALL	__fadd
 	LD	IY,(IX+12)
 	LD	(IY),BC
 	LD	(IY+3),A
-;  481			(result)[1] = ray->origin[1] + (ray->direction[1] * tOne);
+;  488			(result)[1] = ray->origin[1] + (ray->direction[1] * tOne);
+.LINE 488
+
 	LD	IY,(IX+6)
 	LEA	HL,IY+4
-	LD	(IX+-68),HL	; spill
+	LD	(IX+-56),HL	; spill
 	LD	HL,(IX+-34)
 	LD	E,(IX+-31)
 	LD	BC,(IY+12)
 	LD	A,(IY+15)
 	CALL	__fmul
 	LD	E,A
-	LD	(IX+-45),BC	; spill
-	LD	IY,(IX+-68)
+	LD	(IX+-53),BC	; spill
+	LD	IY,(IX+-56)
 	LD	HL,BC	; unspill
 	LD	BC,(IY)
 	LD	A,(IY+3)
@@ -2354,11 +4053,13 @@ _GetRayToFaceIntersection:
 	LD	IY,(IX+12)
 	LD	(IY+4),BC
 	LD	(IY+7),A
-;  482			
-;  483		}
-;  484		
-;  485	}
+;  489			
+;  490		}
+;  491		
+;  492	}
 L_108:
+.LINE 492
+
 	LD	SP,IX
 	POP	IX
 	RET	
@@ -2382,10 +4083,11 @@ L_108:
 ;ray                                   IX+6      3   parameter
 
 
-; Stack Frame Size: 90 (bytes)
-;       Spill Code: -4 (instruction)
+; Stack Frame Size: 78 (bytes)
+;       Spill Code: -6 (instruction)
 
 
+.ENDFUNC "GetRayToFaceIntersection",492,"_GetRayToFaceIntersection"
 	SEGMENT TEXT
 _0temp100:
 	DF	0.0
@@ -2397,30 +4099,90 @@ _2temp102:
 	DF	0.0
 	DF	0.0
 	SEGMENT CODE
-;  486	
-;  487	
-;  488	
-;  489	 //draws the map in the top right corner
-;  490	 void drawMap()
-;  491	 {
+;  493	
+;  494	
+;  495	
+;  496	 //draws the map in the top right corner
+;  497	 void drawMap()
+;  498	 {
 _drawMap:
-	LD	HL,-44
-	CALL	__frameset
-;  492		 float lookview[2];
-;  493		int face = 0;
-;  494		float scale = 1.25;
-;  495		lookview[0] = lookDirection[0];
+.DEFINE "_drawMap"
+
+.VALUE _drawMap
+
+.CLASS 2
+
+.TYPE 65
+
+.ENDEF
+
+.BEGFUNC "drawMap",498,"_drawMap"
+
+.LINE 498
+
+.DEFINE "x1"
+
+.CLASS 65
+
+.VALUE -3
+
+.TYPE 14
+
+.ENDEF
+
+.DEFINE "y1"
+
+.CLASS 65
+
+.VALUE -6
+
+.TYPE 14
+
+.ENDEF
+
+.DEFINE "face"
+
+.CLASS 65
+
+.VALUE -9
+
+.TYPE 4
+
+.ENDEF
+
+.DEFINE "lookview"
+
+.CLASS 65
+
+.VALUE -17
+
+.DIM 2
+
+.TYPE 102
+
+.ENDEF
+
+	PUSH	IX
+	LD	IX,0
+	ADD	IX,SP
+	LEA	HL,IX+-42
+	LD	SP,HL
+;  499		float lookview[2];
+;  500		int face = 0;
+;  501		float scale = 1.25;
+;  502		uint24_t x1,y1;
+;  503		lookview[0] = lookDirection[0];
+.LINE 503
+
 	LD	BC,(_lookDirection)
 	LD	A,(_lookDirection+3)
-;  496		lookview[1] = lookDirection[1];
+	LD	(IX+-17),BC
+	LD	(IX+-14),A
+;  504		lookview[1] = lookDirection[1];
+.LINE 504
+
 	LD	HL,_lookDirection+4
-	LD	(IX+-11),BC
-	LD	(IX+-8),A
-	LEA	IY,IX+-11
-;  497		//draw map box
-;  498		gfx_SetColor(245);
-	LD	BC,245
-	PUSH	BC
+	LEA	IY,IX+-17
 	LD	BC,(HL)
 	INC	HL
 	INC	HL
@@ -2428,9 +4190,17 @@ _drawMap:
 	LD	A,(HL)
 	LD	(IY+4),BC
 	LD	(IY+7),A
+;  505		//draw map box
+;  506		gfx_SetColor(245);
+.LINE 506
+
+	LD	BC,245
+	PUSH	BC
 	CALL	_gfx_SetColor
 	POP	BC
-;  499		gfx_Line_NoClip(LCD_WIDTH -5, 5, LCD_WIDTH - 5, 50);
+;  507		gfx_Line_NoClip(LCD_WIDTH -5, 5, LCD_WIDTH - 5, 50);
+.LINE 507
+
 	LD	BC,50
 	PUSH	BC
 	LD	BC,315
@@ -2444,7 +4214,9 @@ _drawMap:
 	POP	BC
 	POP	BC
 	POP	BC
-;  500		gfx_Line_NoClip(LCD_WIDTH -5, 5, LCD_WIDTH - 50, 5);
+;  508		gfx_Line_NoClip(LCD_WIDTH -5, 5, LCD_WIDTH - 50, 5);
+.LINE 508
+
 	LD	BC,5
 	PUSH	BC
 	LD	BC,270
@@ -2458,7 +4230,9 @@ _drawMap:
 	POP	BC
 	POP	BC
 	POP	BC
-;  501		gfx_Line_NoClip(LCD_WIDTH -50, 5, LCD_WIDTH - 50, 50);
+;  509		gfx_Line_NoClip(LCD_WIDTH -50, 5, LCD_WIDTH - 50, 50);
+.LINE 509
+
 	LD	BC,50
 	PUSH	BC
 	LD	BC,270
@@ -2472,7 +4246,9 @@ _drawMap:
 	POP	BC
 	POP	BC
 	POP	BC
-;  502		gfx_Line_NoClip(LCD_WIDTH -50, 50, LCD_WIDTH - 5, 50);
+;  510		gfx_Line_NoClip(LCD_WIDTH -50, 50, LCD_WIDTH - 5, 50);
+.LINE 510
+
 	LD	BC,50
 	PUSH	BC
 	LD	BC,315
@@ -2486,16 +4262,20 @@ _drawMap:
 	POP	BC
 	POP	BC
 	POP	BC
-;  503	
-;  504		//draw faces
-;  505		for (face = 0; face < faceArrayCurrentSize; face++)
+;  511	
+;  512		//draw faces
+;  513		for (face = 0; face < faceArrayCurrentSize; face++)
+.LINE 513
+
 	LD	BC,0
-	LD	(IX+-3),BC
+	LD	(IX+-9),BC
 	JR	L_112
 L_110:
-;  506		{
-;  507			gfx_SetColor(faceArray[face].color);
-	LD	HL,(IX+-3)
+;  514		{
+;  515			gfx_SetColor(faceArray[face].color);
+.LINE 515
+
+	LD	HL,(IX+-9)
 	LD	A,17
 	CALL	__imul_b
 	LD	BC,(_faceArray)
@@ -2506,32 +4286,34 @@ L_110:
 	PUSH	BC
 	CALL	_gfx_SetColor
 	POP	BC
-;  508			gfx_Line_NoClip(faceArray[face].point1[0] * scale + LCD_WIDTH-25,  faceArray[face].point1[1]* -scale + 25,  faceArray[face].point2[0]* scale+ LCD_WIDTH-25,  faceArray[face].point2[1]* -scale + 25 );
-	LD	HL,(IX+-3)
+;  516			gfx_Line_NoClip(faceArray[face].point1[0] * scale + LCD_WIDTH-25,  faceArray[face].point1[1]* -scale + 25,  faceArray[face].point2[0]* scale+ LCD_WIDTH-25,  faceArray[face].point2[1]* -scale + 25 );
+.LINE 516
+
+	LD	HL,(IX+-9)
 	LD	A,17
 	CALL	__imul_b
 	LD	BC,(_faceArray)
 	ADD	HL,BC
-	LD	(IX+-20),HL
-	LD	IY,(IX+-20)
+	LD	(IX+-26),HL
+	LD	IY,(IX+-26)
 	LEA	BC,IY+8
-	LD	(IX+-17),BC
+	LD	(IX+-23),BC
 	LEA	BC,IY+0
-	LD	(IX+-14),BC
-	LD	IY,(IX+-17)
-	LD	BC,(IY+4)
-	LD	A,(IY+7)
+	LD	(IX+-20),BC
+	LD	IY,(IX+-23)
 	LD	HL,10485760
 	LD	E,191
+	LD	BC,(IY+4)
+	LD	A,(IY+7)
 	CALL	__fmul
 	LD	HL,13107200
 	LD	E,65
 	CALL	__fadd
 	CALL	__ftol
-	LD	HL,10485760
-	LD	E,63
 	LD	B,0
 	PUSH	BC
+	LD	HL,10485760
+	LD	E,63
 	LD	BC,(IY)
 	LD	A,(IY+3)
 	CALL	__fmul
@@ -2543,11 +4325,11 @@ L_110:
 	CALL	__fsub
 	CALL	__ftol
 	PUSH	BC
-	LD	IY,(IX+-14)
-	LD	BC,(IY+4)
-	LD	A,(IY+7)
+	LD	IY,(IX+-20)
 	LD	HL,10485760
 	LD	E,191
+	LD	BC,(IY+4)
+	LD	A,(IY+7)
 	CALL	__fmul
 	LD	HL,13107200
 	LD	E,65
@@ -2555,10 +4337,10 @@ L_110:
 	CALL	__ftol
 	LD	B,0
 	PUSH	BC
-	LD	BC,(IY)
-	LD	A,(IY+3)
 	LD	HL,10485760
 	LD	E,63
+	LD	BC,(IY)
+	LD	A,(IY+3)
 	CALL	__fmul
 	LD	HL,10485760
 	LD	E,67
@@ -2573,134 +4355,172 @@ L_110:
 	POP	BC
 	POP	BC
 	POP	BC
-	LD	BC,(IX+-3)
+	LD	BC,(IX+-9)
 	INC	BC
-	LD	(IX+-3),BC
-;  509		
-;  510		}
+	LD	(IX+-9),BC
+;  517		
+;  518		}
 L_112:
+.LINE 518
+
 	LD	BC,(_faceArrayCurrentSize)
-	LD	HL,(IX+-3)
+	LD	HL,(IX+-9)
 	OR	A,A
 	SBC	HL,BC
 	CALL	__setflag
 	JP	M,L_110
-;  511	
-;  512		//draw player
-;  513		gfx_Line_NoClip(playerPosition[0]* scale + LCD_WIDTH-25 - 1,  playerPosition[1]* -scale +25,  playerPosition[0]* scale + LCD_WIDTH-25 + 1, playerPosition[1]* -scale +25);
+;  519	
+;  520		
+;  521	
+;  522		
+;  523		x1 = playerPosition[0] * scale + LCD_WIDTH-25;
+.LINE 523
+
+	LD	HL,10485760
+	LD	E,63
+	LD	BC,(_playerPosition)
+	LD	A,(_playerPosition+3)
+	CALL	__fmul
+	LD	HL,10485760
+	LD	E,67
+	CALL	__fadd
+	LD	HL,13107200
+	LD	E,65
+	CALL	__fsub
+	CALL	__ftol
+	LD	(IX+-3),BC
+;  524		y1 = playerPosition[1] * -scale + 25;
+.LINE 524
+
 	LD	IY,_playerPosition
-	LD	BC,(IY+4)
-	LD	A,(IY+7)
 	LD	HL,10485760
 	LD	E,191
+	LD	BC,(IY+4)
+	LD	A,(IY+7)
 	CALL	__fmul
 	LD	HL,13107200
 	LD	E,65
 	CALL	__fadd
-	LD	(IX+-34),BC
-	LD	(IX+-44),A
 	CALL	__ftol
-	LD	A,(_playerPosition+3)
-	LD	HL,10485760
-	LD	E,63
+	LD	(IX+-6),BC
+;  525	
+;  526		dbg_sprintf(dbgout,"X:%d\n",x1);
+.LINE 526
+
+	LD	BC,(IX+-3)
+	PUSH	BC
+	LD	BC,L__61
+	PUSH	BC
+	LD	BC,16449536
+	PUSH	BC
+	CALL	_sprintf
+	POP	BC
+	POP	BC
+	POP	BC
+;  527		dbg_sprintf(dbgout,"Y:%d\n",y1);
+.LINE 527
+
+	LD	BC,(IX+-6)
+	PUSH	BC
+	LD	BC,L__62
+	PUSH	BC
+	LD	BC,16449536
+	PUSH	BC
+	CALL	_sprintf
+	POP	BC
+	POP	BC
+	POP	BC
+;  528		//exit if the player is outside the boundaries
+;  529		if (x1 > LCD_WIDTH || x1 < 0)
+.LINE 529
+
+	LD	BC,(IX+-3)
+	LD	HL,320
+	OR	A,A
+	SBC	HL,BC
+	JR	C,L_120
+	LD	HL,(IX+-3)
+	CALL	__icmpzero
+	JR	C,L_120
+;  530		{
+;  531			return;
+.LINE 531
+
+;  532		}
+.LINE 532
+
+;  533		if (y1 > LCD_HEIGHT || y1 < 0)
+.LINE 533
+
+	LD	BC,(IX+-6)
+	LD	HL,240
+	OR	A,A
+	SBC	HL,BC
+	JR	C,L_120
+	LD	HL,(IX+-6)
+	CALL	__icmpzero
+	JR	C,L_120
+;  534		{
+;  535			return;
+.LINE 535
+
+;  536		}
+.LINE 536
+
+;  537		//draw player
+;  538		gfx_Line_NoClip(x1 - 1,  y1,  x1 + 1, y1);
+.LINE 538
+
+	LD	C,(IX+-6)
 	LD	B,0
 	PUSH	BC
-	LD	BC,(_playerPosition)
-	CALL	__fmul
-	LD	HL,9699328
-	LD	E,67
-	CALL	__fadd
-	CALL	__ftol
+	LD	BC,(IX+-3)
+	INC	BC
 	PUSH	BC
-	LD	BC,(IX+-34)
-	LD	A,(IX+-44)
-	CALL	__ftol
+	LD	C,(IX+-6)
 	LD	B,0
 	PUSH	BC
-	LD	BC,(_playerPosition)
-	LD	A,(_playerPosition+3)
-	LD	HL,10485760
-	LD	E,63
-	CALL	__fmul
-	LD	HL,10485760
-	LD	E,67
-	CALL	__fadd
-	LD	HL,13631488
-	LD	E,65
-	CALL	__fsub
-	CALL	__ftol
+	LD	IY,(IX+-3)
+	LEA	BC,IY+-1
 	PUSH	BC
 	CALL	_gfx_Line_NoClip
 	POP	BC
 	POP	BC
 	POP	BC
 	POP	BC
-;  514		gfx_Line_NoClip(playerPosition[0]* scale + LCD_WIDTH-25,  playerPosition[1]* -scale +25 -1,  playerPosition[0]* scale + LCD_WIDTH-25, playerPosition[1]* -scale +25 +1);
-	LD	IY,_playerPosition
-	LD	BC,(IY+4)
-	LD	A,(IY+7)
-	LD	HL,10485760
-	LD	E,191
-	CALL	__fmul
-	LD	(IX+-31),BC
-	LD	(IX+-43),A
-	LD	HL,13631488
-	LD	E,65
-	CALL	__fadd
-	CALL	__ftol
-	LD	A,(_playerPosition+3)
-	LD	HL,10485760
-	LD	E,63
+;  539		gfx_Line_NoClip(x1,  y1 -1,  x1, y1 +1);
+.LINE 539
+
+	LD	C,(IX+-6)
+	INC	C
 	LD	B,0
 	PUSH	BC
-	LD	BC,(_playerPosition)
-	CALL	__fmul
-	LD	HL,10485760
-	LD	E,67
-	CALL	__fadd
-	LD	HL,13107200
-	LD	E,65
-	CALL	__fsub
-	CALL	__ftol
+	LD	BC,(IX+-3)
 	PUSH	BC
-	LD	BC,(IX+-31)
-	LD	A,(IX+-43)
-	LD	HL,13107200
-	LD	E,65
-	CALL	__fadd
-	LD	HL,8388608
-	LD	E,63
-	CALL	__fsub
-	CALL	__ftol
+	LD	C,(IX+-6)
+	DEC	C
 	LD	B,0
 	PUSH	BC
-	LD	BC,(_playerPosition)
-	LD	A,(_playerPosition+3)
-	LD	HL,10485760
-	LD	E,63
-	CALL	__fmul
-	LD	HL,10485760
-	LD	E,67
-	CALL	__fadd
-	LD	HL,13107200
-	LD	E,65
-	CALL	__fsub
-	CALL	__ftol
+	LD	BC,(IX+-3)
 	PUSH	BC
 	CALL	_gfx_Line_NoClip
 	POP	BC
 	POP	BC
 	POP	BC
 	POP	BC
-;  515		
-;  516		//draw view
-;  517		gfx_SetColor(245);
+;  540		
+;  541		//draw view
+;  542		gfx_SetColor(245);
+.LINE 542
+
 	LD	BC,245
 	PUSH	BC
 	CALL	_gfx_SetColor
 	POP	BC
+;  543		rotateVector(&lookview, fov/2);
+.LINE 543
+
 	OR	A,A
-;  518		rotateVector(&lookview, fov/2);
 	SBC	HL,HL
 	LD	E,64
 	LD	BC,(_fov)
@@ -2711,84 +4531,63 @@ L_112:
 	LD	B,0
 	PUSH	BC
 	PUSH	DE
-	PEA	IX+-11
+	PEA	IX+-17
 	CALL	_rotateVector
 	POP	BC
 	POP	BC
 	POP	BC
-;  519		gfx_Line_NoClip(playerPosition[0]* scale + LCD_WIDTH-25,  playerPosition[1] * -scale + 25,   playerPosition[0]* scale + LCD_WIDTH-25 + lookview[0] * scale * 4 ,  playerPosition[1]* -scale + 25 + lookview[1] * -scale * 4);
-	LD	IY,_playerPosition
-	LD	BC,(IY+4)
-	LD	A,(IY+7)
-	LD	HL,10485760
-	LD	E,191
-	CALL	__fmul
-	LD	HL,13107200
-	LD	E,65
-	CALL	__fadd
-	LD	(IX+-27),BC
-	LEA	IY,IX+-11
-	LD	BC,(IY+4)
-	LD	(IX+-28),A
-	LD	A,(IY+7)
+;  544		gfx_Line_NoClip(x1,  y1,   x1 + lookview[0] * scale * 4 ,  y1 + lookview[1] * -scale * 4);
+.LINE 544
+
+	LEA	IY,IX+-17
 	LD	HL,10485760
 	LD	E,192
+	LD	BC,(IY+4)
+	LD	A,(IY+7)
 	CALL	__fmul
-	LD	E,(IX+-28)
-	LD	HL,(IX+-27)
-	CALL	__fadd
-	CALL	__ftol
-	LD	A,(_playerPosition+3)
-	LD	HL,10485760
-	LD	E,63
-	LD	B,0
-	PUSH	BC
-	LD	BC,(_playerPosition)
-	CALL	__fmul
-	LD	HL,10485760
-	LD	E,67
-	CALL	__fadd
-	LD	HL,13107200
-	LD	E,65
-	CALL	__fsub
-	LD	(IX+-41),BC
-	LD	(IX+-42),A
-	LD	A,(IX+-8)
-	LD	BC,(IX+-11)
-	LD	HL,10485760
-	LD	E,64
-	CALL	__fmul
+	LD	(IX+-37),BC
+	LD	(IX+-38),A
+	LD	BC,(IX+-6)
+	XOR	A,A
+	CALL	__ultof
 	LD	E,A
 	LD	HL,BC
-	LD	BC,(IX+-41)
-	LD	A,(IX+-42)
+	LD	A,(IX+-38)
+	LD	BC,(IX+-37)
 	CALL	__fadd
-	CALL	__ftol
-	PUSH	BC
-	LD	BC,(IX+-27)
-	LD	A,(IX+-28)
 	CALL	__ftol
 	LD	B,0
 	PUSH	BC
-	LD	BC,(_playerPosition)
-	LD	A,(_playerPosition+3)
 	LD	HL,10485760
-	LD	E,63
+	LD	E,64
+	LD	BC,(IX+-17)
+	LD	A,(IX+-14)
 	CALL	__fmul
-	LD	HL,10485760
-	LD	E,67
+	LD	(IX+-41),BC
+	LD	(IX+-42),A
+	LD	BC,(IX+-3)
+	XOR	A,A
+	CALL	__ultof
+	LD	E,A
+	LD	HL,BC
+	LD	A,(IX+-42)
+	LD	BC,(IX+-41)
 	CALL	__fadd
-	LD	HL,13107200
-	LD	E,65
-	CALL	__fsub
 	CALL	__ftol
+	PUSH	BC
+	LD	C,(IX+-6)
+	LD	B,0
+	PUSH	BC
+	LD	BC,(IX+-3)
 	PUSH	BC
 	CALL	_gfx_Line_NoClip
 	POP	BC
 	POP	BC
 	POP	BC
 	POP	BC
-;  520		rotateVector(&lookview, -fov);
+;  545		rotateVector(&lookview, -fov);
+.LINE 545
+
 	LD	BC,(_fov)
 	LD	A,(_fov+3)
 	CALL	__fneg
@@ -2797,85 +4596,65 @@ L_112:
 	LD	B,0
 	PUSH	BC
 	PUSH	DE
-	PEA	IX+-11
+	PEA	IX+-17
 	CALL	_rotateVector
 	POP	BC
 	POP	BC
 	POP	BC
-;  521		gfx_Line_NoClip(playerPosition[0]* scale + LCD_WIDTH-25,  playerPosition[1] * -scale + 25,   playerPosition[0]* scale + LCD_WIDTH-25 + lookview[0] * scale * 4 ,  playerPosition[1]* -scale + 25 + lookview[1] * -scale * 4);
-	LD	IY,_playerPosition
-	LD	BC,(IY+4)
-	LD	A,(IY+7)
-	LD	HL,10485760
-	LD	E,191
-	CALL	__fmul
-	LD	HL,13107200
-	LD	E,65
-	CALL	__fadd
-	LD	(IX+-23),BC
-	LEA	IY,IX+-11
-	LD	BC,(IY+4)
-	LD	(IX+-24),A
-	LD	A,(IY+7)
+;  546		gfx_Line_NoClip(x1,  y1,   x1 + lookview[0] * scale * 4 ,  y1 + lookview[1] * -scale * 4);
+.LINE 546
+
+	LEA	IY,IX+-17
 	LD	HL,10485760
 	LD	E,192
+	LD	BC,(IY+4)
+	LD	A,(IY+7)
 	CALL	__fmul
-	LD	E,(IX+-24)
-	LD	HL,(IX+-23)
-	CALL	__fadd
-	CALL	__ftol
-	LD	A,(_playerPosition+3)
-	LD	HL,10485760
-	LD	E,63
-	LD	B,0
-	PUSH	BC
-	LD	BC,(_playerPosition)
-	CALL	__fmul
-	LD	HL,10485760
-	LD	E,67
-	CALL	__fadd
-	LD	HL,13107200
-	LD	E,65
-	CALL	__fsub
-	LD	(IX+-37),BC
-	LD	(IX+-38),A
-	LD	A,(IX+-8)
-	LD	BC,(IX+-11)
-	LD	HL,10485760
-	LD	E,64
-	CALL	__fmul
+	LD	(IX+-29),BC
+	LD	(IX+-30),A
+	LD	BC,(IX+-6)
+	XOR	A,A
+	CALL	__ultof
 	LD	E,A
 	LD	HL,BC
-	LD	BC,(IX+-37)
-	LD	A,(IX+-38)
+	LD	A,(IX+-30)
+	LD	BC,(IX+-29)
 	CALL	__fadd
-	CALL	__ftol
-	PUSH	BC
-	LD	BC,(IX+-23)
-	LD	A,(IX+-24)
 	CALL	__ftol
 	LD	B,0
 	PUSH	BC
-	LD	BC,(_playerPosition)
-	LD	A,(_playerPosition+3)
 	LD	HL,10485760
-	LD	E,63
+	LD	E,64
+	LD	BC,(IX+-17)
+	LD	A,(IX+-14)
 	CALL	__fmul
-	LD	HL,10485760
-	LD	E,67
+	LD	(IX+-33),BC
+	LD	(IX+-34),A
+	LD	BC,(IX+-3)
+	XOR	A,A
+	CALL	__ultof
+	LD	E,A
+	LD	HL,BC
+	LD	A,(IX+-34)
+	LD	BC,(IX+-33)
 	CALL	__fadd
-	LD	HL,13107200
-	LD	E,65
-	CALL	__fsub
 	CALL	__ftol
+	PUSH	BC
+	LD	C,(IX+-6)
+	LD	B,0
+	PUSH	BC
+	LD	BC,(IX+-3)
 	PUSH	BC
 	CALL	_gfx_Line_NoClip
 	POP	BC
 	POP	BC
 	POP	BC
 	POP	BC
-;  522		
-;  523	 }
+;  547		
+;  548	 }
+L_120:
+.LINE 548
+
 	LD	SP,IX
 	POP	IX
 	RET	
@@ -2885,48 +4664,157 @@ L_112:
 ;Name                         Addr/Register   Size   Type
 ;_fov                                STATIC      4   variable
 ;_rotateVector                       IMPORT  -----   function
+;_sprintf                            IMPORT  -----   function
 ;_playerPosition                     STATIC      8   variable
 ;_faceArrayCurrentSize               STATIC      3   variable
 ;_faceArray                          STATIC      3   variable
 ;_gfx_Line_NoClip                    IMPORT  -----   function
 ;_gfx_SetColor                       IMPORT  -----   function
 ;_lookDirection                      STATIC      8   variable
-;lookview                             IX-11      8   variable
-;face                                  IX-3      3   variable
+;lookview                             IX-17      8   variable
+;face                                  IX-9      3   variable
+;y1                                    IX-6      3   variable
+;x1                                    IX-3      3   variable
 
 
-; Stack Frame Size: 50 (bytes)
-;       Spill Code: -4 (instruction)
+; Stack Frame Size: 48 (bytes)
+;       Spill Code: -6 (instruction)
 
 
-;  524	
-;  525	//draws the sprites on the screen (not the gun sprite)
-;  526	void drawObjects()
-;  527	{
+.ENDFUNC "drawMap",548,"_drawMap"
+	SEGMENT STRSECT
+L__61:
+	DB	"X:%d"
+	DB	10,0
+L__62:
+	DB	"Y:%d"
+	DB	10,0
+	SEGMENT CODE
+;  549	
+;  550	//draws the sprites on the screen (not the gun sprite)
+;  551	void drawObjects()
+;  552	{
 _drawObjects:
-	LD	HL,-77
-	CALL	__frameset
-;  528		
-;  529		int num =0;
-;  530		float dot;
-;  531		float dist;
-;  532		float distToFace;
-;  533		bool hit;
-;  534		int scale;
-;  535		float angleFromCenter=0;
+.DEFINE "_drawObjects"
+
+.VALUE _drawObjects
+
+.CLASS 2
+
+.TYPE 65
+
+.ENDEF
+
+.BEGFUNC "drawObjects",552,"_drawObjects"
+
+.LINE 552
+
+.DEFINE "dist"
+
+.CLASS 65
+
+.VALUE -4
+
+.TYPE 6
+
+.ENDEF
+
+.DEFINE "num"
+
+.CLASS 65
+
+.VALUE -7
+
+.TYPE 4
+
+.ENDEF
+
+.DEFINE "hit"
+
+.CLASS 65
+
+.VALUE -8
+
+.TYPE 12
+
+.ENDEF
+
+.DEFINE "angleFromCenter"
+
+.CLASS 65
+
+.VALUE -12
+
+.TYPE 6
+
+.ENDEF
+
+.DEFINE "toObject"
+
+.CLASS 65
+
+.VALUE -20
+
+.DIM 2
+
+.TYPE 102
+
+.ENDEF
+
+.DEFINE "distToFace"
+
+.CLASS 65
+
+.VALUE -24
+
+.TYPE 6
+
+.ENDEF
+
+.DEFINE "testRay"
+
+.CLASS 65
+
+.VALUE -40
+
+.TAG "NONAME16"
+
+.TYPE 8
+
+.ENDEF
+
+	PUSH	IX
+	LD	IX,0
+	ADD	IX,SP
+	LEA	HL,IX+-78
+	LD	SP,HL
+;  553		
+;  554		int num =0;
+;  555		float dot;
+;  556		float dist;
+;  557		float distToFace;
+;  558		bool hit;
+;  559		int scale;
+;  560		float angleFromCenter=0;
+.LINE 560
+
 	LD	BC,0
-	LD	(IX+-12),BC
 	XOR	A,A
+	LD	(IX+-12),BC
 	LD	(IX+-9),A
-;  536		Ray testRay;
-;  537		float toObject[2];
-;  538		for (num = 0; num<numberOfObjects; num++)
+;  561		Ray testRay;
+;  562		float toObject[2];
+;  563		for (num = 0; num<numberOfObjects; num++)
+.LINE 563
+
 	LD	(IX+-7),BC
-	JR	L_122
-L_120:
-;  539		{
-;  540			
-;  541			toObject[0] = objectArray[num].position[0] - playerPosition[0];
+	JR	L_128
+L_126:
+;  564		{
+;  565			
+;  566			toObject[0] = objectArray[num].position[0] - playerPosition[0];
+.LINE 566
+
 	LD	HL,(IX+-7)
 	LD	A,11
 	CALL	__imul_b
@@ -2941,9 +4829,11 @@ L_120:
 	LD	A,(IY+3)
 	CALL	__fsub
 	LD	(IX+-20),BC
-;  542			toObject[1] = objectArray[num].position[1] - playerPosition[1];
-	LEA	BC,IX+-16
 	LD	(IX+-17),A
+;  567			toObject[1] = objectArray[num].position[1] - playerPosition[1];
+.LINE 567
+
+	LEA	BC,IX+-16
 	LD	(IX+-43),BC
 	LEA	BC,IY+4
 	LD	IY,_playerPosition
@@ -2956,7 +4846,9 @@ L_120:
 	LD	IY,(IX+-43)
 	LD	(IY),BC
 	LD	(IY+3),A
-;  543			dot = (lookDirection[0] * toObject[0]) + (lookDirection[1] * toObject[1]);
+;  568			dot = (lookDirection[0] * toObject[0]) + (lookDirection[1] * toObject[1]);
+.LINE 568
+
 	LD	BC,_lookDirection+4
 	LD	HL,(IY)
 	LD	E,(IY+3)
@@ -2964,22 +4856,23 @@ L_120:
 	LD	BC,(IY)
 	LD	A,(IY+3)
 	CALL	__fmul
-	LD	(IX+-72),BC
-	LD	(IX+-73),A
-;  544	
-;  545			//get the angle of the sprite from the center 
-;  546			angleFromCenter = -atan2((lookDirection[0]) *toObject[1] - (lookDirection[1]) * toObject[0], (lookDirection[0]) * toObject[0] + (lookDirection[1]) * toObject[1]);
-	LD	A,(_lookDirection+3)
-	LD	BC,(_lookDirection)
+	LD	(IX+-73),BC
+	LD	(IX+-74),A
+;  569	
+;  570			//get the angle of the sprite from the center 
+;  571			angleFromCenter = -atan2((lookDirection[0]) *toObject[1] - (lookDirection[1]) * toObject[0], (lookDirection[0]) * toObject[0] + (lookDirection[1]) * toObject[1]);
+.LINE 571
+
 	LD	HL,(IX+-20)
 	LD	E,(IX+-17)
+	LD	BC,(_lookDirection)
+	LD	A,(_lookDirection+3)
 	CALL	__fmul
-	LD	E,(IX+-73)
-	LD	HL,(IX+-72)
+	LD	E,(IX+-74)
+	LD	HL,(IX+-73)
 	CALL	__fadd
 	LD	DE,BC
 	LD	C,A
-	LD	A,(_lookDirection+3)
 	LD	B,0
 	PUSH	BC
 	PUSH	DE
@@ -2987,19 +4880,20 @@ L_120:
 	LD	HL,(IY)
 	LD	E,(IY+3)
 	LD	BC,(_lookDirection)
+	LD	A,(_lookDirection+3)
 	CALL	__fmul
-	LD	(IX+-76),BC
+	LD	(IX+-77),BC
+	LD	(IX+-78),A
+	LD	IY,_lookDirection
 	LD	HL,(IX+-20)
 	LD	E,(IX+-17)
-	LD	IY,_lookDirection
 	LD	BC,(IY+4)
-	LD	(IX+-77),A
 	LD	A,(IY+7)
 	CALL	__fmul
 	LD	E,A
 	LD	HL,BC
-	LD	BC,(IX+-76)
-	LD	A,(IX+-77)
+	LD	A,(IX+-78)
+	LD	BC,(IX+-77)
 	CALL	__fsub
 	LD	DE,BC
 	LD	C,A
@@ -3016,33 +4910,37 @@ L_120:
 	CALL	__fneg
 	LD	(IX+-12),BC
 	LD	(IX+-9),A
-;  547			
-;  548			if (floatAbs(angleFromCenter) <= (fov/2))
-	LD	BC,(_fov)
-	LD	A,(_fov+3)
+;  572			
+;  573			if (floatAbs(angleFromCenter) <= (fov/2))
+.LINE 573
+
 	OR	A,A
 	SBC	HL,HL
 	LD	E,64
+	LD	BC,(_fov)
+	LD	A,(_fov+3)
 	CALL	__fdiv
-	LD	(IX+-68),BC
+	LD	(IX+-67),A
+	LD	(IX+-70),BC
 	LD	C,(IX+-9)
 	LD	B,0
 	PUSH	BC
 	LD	BC,(IX+-12)
 	PUSH	BC
-	LD	(IX+-69),A
 	CALL	_floatAbs
 	POP	BC
 	POP	BC
 	LD	A,E
 	LD	BC,HL
-	LD	HL,(IX+-68)
-	LD	E,(IX+-69)
+	LD	E,(IX+-67)
+	LD	HL,(IX+-70)
 	CALL	__fcmp
-	JP	M,L_121
-;  549			{
-;  550				//get distance to object
-;  551				dist = (distanceBetween(&playerPosition, &objectArray[num].position));
+	JP	M,L_127
+;  574			{
+;  575				//get distance to object
+;  576				dist = (distanceBetween(&playerPosition, &objectArray[num].position));
+.LINE 576
+
 	LD	HL,(IX+-7)
 	LD	A,11
 	CALL	__imul_b
@@ -3057,8 +4955,10 @@ L_120:
 	POP	BC
 	LD	(IX+-4),HL
 	LD	(IX+-1),E
-;  552				//cast ray to nearest face and compare with distance to object
-;  553				testRay.origin[0] = playerPosition[0];
+;  577				//cast ray to nearest face and compare with distance to object
+;  578				testRay.origin[0] = playerPosition[0];
+.LINE 578
+
 	LEA	BC,IX+-40
 	LD	(IX+-52),BC
 	LD	HL,BC
@@ -3068,11 +4968,16 @@ L_120:
 	INC	HL
 	INC	HL
 	INC	HL
-;  554				testRay.origin[1] = playerPosition[1];
+	LD	(HL),A
+;  579				testRay.origin[1] = playerPosition[1];
+.LINE 579
+
 	LD	IY,_playerPosition
+	LD	(IX+-55),IY	; spill
 	LEA	IY,IY+4
 	LD	(IX+-61),IY	; spill
-	LD	(HL),A
+	LD	IY,(IX+-52)
+	LEA	HL,IY+4
 	LD	IY,(IX+-61)	; unspill
 	LD	BC,(IY)
 	INC	IY
@@ -3081,16 +4986,15 @@ L_120:
 	LD	(IX+-61),IY	; spill
 	INC	IY
 	LD	(IX+-61),IY	; spill
-	LD	IY,(IX+-52)
-	LEA	HL,IY+4
-	LD	IY,(IX+-61)	; unspill
 	LD	A,(IY)
 	LD	(HL),BC
 	INC	HL
 	INC	HL
 	INC	HL
 	LD	(HL),A
-;  555				testRay.direction[0] = toObject[0];
+;  580				testRay.direction[0] = toObject[0];
+.LINE 580
+
 	LEA	BC,IX+-32
 	LD	(IX+-49),BC
 	LD	HL,BC
@@ -3100,15 +5004,15 @@ L_120:
 	INC	HL
 	INC	HL
 	INC	HL
-;  556				testRay.direction[1] = toObject[1];
-	LEA	IY,IX+-16
-	LD	(IX+-58),IY	; spill
 	LD	(HL),A
+;  581				testRay.direction[1] = toObject[1];
+.LINE 581
+
+	LEA	IY,IX+-20
+	LD	(IX+-55),IY	; spill
+	LEA	IY,IY+4
+	LD	(IX+-58),IY	; spill
 	LD	IY,(IX+-49)
-;  557				ClosestFace(&testRay, &distToFace, &hit);
-	PEA	IX+-8
-	PEA	IX+-24
-	PEA	IX+-40
 	LEA	HL,IY+4
 	LD	IY,(IX+-58)	; unspill
 	LD	BC,(IY)
@@ -3124,28 +5028,40 @@ L_120:
 	INC	HL
 	INC	HL
 	LD	(HL),A
+;  582				ClosestFace(&testRay, &distToFace, &hit);
+.LINE 582
+
+	PEA	IX+-8
+	PEA	IX+-24
+	PEA	IX+-40
 	CALL	_ClosestFace
 	POP	BC
 	POP	BC
 	POP	BC
-;  558				if (hit && dist >distToFace)
+;  583				if (hit && dist >distToFace)
+.LINE 583
+
 	LD	A,(IX+-8)
 	OR	A,A
-	JR	Z,L_118
+	JR	Z,L_124
 	LD	HL,(IX+-24)
 	LD	E,(IX+-21)
 	LD	BC,(IX+-4)
 	LD	A,(IX+-1)
 	CALL	__fcmp
-	JP	M,L_121
-;  559				{
-;  560					//if the ray hit a face and that face is closer than the object, skip drawing it (it's obscured).
-;  561					continue;
-;  562				}
-L_118:
-;  563	
-;  564				//change distance to the scale factor
-;  565				dist =abs(1/((dist+3) *0.025)-2);
+	JP	M,L_127
+;  584				{
+;  585					//if the ray hit a face and that face is closer than the object, skip drawing it (it's obscured).
+;  586					continue;
+;  587				}
+L_124:
+.LINE 587
+
+;  588	
+;  589				//change distance to the scale factor
+;  590				dist =abs(1/((dist+3) *0.025)-2);
+.LINE 590
+
 	LD	HL,4194304
 	LD	E,64
 	LD	BC,(IX+-4)
@@ -3171,11 +5087,13 @@ L_118:
 	CALL	__itol
 	CALL	__ltof
 	LD	(IX+-4),BC
-;  566				//limit dist to a minimum scale of 1
-;  567				dist = max(dist,1);
+	LD	(IX+-1),A
+;  591				//limit dist to a minimum scale of 1
+;  592				dist = max(dist,1);
+.LINE 592
+
 	LD	C,63
 	LD	B,0
-	LD	(IX+-1),A
 	PUSH	BC
 	LD	BC,8388608
 	PUSH	BC
@@ -3191,8 +5109,10 @@ L_118:
 	POP	BC
 	LD	(IX+-4),HL
 	LD	(IX+-1),E
-;  568				//set the color pallete
-;  569				gfx_SetPalette(gfx_group_pal, sizeof_gfx_group_pal,0);
+;  593				//set the color pallete
+;  594				gfx_SetPalette(gfx_group_pal, sizeof_gfx_group_pal,0);
+.LINE 594
+
 	LD	BC,0
 	PUSH	BC
 	LD	BC,512
@@ -3203,20 +5123,22 @@ L_118:
 	POP	BC
 	POP	BC
 	POP	BC
-;  570				//draw the scaled sprite.
-;  571				gfx_ScaledTransparentSprite_NoClip(objectArray[num].sprite, (LCD_WIDTH/2) + (angleFromCenter *100 * fov) - (enemy1_width *dist)/2 ,LCD_HEIGHT/2 - (enemy1_height *dist)/2 ,dist,dist);
+;  595				//draw the scaled sprite.
+;  596				gfx_ScaledTransparentSprite_NoClip(objectArray[num].sprite, (LCD_WIDTH/2) + (angleFromCenter *100 * fov) - (enemy1_width *dist)/2 ,LCD_HEIGHT/2 - (enemy1_height *dist)/2 ,dist,dist);
+.LINE 596
+
 	LD	BC,(IX+-4)
 	LD	A,(IX+-1)
 	CALL	__ftol
+	LD	B,0
+	PUSH	BC
+	LD	BC,(IX+-4)
+	LD	A,(IX+-1)
+	CALL	__ftol
+	LD	B,0
+	PUSH	BC
 	LD	HL,12058624
 	LD	E,65
-	LD	B,0
-	PUSH	BC
-	LD	BC,(IX+-4)
-	LD	A,(IX+-1)
-	CALL	__ftol
-	LD	B,0
-	PUSH	BC
 	LD	BC,(IX+-4)
 	LD	A,(IX+-1)
 	CALL	__fmul
@@ -3230,28 +5152,28 @@ L_118:
 	LD	A,66
 	CALL	__fsub
 	CALL	__ftol
-	LD	HL,13107200
-	LD	E,66
 	LD	B,0
 	PUSH	BC
+	LD	HL,13107200
+	LD	E,66
 	LD	BC,(IX+-12)
 	LD	A,(IX+-9)
 	CALL	__fmul
-	LD	H,A
+	LD	(IX+-62),A
+	LD	HL,(_fov)
 	LD	A,(_fov+3)
 	LD	E,A
-	LD	A,H
-	LD	HL,(_fov)
+	LD	A,(IX+-62)
 	CALL	__fmul
 	LD	HL,2097152
 	LD	E,67
 	CALL	__fadd
-	LD	(IX+-64),BC
-	LD	(IX+-65),A
-	LD	A,(IX+-1)
-	LD	BC,(IX+-4)
+	LD	(IX+-65),BC
+	LD	(IX+-66),A
 	LD	HL,7340032
 	LD	E,65
+	LD	BC,(IX+-4)
+	LD	A,(IX+-1)
 	CALL	__fmul
 	OR	A,A
 	SBC	HL,HL
@@ -3259,8 +5181,8 @@ L_118:
 	CALL	__fdiv
 	LD	E,A
 	LD	HL,BC
-	LD	BC,(IX+-64)
-	LD	A,(IX+-65)
+	LD	A,(IX+-66)
+	LD	BC,(IX+-65)
 	CALL	__fsub
 	CALL	__ftol
 	PUSH	BC
@@ -3278,21 +5200,25 @@ L_118:
 	POP	BC
 	POP	BC
 	POP	BC
-;  572				
-;  573			}
-;  574		}
-L_121:
+;  597				
+;  598			}
+;  599		}
+L_127:
+.LINE 599
+
 	LD	BC,(IX+-7)
 	INC	BC
 	LD	(IX+-7),BC
-L_122:
+L_128:
 	LD	BC,(_numberOfObjects)
 	LD	HL,(IX+-7)
 	OR	A,A
 	SBC	HL,BC
-	JP	M,L_120
-;  575		
-;  576	}
+	JP	M,L_126
+;  600		
+;  601	}
+.LINE 601
+
 	LD	SP,IX
 	POP	IX
 	RET	
@@ -3323,30 +5249,118 @@ L_122:
 ;dist                                  IX-4      4   variable
 
 
-; Stack Frame Size: 83 (bytes)
-;       Spill Code: -11 (instruction)
+; Stack Frame Size: 84 (bytes)
+;       Spill Code: -16 (instruction)
 
 
-;  577	
-;  578	//creates and mallocs a face, and returns a pointer to it
-;  579	Face * mallocAndGenerateFace(float  point1x, float  point1y, float point2x, float point2y, uint8_t colorIndex)
-;  580	{
+.ENDFUNC "drawObjects",601,"_drawObjects"
+;  602	
+;  603	//creates and mallocs a face, and returns a pointer to it
+;  604	Face * mallocAndGenerateFace(float  point1x, float  point1y, float point2x, float point2y, uint8_t colorIndex)
+;  605	{
 _mallocAndGenerateFace:
-	LD	HL,-6
-	CALL	__frameset
-;  581		Face * newFace = malloc(sizeof(Face));
+.DEFINE "_mallocAndGenerateFace"
+
+.VALUE _mallocAndGenerateFace
+
+.CLASS 2
+
+.TAG "NONAME18"
+
+.TYPE 328
+
+.ENDEF
+
+.BEGFUNC "mallocAndGenerateFace",605,"_mallocAndGenerateFace"
+
+.LINE 605
+
+.DEFINE "point1x"
+
+.CLASS 65
+
+.VALUE 6
+
+.TYPE 6
+
+.ENDEF
+
+.DEFINE "point1y"
+
+.CLASS 65
+
+.VALUE 12
+
+.TYPE 6
+
+.ENDEF
+
+.DEFINE "point2x"
+
+.CLASS 65
+
+.VALUE 18
+
+.TYPE 6
+
+.ENDEF
+
+.DEFINE "point2y"
+
+.CLASS 65
+
+.VALUE 24
+
+.TYPE 6
+
+.ENDEF
+
+.DEFINE "colorIndex"
+
+.CLASS 65
+
+.VALUE 30
+
+.TYPE 12
+
+.ENDEF
+
+.DEFINE "newFace"
+
+.CLASS 65
+
+.VALUE -6
+
+.TAG "NONAME18"
+
+.TYPE 40
+
+.ENDEF
+
+	PUSH	IX
+	LD	IX,0
+	ADD	IX,SP
+	PUSH	BC
+	PUSH	BC
+;  606		Face * newFace = malloc(sizeof(Face));
+.LINE 606
+
 	LD	BC,17
 	PUSH	BC
 	CALL	_malloc
 	POP	BC
 	LD	(IX+-6),HL
-;  582		newFace->point1[0] = point1x;
+;  607		newFace->point1[0] = point1x;
+.LINE 607
+
 	LD	BC,(IX+6)
 	LD	A,(IX+9)
 	LD	IY,(IX+-6)
 	LD	(IY+0),BC
 	LD	(IY+3),A
-;  583		newFace->point1[1] = point1y;
+;  608		newFace->point1[1] = point1y;
+.LINE 608
+
 	LEA	HL,IY+4
 	LD	BC,(IX+12)
 	LD	A,(IX+15)
@@ -3355,14 +5369,18 @@ _mallocAndGenerateFace:
 	INC	HL
 	INC	HL
 	LD	(HL),A
-;  584		newFace->point2[0] = point2x;
+;  609		newFace->point2[0] = point2x;
+.LINE 609
+
 	LEA	BC,IY+8
 	LD	(IX+-3),BC
 	LD	BC,(IX+18)
 	LD	A,(IX+21)
 	LD	(IY+8),BC
 	LD	(IY+11),A
-;  585		newFace->point2[1] = point2y;
+;  610		newFace->point2[1] = point2y;
+.LINE 610
+
 	LD	IY,(IX+-3)
 	LEA	HL,IY+4
 	LD	BC,(IX+24)
@@ -3372,13 +5390,19 @@ _mallocAndGenerateFace:
 	INC	HL
 	INC	HL
 	LD	(HL),A
-;  586		newFace->color = colorIndex;
+;  611		newFace->color = colorIndex;
+.LINE 611
+
 	LD	A,(IX+30)
 	LD	IY,(IX+-6)
 	LD	(IY+16),A
-;  587		return newFace;
+;  612		return newFace;
+.LINE 612
+
 	LD	HL,(IX+-6)
-;  588	}
+;  613	}
+.LINE 613
+
 	LD	SP,IX
 	POP	IX
 	RET	
@@ -3396,45 +5420,83 @@ _mallocAndGenerateFace:
 
 
 ; Stack Frame Size: 39 (bytes)
-;       Spill Code: -11 (instruction)
+;       Spill Code: -16 (instruction)
 
 
-;  589	
-;  590	
-;  591	void loadLevel()
-;  592	{
+.ENDFUNC "mallocAndGenerateFace",613,"_mallocAndGenerateFace"
+;  614	
+;  615	
+;  616	void loadLevel()
+;  617	{
 _loadLevel:
-	LD	HL,-11
-	CALL	__frameset
-;  593		Object newObj;
-;  594		numberOfObjects++;
+.DEFINE "_loadLevel"
+
+.VALUE _loadLevel
+
+.CLASS 2
+
+.TYPE 65
+
+.ENDEF
+
+.BEGFUNC "loadLevel",617,"_loadLevel"
+
+.LINE 617
+
+.DEFINE "newObj"
+
+.CLASS 65
+
+.VALUE -11
+
+.TAG "NONAME19"
+
+.TYPE 8
+
+.ENDEF
+
+	PUSH	IX
+	LD	IX,0
+	ADD	IX,SP
+	LEA	HL,IX+-11
+	LD	SP,HL
+;  618		Object newObj;
+;  619		numberOfObjects++;
+.LINE 619
+
 	LD	BC,(_numberOfObjects)
 	INC	BC
 	LD	(_numberOfObjects),BC
-;  595		//alloc object array
-;  596		objectArray = malloc(sizeof(Object) * numberOfObjects);
+;  620		//alloc object array
+;  621		objectArray = malloc(sizeof(Object) * numberOfObjects);
+.LINE 621
+
 	LD	HL,(_numberOfObjects)
 	LD	A,11
 	CALL	__imul_b
 	PUSH	HL
 	CALL	_malloc
 	POP	BC
-;  597		//malloc sprite image
-;  598		enemy1Sprite = gfx_MallocSprite(enemy1_width,enemy1_height);
+	LD	(_objectArray),HL
+;  622		//malloc sprite image
+;  623		enemy1Sprite = gfx_MallocSprite(enemy1_width,enemy1_height);
+.LINE 623
+
 	LD	BC,_malloc
 	PUSH	BC
 	LD	BC,23
 	PUSH	BC
 	LD	BC,15
 	PUSH	BC
-	LD	(_objectArray),HL
 	CALL	_gfx_AllocSprite
 	POP	BC
 	POP	BC
 	POP	BC
 	LD	(_enemy1Sprite),HL
-;  599		//decompress sprite image
-;  600		zx7_Decompress(enemy1Sprite, enemy1_compressed);
+;  624		//decompress sprite image
+;  625		zx7_Decompress(enemy1Sprite, enemy1_compressed);
+.LINE 625
+
 	LD	BC,_enemy1_compressed
 	PUSH	BC
 	LD	BC,(_enemy1Sprite)
@@ -3442,29 +5504,42 @@ _loadLevel:
 	CALL	_zx7_Decompress
 	POP	BC
 	POP	BC
-;  601		newObj.sprite =  enemy1Sprite;
+;  626		newObj.sprite =  enemy1Sprite;
+.LINE 626
+
 	LD	BC,(_enemy1Sprite)
 	LD	(IX+-3),BC
-;  602		
-;  603		//set position
-;  604		newObj.position[0] = -2;
+;  627		
+;  628		//set position
+;  629		newObj.position[0] = -2;
+.LINE 629
+
 	LD	BC,0
-	LD	(IX+-11),BC
 	LD	A,192
+	LD	(IX+-11),BC
 	LD	(IX+-8),A
-;  605		newObj.position[1] = 2;
-	LEA	IY,IX+-11
-;  606		//add to array
-;  607		objectArray[0] =newObj;
-	LEA	HL,IX+-11
-	LD	(IY+4),BC
-	LD	(IY+7),64
+;  630		newObj.position[1] = 2;
+.LINE 630
+
+	LEA	HL,IX+-7
+	LD	(HL),BC
+	INC	HL
+	INC	HL
+	INC	HL
+	LD	(HL),64
+;  631		//add to array
+;  632		objectArray[0] =newObj;
+.LINE 632
+
 	LD	DE,(_objectArray)
+	LEA	HL,IX+-11
 	LD	BC,11
 	LDIR	
-;  608		
-;  609		
-;  610	}
+;  633		
+;  634		
+;  635	}
+.LINE 635
+
 	LD	SP,IX
 	POP	IX
 	RET	
@@ -3483,24 +5558,55 @@ _loadLevel:
 
 
 ; Stack Frame Size: 17 (bytes)
-;       Spill Code: -11 (instruction)
+;       Spill Code: -16 (instruction)
 
 
-;  611	
-;  612	//frees all of the objects' sprites
-;  613	void unloadLevel()
-;  614	{
+.ENDFUNC "loadLevel",635,"_loadLevel"
+;  636	
+;  637	//frees all of the objects' sprites
+;  638	void unloadLevel()
+;  639	{
 _unloadLevel:
-	LD	HL,-3
-	CALL	__frameset
-;  615		int j =0;
-;  616		for (j=0;j<numberOfObjects;j++)
+.DEFINE "_unloadLevel"
+
+.VALUE _unloadLevel
+
+.CLASS 2
+
+.TYPE 65
+
+.ENDEF
+
+.BEGFUNC "unloadLevel",639,"_unloadLevel"
+
+.LINE 639
+
+.DEFINE "j"
+
+.CLASS 65
+
+.VALUE -3
+
+.TYPE 4
+
+.ENDEF
+
+	PUSH	IX
+	LD	IX,0
+	ADD	IX,SP
+	PUSH	BC
+;  640		int j =0;
+;  641		for (j=0;j<numberOfObjects;j++)
+.LINE 641
+
 	LD	BC,0
 	LD	(IX+-3),BC
-	JR	L_130
-L_128:
-;  617		{
-;  618			free(objectArray[j].sprite);
+	JR	L_136
+L_134:
+;  642		{
+;  643			free(objectArray[j].sprite);
+.LINE 643
+
 	LD	HL,(IX+-3)
 	LD	A,11
 	CALL	__imul_b
@@ -3514,20 +5620,26 @@ L_128:
 	LD	BC,(IX+-3)
 	INC	BC
 	LD	(IX+-3),BC
-;  619		}
-L_130:
+;  644		}
+L_136:
+.LINE 644
+
 	LD	BC,(_numberOfObjects)
 	LD	HL,(IX+-3)
 	OR	A,A
 	SBC	HL,BC
 	CALL	__setflag
-	JP	M,L_128
-;  620		free(objectArray);
+	JP	M,L_134
+;  645		free(objectArray);
+.LINE 645
+
 	LD	BC,(_objectArray)
 	PUSH	BC
 	CALL	_free
 	POP	BC
-;  621	}
+;  646	}
+.LINE 646
+
 	LD	SP,IX
 	POP	IX
 	RET	
@@ -3542,9 +5654,10 @@ L_130:
 
 
 ; Stack Frame Size: 9 (bytes)
-;       Spill Code: -11 (instruction)
+;       Spill Code: -16 (instruction)
 
 
+.ENDFUNC "unloadLevel",646,"_unloadLevel"
 	XREF _gcvt:ROM
 	XREF _rotateVector:ROM
 	XREF _distanceBetween:ROM
@@ -3572,6 +5685,7 @@ L_130:
 	XREF _gfx_End:ROM
 	XREF _gfx_Begin:ROM
 	XREF _gfx_AllocSprite:ROM
+	XREF _sprintf:ROM
 	XREF _abs:ROM
 	XREF _free:ROM
 	XREF _malloc:ROM
@@ -3592,8 +5706,8 @@ L_130:
 	XREF __fcmp:ROM
 	XREF __ftol:ROM
 	XREF __ltof:ROM
+	XREF __ultof:ROM
 	XREF __itol:ROM
-	XREF __frameset:ROM
 	XREF __setflag:ROM
 	XREF __icmpzero:ROM
 	XREF __imul_b:ROM
