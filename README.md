@@ -1,7 +1,7 @@
 # TI-84-CE-DooM
 ##### A version of DooM for the TI-84 CE, written in C.
 
-![alt text](https://raw.githubusercontent.com/qwcan/TI-84-CE-DooM/master/gameplay.gif "A preview of some gameplay.")
+![alt text](https://raw.githubusercontent.com/andymwat/TI-84-CE-DooM/master/gameplay.gif "A preview of some gameplay.")
 
 ### Requires the ['Standard' CE Libraries](https://github.com/CE-Programming/libraries/releases).
 
